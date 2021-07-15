@@ -1,0 +1,7 @@
+C:\Users\parks\OneDrive\문서\Git\JavaWorkspace\JSP
+
+\.metadata
+\.plugins
+\org.eclipse.wst.server.core
+\tmp0
+\wtpwebapps
