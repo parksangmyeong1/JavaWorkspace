@@ -6,15 +6,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Page</title>
 <style>
+	body{ 
+		text-align: center; /* Quirks Mode 를 위한 가운데 정렬 */ 
+		}
 	#nav{
 		font-size: 20px;
+		overflow: hidden;
+		
 		}
 	#wrap{
-		overflow: hidden;
 		margin: 0 auto;
+		overflow: hidden;
+		text-align: center;
 	}
 	#wrap>div{
 		float: left;
+		padding: 10px;
 	}
 </style>
 <script>
