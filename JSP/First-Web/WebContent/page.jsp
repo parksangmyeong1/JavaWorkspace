@@ -7,20 +7,22 @@
 <title>Page</title>
 <style>
 	body{ 
-		text-align: center; /* Quirks Mode 를 위한 가운데 정렬 */ 
+		text-align: center; 
 		}
 	#nav{
 		font-size: 20px;
-		overflow: hidden;
-		
 		}
 	#wrap{
+		width: 450px;
 		margin: 0 auto;
 		overflow: hidden;
-		text-align: center;
 	}
-	#wrap>div{
+	#news{;
 		float: left;
+		padding: 10px;
+	}
+	#shopping{
+		float: right;
 		padding: 10px;
 	}
 </style>
@@ -36,5 +38,13 @@
 		<%@include file="Include/news.jsp"%>
 		<%@include file="Include/shopping.jsp"%>
 	</div>
+	
+	<%-- <jsp:include page="footer.jsp"> --%>
+	
+	<!-- 실행된 jsp -> html(text) 결과를 가져온다. -->
+	<jsp:include page="footer.jsp">
+		<jsp:param value="test@gamil.com" name="email"/>
+		<jsp:param value="010-0000-0000" name="tel"/>
+	</jsp:include>
 </body>
 </html>
