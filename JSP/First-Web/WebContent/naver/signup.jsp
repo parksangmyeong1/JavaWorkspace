@@ -92,6 +92,7 @@
                         </select>
                         <input type="tel" id="tel" class="margin border focus" placeholder="전화번호 입력" name="tel">
                     </label>
+                    <input type="submit" id="submit_btn" class="margin border" value="인증번호 받기">
                     <input type="tel" id="checknumber" class="margin border focus" placeholder="인증번호를 입력하세요">
                     <input type="submit" id="signupbtn" class="margin border" value="가입하기">
                 </form>

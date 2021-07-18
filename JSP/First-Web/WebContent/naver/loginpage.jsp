@@ -41,8 +41,8 @@
                     <div id="id_msg"></div>
                     <input id="pw" type="password" name="userPw"  class="pw" placeholder="비밀번호">
                     <div id="pw_msg"></div>
-                    <input type="submit" class="login_btn" value="로그인">
-                </form>
+                    <input type="submit" value="로그인">
+                </form>                	
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
 			<td><%=tel %></td>
 		</tr>
 	</table>
-	<h1>현재 회원 정보</h1>
+	<h1>이용 회원 리스트</h1>
 	<hr>
 	<div id="list">
 </body>

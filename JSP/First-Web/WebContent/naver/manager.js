@@ -40,21 +40,33 @@ $(document).ready(function(){
     var country = $('#country');
     var tel = $('#tel');
     
+    // 로그인 체크
     $('#login_check').submit(function(){
     	chk = false;
+    	
+    	// 아이디 입력 확인
+    	if(id.val()==''){
+    		alert('아이디를 입력해주세요!');
+    		return false;
+    	}
+    	// 비밀번호 입력 확인
+    	if(pw.val()==''){
+    		alert('비밀번호를  입력해주세요!');
+    		return false;
+    	}
+    	
     	for(var i = 0; i < members.length ; i++){
     		if(id.val()==members[i].id){
-    			
     			if(pw.val()==members[i].pw){
     				alert('로그인 성공!');
     				chk = true;
-    				break;
-    			}else{
-    				alert('비밀번호를 다시 입력해주세요!');
     			}
     		}
     	}
+    	
     	if(chk==false){
+    		alert('로그인 실패!');
+    		this.reset();
     		return false;
     	}
     });
@@ -175,7 +187,6 @@ function setList() {
 	var tbody = '<table border="1"><tr>';
     tbody += '  <th>순번(index)</th>';
     tbody += '  <th>아이디</th>';
-    tbody += '  <th>비밀번호</th>';
     tbody += '  <th>이름</th>';
     tbody += '  <th>생년월일</th>';
     tbody += '  <th>성별</th>';
@@ -194,7 +205,6 @@ function setList() {
           tbody += '<tr>';
           tbody += '  <td>' + i + '</td>';
           tbody += '  <td>' + members[i].id +'@naver.com'+ '</td>';
-          tbody += '  <td>' + members[i].pw + '</td>';
           tbody += '  <td>' + members[i].username + '</td>';
           tbody += '  <td>' + members[i].birth + '</td>';
           tbody += '  <td>' + members[i].gender + '</td>';
