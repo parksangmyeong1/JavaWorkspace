@@ -4,17 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-    <link rel="stylesheet" href="naver_signUp.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js" 
-        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
-        crossorigin="anonymous">
-    </script>
-    <script src="manager.js"></script>
-<style>
-</style>
-<script>
+<title>Naver - signUp Page</title>
+<link rel="stylesheet" href="naver_signUp.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js" 
+	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
+	crossorigin="anonymous">
 </script>
+<script src="manager.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -36,7 +32,7 @@
                     <label for="pw"><h3>비밀번호</h3>
                         <div id="pw_outer" class="margin border bcak_color focus">
                             <input type="password" id="pw" class="pw_form" name="userPw">
-                            <span class="pw_logo"><img src="lock.PNG" width="24", height="24">
+                            <span class="pw_logo"><img src="lock.PNG" width="24" height="24">
                             </span>
                         </div>
                         <div id="pw_msg"></div>
@@ -44,7 +40,7 @@
                     <label for="repw"><h3>비밀번호 재확인</h3>
                         <div id="repw_outer" class="margin border bcak_color focus">
                             <input type="password" id="repw" class="pw_form" name="userRepw">
-                            <span class="repw_logo"><img src="unlock.PNG" width="24", height="24">
+                            <span class="repw_logo"><img src="unlock.PNG" width="24" height="24">
                             </span>
                         </div>
                         <div id="repw_msg"></div>

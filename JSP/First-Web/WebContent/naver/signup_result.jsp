@@ -3,14 +3,6 @@
 <%
 	String userId = request.getParameter("userId");
 	String userPw = request.getParameter("userPw");
-	String userRepw = request.getParameter("userRepw");
-	String userName = request.getParameter("userName");
-	String year = request.getParameter("year");
-	String month = request.getParameter("month");
-	String day = request.getParameter("day");
-	String gender = request.getParameter("gender");
-	String email = request.getParameter("email");
-	String tel = request.getParameter("tel");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,14 +13,11 @@
         crossorigin="anonymous">
     </script>
     <script src="manager.js"></script>
-<title>Insert title here</title>
-<style>
-</style>
-<script>
-</script>
+<title>Naver - Login Result</title>
 </head>
 <body>
-	<div id="list">
-	</div>
+	
+	<h1><%= userId %>님 로그인 성공 하셨습니다.</h1>
+	
 </body>
 </html>
