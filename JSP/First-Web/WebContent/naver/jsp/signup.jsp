@@ -1,50 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="naver_signUp.css">
-    <title>Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Naver - signUp Page</title>
+<link rel="stylesheet" href="../css/naver_signUp.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js" 
+	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
+	crossorigin="anonymous">
+</script>
+<script src="../js/manager.js"></script>
 </head>
 <body>
-    <div id="wrap">
+	<div id="wrap">
         <div id="container">
             <div id="logo" class="margin">
                 <a href="#">
-                    <img src="../naver_logo.png" alt="naver_logo">
+                    <img src="../image/naver_logo.png" alt="naver_logo">
                 </a>
             </div>
             <div>
-                <form action="">
+                <form id="regForm" action="loginpage.jsp" type="get">
                     <label for="id"></label><h3>아이디</h3>
                         <div id="id_outer" class="margin border bcak_color focus">
-                            <input type="text" id="id">
+                            <input type="text" id="id" name="userId">
                             <span>@naver.com</span>
                         </div>
+                        <div id="id_msg"></div>
                     </label>
                     <label for="pw"><h3>비밀번호</h3>
                         <div id="pw_outer" class="margin border bcak_color focus">
-                            <input type="password" id="pw" class="pw_form">
-                            <span class="pw_logo"><img src="../lock.PNG" width="24", height="24">
+                            <input type="password" id="pw" class="pw_form" name="userPw">
+                            <span class="pw_logo"><img src="../image/lock.PNG" width="24" height="24">
                             </span>
                         </div>
+                        <div id="pw_msg"></div>
                     </label>
                     <label for="repw"><h3>비밀번호 재확인</h3>
                         <div id="repw_outer" class="margin border bcak_color focus">
-                            <input type="password" id="repw" class="pw_form">
-                            <span class="repw_logo"><img src="../unlock.PNG" width="24", height="24">
+                            <input type="password" id="repw" class="pw_form" name="userRepw">
+                            <span class="repw_logo"><img src="../image/unlock.PNG" width="24" height="24">
                             </span>
                         </div>
+                        <div id="repw_msg"></div>
                     </label>
                     <label for="name"><h3>이름</h3>
-                        <input type="text" id="name" class="margin border focus">
+                        <input type="text" id="name" class="margin border focus" name="userName">
+                        <div id="name_msg"></div>
                     </label>
                     <div id="date">
                         <label for="year"><h3>생년월일</h3>
-                            <input type="text" id="year" class="margin border padding focus" placeholder="년(4자)">
+                            <input type="text" id="year" class="margin border padding focus" placeholder="년(4자)" name="year">
                         </label>
-                        <select id="month" class="border padding">
+                        <select id="month" class="border padding" name="month">
                             <option selected>월</option>
                             <option>1</option>
                             <option>2</option>
@@ -59,10 +68,10 @@
                             <option>11</option>
                             <option>12</option>
                         </select>
-                        <input type="text" id="day" class="border padding focus" placeholder="일">
+                        <input type="text" id="day" class="border padding focus" placeholder="일" name="day">
                     </div>
                     <label for="gender"><h3>성별</h3>
-                        <select id="gender" class="margin border padding">
+                        <select id="gender" class="margin border padding" name = "gender">
                             <option selected>성별</option>
                             <option>남자</option>
                             <option>여자</option>
@@ -70,10 +79,10 @@
                         </select>
                     </label>
                     <label for="email"><h3>본인 확인 이메일(선택)</h3>
-                        <input type="email" id="email" class="margin border focus" placeholder="선택입력">
+                        <input type="email" id="email" class="margin border focus" placeholder="선택입력" name="email">
                     </label>
                     <label for="country"><h3>휴대전화</h3>
-                        <select id="country" class="margin border padding">
+                        <select id="country" class="margin border padding" name="county">
                             <option selected>대한민국 +82</option>
                             <option>가나 +233</option>
                             <option>가봉 +231</option>
@@ -81,7 +90,7 @@
                             <option>감비아 +220</option>
                             <option>과테말라 +502</option>
                         </select>
-                        <input type="tel" id="tel" class="margin border focus" placeholder="전화번호 입력">
+                        <input type="tel" id="tel" class="margin border focus" placeholder="전화번호 입력" name="tel">
                     </label>
                     <input type="submit" id="submit_btn" class="margin border" value="인증번호 받기">
                     <input type="tel" id="checknumber" class="margin border focus" placeholder="인증번호를 입력하세요">
@@ -103,7 +112,7 @@
                         <a href="#">회원정보 고객센터</a>
                     </li>
                 <div>
-                    <a href="#"><img src="../naver_logo.png" width="20px" height="10px"></a>
+                    <a href="#"><img src="../image/naver_logo.png" width="20px" height="10px"></a>
                 Copyright <a href="#">NAVER Corp.</a> All Rights Reserved.
                 </div>
                 </ul>

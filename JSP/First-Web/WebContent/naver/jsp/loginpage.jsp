@@ -19,12 +19,12 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="naver_login.css">
+<link rel="stylesheet" href="../css/naver_login.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js" 
 	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
     crossorigin="anonymous">
 </script>
-<script src="manager.js"></script>
+<script src="../js/manager.js"></script>
 <title>Naver - Login Page</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
         <div class="container">
             <div id="logo">
                 <a href="#">
-                    <img src="naver_logo.png" alt="naver_logo">
+                    <img src="../image/naver_logo.png" alt="naver_logo">
                 </a>
             </div>
             <div id="login_section">

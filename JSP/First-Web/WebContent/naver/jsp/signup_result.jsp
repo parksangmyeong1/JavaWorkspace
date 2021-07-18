@@ -12,7 +12,7 @@
         integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
         crossorigin="anonymous">
     </script>
-    <script src="manager.js"></script>
+    <script src="../js/manager.js"></script>
 <title>Naver - Login Result</title>
 </head>
 <body>
