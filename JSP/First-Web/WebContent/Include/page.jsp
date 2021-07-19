@@ -30,13 +30,13 @@
 </script>
 </head>
 <body>
-	<%@include file="Include/header.jsp"%>
+	<%@include file="header.jsp"%>
 	<%-- <%@include file="WEB-INF/header.jsp"%> --%>
 	<hr>
-	<%@include file="Include/nav.jsp"%>
+	<%@include file="nav.jsp"%>
 	<div id="wrap">
-		<%@include file="Include/news.jsp"%>
-		<%@include file="Include/shopping.jsp"%>
+		<%@include file="news.jsp"%>
+		<%@include file="shopping.jsp"%>
 	</div>
 	
 	<%-- <jsp:include page="footer.jsp"> --%>
