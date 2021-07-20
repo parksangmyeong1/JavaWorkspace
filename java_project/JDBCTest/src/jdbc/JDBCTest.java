@@ -22,14 +22,26 @@ public class JDBCTest {
 
 		try {
 			//1. 드라이버 로드
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			// oracle
+			// Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			// mysql
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("드라이버 로드 성공!");
 
 
 			//2. 연결
-			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-			String user = "hr";
-			String pw = "tiger";
+			// oracle
+			//String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+			
+			// mysql
+			String jdbcUrl = "jdbc:mysql://localhost:3306/project?serverTimezone=UTC";
+			
+//			String user = "hr";
+//			String pw = "tiger";
+			
+			String user = "bit";
+			String pw = "bit";
 
 			conn= DriverManager.getConnection(jdbcUrl, user, pw);
 			System.out.println("데이터베이스 연결 성공!!");
@@ -37,9 +49,10 @@ public class JDBCTest {
 			//3. sql처리
 			stmt = conn.createStatement();
 			
-			
+//			String sqlSelect = 
+//					"select * from dept order by dname ";
 			String sqlSelect = 
-					"select * from dept order by dname ";
+					"select * from dept";
 			
 			
 		
@@ -59,8 +72,8 @@ public class JDBCTest {
 			//PreparedStatement -> SQL 먼저 등록 -> 매개변수처럼 ?를 이용해서 나중에 변수를 바인딩
 			
 			System.out.println("PreparedStatement 사용");
-			System.out.println("------------------------------------------");
-			
+			System.out.println("==========================================");
+								
 			String sqlSelect2 = "select * from dept where deptno = ? ";
 			pstmt = conn.prepareStatement(sqlSelect2);
 			//변수(?)에 데이터 바인딩
