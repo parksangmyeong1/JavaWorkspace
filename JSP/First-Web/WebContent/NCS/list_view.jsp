@@ -24,7 +24,7 @@
 			<td>인덱스</td>
 			<td>id</td>
 			<td>pw</td>
-			<td>name/td>
+			<td>name</td>
 			<td>date</td>
 			<td>관리</td>
 		</tr>

@@ -54,7 +54,7 @@ public class MemberDao {
 		return memberList;
 	}
 	
-	public static int insertMember(Connection conn, Member member) {
+	public int insertMember(Connection conn, Member member) {
 		int resultCnt = 0;
 		
 		PreparedStatement pstmt = null;
@@ -80,7 +80,7 @@ public class MemberDao {
 		return resultCnt;
 	}
 	
-	public static int deleteMember(Connection conn, int idx) {
+	public int deleteMember(Connection conn, int idx) {
 		
 		int resultCnt = 0;
 		PreparedStatement pstmt = null;
@@ -103,7 +103,7 @@ public class MemberDao {
 		return resultCnt;
 	}
 	
-	public static Member selectByIdx(Connection conn, int idx) {
+	public Member selectByIdx(Connection conn, int idx) {
 		Member member = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -117,21 +117,18 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()){
-				member = new Member();
-				member.setIdx(rs.getInt("idx"));
-				member.setId(rs.getString("id"));
-				member.setPw(rs.getString("pw"));
-				member.setName(rs.getString("name"));
-				member.setDate(rs.getString("date"));
+				member = makeMember(rs);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			utilClose.close(rs);
 		}
 		return member;
 	}
 	
-	public static int updateMember(Connection conn, Member member) {
+	public int updateMember(Connection conn, Member member) {
 		
 		int resultCnt = 0;
 		PreparedStatement pstmt = null;
@@ -153,9 +150,24 @@ public class MemberDao {
 		} finally {
 			utilClose.close(pstmt);
 		}
-		
-		
-		
 		return resultCnt;
+	}
+	
+	private Member makeMember(ResultSet rs) {
+		
+		Member member = null;
+		
+			try {
+				member.setIdx(rs.getInt("idx"));
+				member.setId(rs.getString("id"));
+				member.setPw(rs.getString("pw"));
+				member.setName(rs.getString("name"));
+				member.setDate(rs.getString("date"));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		return member;
 	}
 }

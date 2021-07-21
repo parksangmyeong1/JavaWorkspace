@@ -21,7 +21,7 @@
 	try{
 		conn = connection.getConnection();
 		
-		resultCnt = dao.insertMember(conn, new Member(id,pw,name));
+		resultCnt = dao.insertMember(conn, new Member(0,id,pw,name));
 	}catch(SQLException e){
 		e.printStackTrace();
 	}finally{
