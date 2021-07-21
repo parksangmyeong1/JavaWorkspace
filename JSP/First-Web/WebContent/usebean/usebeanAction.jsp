@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="member" class="member.Member" scope="request" />
+<jsp:useBean id="member" class="member.Member1" scope="request" />
 
 <!-- 
 	1. request 속성에 member 라는 속성을 찾는다.

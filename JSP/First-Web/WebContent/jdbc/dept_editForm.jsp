@@ -1,3 +1,7 @@
+<%@page import="jdbc.util.jdbcUtil"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="dept.dao.DeptDao"%>
+<%@page import="jdbc.util.ConnectionProvider"%>
 <%@page import="dept.domain.Dept"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -12,36 +16,22 @@
 	// out.println(deptno);
 	
 	// 전달받은 부서 번호로 부서 정보를 가져온다. DB를 통해
-	Class.forName("com.mysql.cj.jdbc.Driver");
 	// 2. DB 연결
 	// 초기화 이유 : ???
 	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	// jdbcUrl
-	String jdbcUrl = "jdbc:mysql://localhost:3306/project?serverTimezone=UTC";
-	String user = "bit";
-	String pw = "bit";
-	
-	conn = DriverManager.getConnection(jdbcUrl,user,pw);
-	
-	Dept dept = null;
-	
-	String sqlSelect = "select * from dept where deptno=?";
-	pstmt = conn.prepareStatement(sqlSelect);
-	pstmt.setInt(1, Integer.parseInt(deptno));
-	
-	rs = pstmt.executeQuery();
-	
-	if(rs.next()){
-		dept = new Dept();
-		dept.setDeptno(rs.getInt("deptno"));
-		dept.setDname(rs.getString("dname"));
-		dept.setLoc(rs.getString("loc"));
+	DeptDao dao = null;
+	try{
+		conn = ConnectionProvider.getConnection();
+		dao = DeptDao.getInstance();
+		
+		request.setAttribute("dept", dao.selectByDeptno(conn, Integer.parseInt(deptno))); 
+	} catch(SQLException e){
+		e.printStackTrace();
+	}finally{
+		jdbcUtil.close(conn);
 	}
-	// 부서정보를 form_view.jsp 전달 (공유)
-	request.setAttribute("dept", dept); 
 	
+	
+	// 부서정보를 form_view.jsp 전달 (공유)
 %>
 <jsp:forward page="form_view.jsp" />
