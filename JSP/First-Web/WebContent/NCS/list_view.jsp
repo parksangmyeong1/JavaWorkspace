@@ -29,7 +29,7 @@
 			<td>관리</td>
 		</tr>
 		<%
-			if(list!=null){
+			if(list!=null && !list.isEmpty()){
 				for(int i=0;i<list.size();i++){
 					%>
 					<tr>

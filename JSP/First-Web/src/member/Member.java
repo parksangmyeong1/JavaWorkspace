@@ -1,7 +1,7 @@
 package member;
 
 // 빈즈 클래스 생성
-public class Member1 {
+public class Member {
 
 	// 변수는 모두 private 처리
 	private String id;
@@ -9,9 +9,9 @@ public class Member1 {
 	private String name;
 	
 	// beans 클래스는 기본 생성자 필수
-	public Member1() {}
+	public Member() {}
 	// 오버로딩
-	public Member1(String name) {}
+	public Member(String name) {}
 	// setter
 	public void setId(String id) {
 		this.id=id;
