@@ -1,4 +1,4 @@
-package NCS.member;
+package ncs.member;
 
 public class Member {
 	

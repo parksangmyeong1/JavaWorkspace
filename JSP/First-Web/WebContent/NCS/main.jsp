@@ -1,18 +1,17 @@
-<%@page import="NCS.member.util.utilClose"%>
+<%@page import="ncs.member.util.ConnectionProvider"%>
+<%@page import="ncs.member.util.UtilClose"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="NCS.member.MemberDao"%>
-<%@page import="NCS.member.util.connection"%>
-<%@page import="NCS.member.Member"%>
+<%@page import="ncs.member.MemberDao"%>
+<%@page import="ncs.member.Member"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-
 	Connection conn = null;	
 	MemberDao dao = MemberDao.getInstance();
 	
 	try{
-		conn = connection.getConnection();
+		conn = ConnectionProvider.getConnection();
 
 		request.setAttribute("list", dao.getMemberList(conn));
 	}catch(SQLException e){
@@ -20,8 +19,7 @@
 	} catch(Exception e){
 		e.printStackTrace();
 	}	finally{
-		utilClose.close(conn);
+		UtilClose.close(conn);
 	}
-	
 %>
 <jsp:forward page="list_view.jsp"/>

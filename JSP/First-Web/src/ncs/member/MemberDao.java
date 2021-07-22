@@ -1,4 +1,4 @@
-package NCS.member;
+package ncs.member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import NCS.member.util.utilClose;
 import jdbc.util.jdbcUtil;
+import ncs.member.util.UtilClose;
 
 public class MemberDao {
 	private MemberDao() {}
@@ -47,8 +47,8 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			utilClose.close(rs);
-			utilClose.close(stmt);
+			UtilClose.close(rs);
+			UtilClose.close(stmt);
 		}
 		
 		return memberList;
@@ -98,7 +98,7 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			utilClose.close(pstmt);
+			UtilClose.close(pstmt);
 		}
 		return resultCnt;
 	}
@@ -123,7 +123,7 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			utilClose.close(rs);
+			UtilClose.close(rs);
 		}
 		return member;
 	}
@@ -148,7 +148,7 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			utilClose.close(pstmt);
+			UtilClose.close(pstmt);
 		}
 		return resultCnt;
 	}

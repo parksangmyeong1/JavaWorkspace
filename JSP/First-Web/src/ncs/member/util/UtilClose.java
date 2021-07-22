@@ -1,11 +1,11 @@
-package NCS.member.util;
+package ncs.member.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class utilClose {
+public class UtilClose {
 	public static void close(Connection conn) {
 		if(conn!=null) {
 			try {

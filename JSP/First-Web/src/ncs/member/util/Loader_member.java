@@ -1,4 +1,4 @@
-package NCS.member.util;
+package ncs.member.util;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,8 +1,8 @@
-<%@page import="NCS.member.util.utilClose"%>
+<%@page import="jdbc.util.ConnectionProvider"%>
+<%@page import="ncs.member.util.UtilClose"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="NCS.member.Member"%>
-<%@page import="NCS.member.MemberDao"%>
-<%@page import="NCS.member.util.connection"%>
+<%@page import="ncs.member.Member"%>
+<%@page import="ncs.member.MemberDao"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,17 +19,17 @@
 	MemberDao dao = MemberDao.getInstance();
 	
 	try{
-		conn = connection.getConnection();
+		conn = ConnectionProvider.getConnection();
 		
 		resultCnt = dao.insertMember(conn, new Member(0,id,pw,name));
 	}catch(SQLException e){
 		e.printStackTrace();
 	}finally{
-		utilClose.close(conn);
+		UtilClose.close(conn);
 	}
 	
 	if(resultCnt>0){
-		%>
+%>
 			<script>
 				alert('등록되었습니다.');
 				location.href='main.jsp';
