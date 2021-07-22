@@ -3,7 +3,7 @@ package ncs.member.util;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-public class Loader_member extends HttpServlet{
+public class LoaderDriver extends HttpServlet{
 
 	@Override
 	public void init() throws ServletException {

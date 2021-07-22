@@ -11,8 +11,8 @@
   </welcome-file-list>
   
   <servlet>
-  	<servlet-name>Loader_member</servlet-name>
-  	<servlet-class>NCS.member.Loader</servlet-class>
+  	<servlet-name>LoaderDriver</servlet-name>
+  	<servlet-class>ncs.member.util.LoaderDriver</servlet-class>
   	<load-on-startup>1</load-on-startup>
   </servlet>
   

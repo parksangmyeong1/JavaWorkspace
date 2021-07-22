@@ -66,5 +66,9 @@ public class Member {
 		return "member [idx=" + idx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", date=" + date + "]";
 	}
 
+	// Member -> LoginInfo 반환해주는 메소드
+	public LoginInfo toLoginInfo() {
+		return new LoginInfo(this.idx,this.id,this.name);
+	}
 	
 }

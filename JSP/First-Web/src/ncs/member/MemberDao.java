@@ -1,5 +1,6 @@
 package ncs.member;
 
+import java.security.KeyStore.ProtectionParameter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -128,6 +129,34 @@ public class MemberDao {
 		return member;
 	}
 	
+	public Member selectByIdPw(Connection conn, String id, String pw) {
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sqlSelect = "select * from member where id=? and pw=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sqlSelect);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = makeMember(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			UtilClose.close(rs);
+		}
+		
+		return member;
+		
+	}
+	
 	public int updateMember(Connection conn, Member member) {
 		
 		int resultCnt = 0;
@@ -155,7 +184,7 @@ public class MemberDao {
 	
 	private Member makeMember(ResultSet rs) {
 		
-		Member member = null;
+		Member member = new Member();
 		
 			try {
 				member.setIdx(rs.getInt("idx"));
