@@ -5,6 +5,7 @@
 	// 쿠키의 수정은 같은 이름의 쿠키를 만들어서 설정
 	// 새로운 쿠키 생성
 	// Cookie c = new Cookie("cname","king");
+	// rsponse.addCookie(c);
 	response.addCookie(CookieBox.makeCookie("name", "이강인"));
 %>
 <!DOCTYPE html>

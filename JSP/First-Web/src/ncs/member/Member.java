@@ -8,6 +8,12 @@ public class Member {
 	private String name;
 	private String date;
 	public Member() {}
+	public Member(String name) {}
+	public Member(String id,String pw, String name) {
+		this.id=id;
+		this.pw=pw;
+		this.name=name;
+	}
 	public Member(int idx, String id,String pw,String name) {
 		this.id=id;
 		this.pw=pw;
