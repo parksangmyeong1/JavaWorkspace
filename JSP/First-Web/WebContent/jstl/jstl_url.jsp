@@ -12,8 +12,8 @@
 	<c:url value="/index.jsp" var="urlIndex"/>
 	${ urlIndex } <br>
 	<a href="${ urlIndex }">홈으로 가기</a><br>
-	<c:url value="index.jsp" />
-	<a href="<c:url value="index.jsp" />">링크 연동</a>
+	<c:url value="index.jsp" /><br>
+	<a href="<c:url value="index.jsp"/>">링크 연동</a>
 	</h3>
 	
 	<c:url value="/index.jsp" var="homeUrl">
