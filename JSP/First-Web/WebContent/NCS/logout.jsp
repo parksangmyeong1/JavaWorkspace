@@ -6,5 +6,5 @@
 %>
 <script>
 	alert('로그아웃 되었습니다.');
-	location.href='<%=request.getContextPath()%>/NCS/';
+	location.href='${pageContext.request.contextPath}/NCS/';
 </script>

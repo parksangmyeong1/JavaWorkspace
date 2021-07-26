@@ -6,12 +6,14 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:useBean id="member" class="ncs.member.Member" />
+<jsp:setProperty property="*" name="member" />
 <%
 	request.setCharacterEncoding("utf-8");
 
-	String id = request.getParameter("id");
+/* 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
-	String name = request.getParameter("name");
+	String name = request.getParameter("name"); */
 	
 	int resultCnt = 0;
 	
@@ -21,7 +23,8 @@
 	try{
 		conn = ConnectionProvider.getConnection();
 		
-		resultCnt = dao.insertMember(conn, new Member(0,id,pw,name));
+		resultCnt = dao.insertMember(conn, member);
+/* 		resultCnt = dao.insertMember(conn, new Member(0,id,pw,name)); */
 	}catch(SQLException e){
 		e.printStackTrace();
 	}finally{

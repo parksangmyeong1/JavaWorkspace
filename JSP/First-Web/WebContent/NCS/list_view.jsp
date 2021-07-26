@@ -2,18 +2,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%
 	ArrayList<Member> list = (ArrayList<Member>) request.getAttribute("list");
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<style>
-</style>
-<script>
-</script>
+<title>List_view</title>
 </head>
 <body>
 	<h1>회원 리스트</h1>
@@ -28,7 +25,20 @@
 			<td>date</td>
 			<td>관리</td>
 		</tr>
-		<%
+		
+		<c:forEach items="${ list }" var = "list">
+			<tr>
+				<td>${ list.idx }</td>
+				<td>${ list.id }</td>
+				<td>${ list.pw }</td>
+				<td>${ list.name }</td>
+				<td>${ list.date }</td>
+				<td><a href="member_editForm.jsp?idx=${ list.idx }">수정</a></td>
+				<td><a href="javascript:del_member(${ list.idx })">삭제</a></td>
+			</tr>
+		</c:forEach>
+		
+		<%-- <%
 			if(list!=null && !list.isEmpty()){
 				for(int i=0;i<list.size();i++){
 					%>
@@ -44,7 +54,7 @@
 					<%
 				}
 			}
-		%>
+		%> --%>
 	</table>
 	<script>
 		function del_member(idx){

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	session.setAttribute("userName", "SON");   
+	session.setAttribute("userName", "손흥민");   
 %>
 <!DOCTYPE html>
 <html>

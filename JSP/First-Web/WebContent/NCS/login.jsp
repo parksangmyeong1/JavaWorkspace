@@ -21,7 +21,6 @@
 	Connection conn = null;
 	MemberDao dao = MemberDao.getInstance();
 	
-	
 	if(memberId != null && password!=null && memberId.trim().length()>3){
 		
 		try{
@@ -42,7 +41,6 @@
 		}
 	}
 	
-
 	// ID 저장을 위한 쿠키 설정
 	// reid 값의 유무 체크
 	if(reid!=null && reid.equals("on")){
@@ -61,11 +59,8 @@
 				alert('아이디 또는 비밀번호가 일치하지 않습니다.');
 				history.back();
 			</script>
-			
 		<%
-		
 	}
-	
 %>
 <%-- <script>
 	alert('로그인 되었습니다.');

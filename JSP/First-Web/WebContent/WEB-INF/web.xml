@@ -10,44 +10,54 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  <filter>
+    <filter-name>LoginCheckFilter</filter-name>
+    <filter-class>filter.LoginCheckFilter</filter-class>
+    <init-param>
+    	<param-name>forwardUri</param-name>
+    	<param-value>/member/loginForm.jsp</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>LoginCheckFilter</filter-name>
+    <url-pattern>/member/mypage/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>LoginCheckFilter</filter-name>
+    <url-pattern>/jdbc/*</url-pattern>
+  </filter-mapping>
+  
+  <context-param>
+  	<param-name>jdbcdriver</param-name>
+  	<param-value>com.mysql.cj.jdbc.Driver</param-value>
+  </context-param>
+  
+  <listener>
+  	<listener-class>jdbc.util.JdbcListener</listener-class>
+  </listener>
+  
   <servlet>
-  	<servlet-name>LoaderDriver</servlet-name>
-  	<servlet-class>ncs.member.util.LoaderDriver</servlet-class>
-  	<load-on-startup>1</load-on-startup>
+    <servlet-name>LoaderDriver</servlet-name>
+    <servlet-class>ncs.member.util.LoaderDriver</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet>
-  	<servlet-name>Loader</servlet-name>
-  	<servlet-class>jdbc.util.Loader</servlet-class>
-  	<load-on-startup>1</load-on-startup>
+    <servlet-name>Loader</servlet-name>
+    <servlet-class>jdbc.util.Loader</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
-    
-  <!-- 서블릿 등록 -->
+  
   <servlet>
     <servlet-name>nowServlet</servlet-name>
-    <servlet-class>firstweb.NowServlet</servlet-class><!-- 풀네임 -->
+    <servlet-class>firstweb.NowServlet</servlet-class>
   </servlet>
   
-  <!-- 사용자 요청 - 서블릿 클래스 연결 / url과 맵핑-->
   <servlet-mapping>
     <servlet-name>nowServlet</servlet-name>
-    <url-pattern>/now</url-pattern><!-- contextpath 뒤에 오는 경로 -->
+    <url-pattern>/now</url-pattern>
   </servlet-mapping>
   
-  <!-- 에러페이지 등록 -->
-  <!-- http 상태 코드로 등록 -->
-<!--   <error-page>
-  	<error-code>404</error-code>
-  	<location>/error/error404.jsp</location>
-  </error-page>
-  <error-page>
-  	<error-code>500</error-code>
-  	<location>/error/error500.jsp</location>
-  </error-page> -->
-  
-  <!-- 에러 타입으로 등록 -->
-<!--   <error-page>
-  	<exception-type>java.lang.NullPointerException</exception-type>
-  	<location>/error/errortype.jsp</location>
-  </error-page> -->
 </web-app>

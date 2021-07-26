@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	// post일때 한글 인식 못함. 한글 인식을 위해서
-	request.setCharacterEncoding("utf-8"); 
+/* 	request.setCharacterEncoding("utf-8"); */ 
 	// 나중에 데이터 전처리 해줘야한다.
 	String userName = request.getParameter("username");
 	String job = request.getParameter("job");
