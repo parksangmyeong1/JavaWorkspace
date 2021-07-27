@@ -1,4 +1,4 @@
-package util;
+package cookiebox;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

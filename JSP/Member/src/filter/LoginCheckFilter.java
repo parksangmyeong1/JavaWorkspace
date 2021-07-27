@@ -33,21 +33,17 @@ public class LoginCheckFilter implements Filter {
 		
 		// 세션객체에 userName 속성이 있다면 원래 요청 처리를 진행
 		// 없다면 로그인폼으로 이동
-		if(session != null && session.getAttribute("userName") != null) {
+		if(session != null && session.getAttribute("loginInfo") != null) {
 			// 로그인 상태!
 			chain.doFilter(request, response); 
 			// 다음 필터를 실행, 현재 필터가 마지막 필터이면 실제 요청을 처리
 		} else {
 			
-			String viewPage = "/member/loginForm.jsp";
+			String viewPage = "/NCS/loginForm.jsp";
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 		}
-		
-		
-		
-		
 		
 		// 필터를 이용한 응답 데이터 처리 : response
 	}
