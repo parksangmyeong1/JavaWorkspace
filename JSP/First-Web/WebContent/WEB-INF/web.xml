@@ -28,12 +28,7 @@
     <filter-name>LoginCheckFilter</filter-name>
     <url-pattern>/jdbc/*</url-pattern>
   </filter-mapping>
-  
-  <filter-mapping>
-    <filter-name>LoginCheckFilter</filter-name>
-    <url-pattern>/NCS/*</url-pattern>
-  </filter-mapping>
-  
+
   <context-param>
   	<param-name>jdbcdriver</param-name>
   	<param-value>com.mysql.cj.jdbc.Driver</param-value>

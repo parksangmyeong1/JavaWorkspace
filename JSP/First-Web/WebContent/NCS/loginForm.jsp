@@ -23,7 +23,7 @@
 	<div class="contents">
 		<h2>Login</h2>
 		<hr>
-		<form action="login.jsp" method="post">
+		<form action="login.jsp" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<th>ID</th>
@@ -40,6 +40,10 @@
 						${ cookie.reid.value != null ? 'checked' : '' }> 
 						아이디 기억하기
 						</td>
+				</tr>
+				<tr>
+					<th>사진</th>
+					<td><input type="file" name="photo"></td>
 				</tr>
 				<tr>
 					<th></th>

@@ -24,7 +24,7 @@
 	try{
 		conn = ConnectionProvider.getConnection();
 		
-		resultCnt = dao.updateMember(conn, new Member(Integer.parseInt(idx),id,pw,name,date));
+		resultCnt = dao.updateMember(conn, new Member(Integer.parseInt(idx),id,pw,name,date,""));
 	}catch(SQLException e){
 		e.printStackTrace();
 	}finally{

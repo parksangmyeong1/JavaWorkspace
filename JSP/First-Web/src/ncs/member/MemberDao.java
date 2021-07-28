@@ -1,6 +1,5 @@
 package ncs.member;
 
-import java.security.KeyStore.ProtectionParameter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +41,8 @@ public class MemberDao {
 				rs.getString("id"),
 				rs.getString("pw"),
 				rs.getString("name"),
-				rs.getString("date")));
+				rs.getString("date"),
+				rs.getString("photo")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -60,14 +60,22 @@ public class MemberDao {
 		
 		PreparedStatement pstmt = null;
 		
-		String sqlInsert = "insert into member(id,pw,name) values(?,?,?)";
-		
+		String sqlInsert1 = "insert into member(id,pw,name) values(?,?,?)";
+		String sqlInsert2 = "insert into member(id,pw,name,photo) values(?,?,?,?)";
+		// photo가 없을 경우 null로 들어갈텐데 위처럼 나누는 거보단 isnull해주는 게 좋다
 		try {
-			pstmt = conn.prepareStatement(sqlInsert);
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPw());
-			pstmt.setString(3, member.getName());
-			
+			if(member.getPhoto() == null) {
+				pstmt = conn.prepareStatement(sqlInsert1);
+				pstmt.setString(1, member.getId());
+				pstmt.setString(2, member.getPw());
+				pstmt.setString(3, member.getName());
+			} else {
+				pstmt = conn.prepareStatement(sqlInsert2);
+				pstmt.setString(1, member.getId());
+				pstmt.setString(2, member.getPw());
+				pstmt.setString(3, member.getName());
+				pstmt.setString(4, member.getPhoto());
+			}
 			resultCnt = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

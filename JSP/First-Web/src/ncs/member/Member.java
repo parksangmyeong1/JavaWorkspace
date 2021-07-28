@@ -7,6 +7,7 @@ public class Member {
 	private String pw;
 	private String name;
 	private String date;
+	private String photo;
 	public Member() {}
 	public Member(String name) {}
 	public Member(String id,String pw, String name) {
@@ -19,12 +20,13 @@ public class Member {
 		this.pw=pw;
 		this.name=name;
 	}
-	public Member(int idx, String id,String pw,String name,String date) {
+	public Member(int idx, String id,String pw,String name,String date, String photo) {
 		this.idx = idx;
 		this.id=id;
 		this.pw=pw;
 		this.name=name;
 		this.date=date;
+		this.photo=photo;
 	}
 
 	public int getIdx() {
@@ -67,14 +69,22 @@ public class Member {
 		this.date = date;
 	}
 
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 	@Override
 	public String toString() {
-		return "member [idx=" + idx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", date=" + date + "]";
+		return "Member [idx=" + idx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", date=" + date + ", photo="
+				+ photo + "]";
 	}
-
+	
 	// Member -> LoginInfo 반환해주는 메소드
 	public LoginInfo toLoginInfo() {
-		return new LoginInfo(this.idx,this.id,this.name);
+		return new LoginInfo(this.idx,this.id,this.name,this.photo);
 	}
 	
 }
