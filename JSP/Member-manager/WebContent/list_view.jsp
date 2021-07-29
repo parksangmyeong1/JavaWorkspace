@@ -26,8 +26,6 @@
 </script>
 </head>
 <body>
-
-
 	<%@ include file="/WEB-INF/frame/header.jsp"%>
 
 	<%@ include file="/WEB-INF/frame/nav.jsp"%>
@@ -56,7 +54,9 @@
 		<c:forEach items="${result}" var="member">			
 		<tr>
 			<td>${member.idx} <%--= list.get(i).getIdx() --%></td>			
-			<td>${member.memberid} <%--= list.get(i).getMemberid() --%></td>
+			<td>
+				<img src="<c:url value="/upload/${member.memberphoto}"/>" height="30">
+			${member.memberid} <%--= list.get(i).getMemberid() --%></td>
 			<td>${member.password} <%--= list.get(i).getPassword() --%></td>
 			<td>${member.membername} <%--= list.get(i).getMembername() --%></td>
 			<td>${member.regdate} <%--= list.get(i).getRegdate() --%></td>
@@ -89,15 +89,6 @@
 	<%--
 		out.println(list);
 	--%>
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
