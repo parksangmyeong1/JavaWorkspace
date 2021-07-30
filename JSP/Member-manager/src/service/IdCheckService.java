@@ -36,5 +36,4 @@ public class IdCheckService {
 		
 		return cnt > 0 ? "N" : "Y";
 	}
-
 }

@@ -93,10 +93,7 @@ public class MemberRegService {
 							System.out.println("파일 저장!!!");
 						}
 					}
-					
 				}
-				
-				
 			}
 			
 		}  else {
@@ -112,7 +109,6 @@ public class MemberRegService {
 		
 		resultCnt = dao.insertMember(conn, member);
 		
-		
 		} catch(SQLException e) {
 			e.printStackTrace();
 			// DB 입력시 오류라면 파일을 삭제!!!!
@@ -121,7 +117,6 @@ public class MemberRegService {
 				newFile.delete();
 				System.out.println("파일 삭제!!");
 			}
-			
 			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -133,10 +128,6 @@ public class MemberRegService {
 		
 		request.setAttribute("result", resultCnt);
 		
-		
-		
 		return resultCnt;
-		
 	}
-
 }

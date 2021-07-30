@@ -31,7 +31,6 @@ public class loginCommandImpl implements Command {
 		Connection conn = null;
 		MemberDao dao = null;
 		
-		
 		if(memberId!=null && password!=null && memberId.trim().length()>2 && password.trim().length()>3){
 		
 			try{
@@ -46,11 +45,9 @@ public class loginCommandImpl implements Command {
 					request.getSession().setAttribute("loginInfo", member.toLoginInfo());
 					loginChk = true;
 				}
-				
 			} catch (SQLException e){
 				e.printStackTrace();
 			}
-			
 		}
 		
 		// ID 저장을 위한 쿠키 설정
@@ -64,13 +61,9 @@ public class loginCommandImpl implements Command {
 		}
 		
 		if(loginChk){
-
 			return "/index.jsp";
-			
 		} else {
-			
 		return "/WEB-INF/views/notLogin.jsp";
-			
 		}
 	}
 }

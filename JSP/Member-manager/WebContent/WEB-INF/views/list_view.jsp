@@ -34,20 +34,16 @@
 			<th>가입일</th>
 			<th>관리</th>
 		</tr>
-	<%--
-		if(list!=null && !list.isEmpty()){
-			for(int i=0; i<list.size(); i++){
-				--%>
 		<c:if test="${resultList ne null and not empty resultList }">	
 		<c:forEach items="${resultList}" var="member">			
 		<tr>
-			<td>${member.idx} <%--= list.get(i).getIdx() --%></td>			
+			<td>${member.idx}</td>			
 			<td>
 				<img src="<c:url value="/upload/${member.memberphoto}"/>" height="30">
-			${member.memberid} <%--= list.get(i).getMemberid() --%></td>
-			<td>${member.password} <%--= list.get(i).getPassword() --%></td>
-			<td>${member.membername} <%--= list.get(i).getMembername() --%></td>
-			<td>${member.regdate} <%--= list.get(i).getRegdate() --%></td>
+			${member.memberid}</td>
+			<td>${member.password}</td>
+			<td>${member.membername}</td>
+			<td>${member.regdate}</td>
 			<td>
 				<a href="#">수정</a> 
 				<a href="#">삭제</a>

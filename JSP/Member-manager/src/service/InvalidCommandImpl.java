@@ -10,8 +10,6 @@ public class InvalidCommandImpl implements Command {
 	public String getPage(HttpServletRequest request, HttpServletResponse response) {
 
 		//.... 핵심처리
-		
 		return "/index.jsp";
 	}
-
 }

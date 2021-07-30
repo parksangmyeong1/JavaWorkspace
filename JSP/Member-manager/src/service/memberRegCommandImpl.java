@@ -38,9 +38,7 @@ public class memberRegCommandImpl implements Command {
 		} finally{
 			JdbcUtil.close(conn);
 		}
-	
 		// <jsp:forward page="list_view.jsp" />
 		return "/WEB-INF/views/list_view.jsp";
 	}
-
 }

@@ -14,5 +14,4 @@ public class logoutCommandImpl implements Command {
 		
 		return "/WEB-INF/views/logout.jsp";
 	}
-
 }
