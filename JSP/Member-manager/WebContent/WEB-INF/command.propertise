@@ -3,7 +3,8 @@
 /loginForm.do=service.loginFormCommandImpl
 /login.do=service.loginCommandImpl
 /logout.do=service.logoutCommandImpl
+/idcheck.do=service.IdcheckCommandImpl
 /regForm.do=service.regFormCommandImpl
-/member_list.do=service.memberListCommandImpl
+/memberList.do=service.memberListCommandImpl
 /mypage.do=service.myPageCommandImpl
 /memberReg.do=service.memberRegCommandImpl

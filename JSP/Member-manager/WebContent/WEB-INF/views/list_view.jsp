@@ -38,8 +38,8 @@
 		if(list!=null && !list.isEmpty()){
 			for(int i=0; i<list.size(); i++){
 				--%>
-		<c:if test="${result ne null and not empty result }">	
-		<c:forEach items="${result}" var="member">			
+		<c:if test="${resultList ne null and not empty resultList }">	
+		<c:forEach items="${resultList}" var="member">			
 		<tr>
 			<td>${member.idx} <%--= list.get(i).getIdx() --%></td>			
 			<td>

@@ -31,7 +31,6 @@ public class IdCheckService {
 			//result = cnt > 0 ? "N" : "Y";
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

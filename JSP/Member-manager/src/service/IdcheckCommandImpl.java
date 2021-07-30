@@ -12,7 +12,7 @@ public class IdcheckCommandImpl implements Command {
 		String memberId = request.getParameter("mid");
 		request.setAttribute("resultIdCheck", IdCheckService.getInstance().idCheck(memberId));
 
-		return "/WEB-INF/view/idcheck.jsp";
+		return "/WEB-INF/views/idcheck.jsp";
 	}
 
 }

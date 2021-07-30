@@ -18,17 +18,26 @@ public class memberListCommandImpl implements Command {
 	@Override
 	public String getPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		/*<%
-		int result = MemberRegService.getInstance().regMember(request);
-		//request.setAttribute("result", result);
-		%>*/
+		//.... 핵심처리
+		Connection conn = null;
+		MemberDao dao = MemberDao.getInstance();
+
 		try {
-			MemberRegService.getInstance().regMember(request);
-		} catch (FileUploadException e) {
+			// jdbcUrl
+			conn = ConnectionProvider.getConnection();
+
+			// 6. 결과 데이터 request 의 속성에 저장 -> 데이터 공유(전달)
+			request.setAttribute("resultList", dao.selectList(conn));
+
+		} catch (SQLException e){
 			e.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(conn);
 		}
-		// <jsp:forward page="reg_view.jsp"/>
-		return "/WEB-INF/views/reg_view.jsp";
+
+		return "/WEB-INF/views/list_view.jsp";
 	}
 
 }
