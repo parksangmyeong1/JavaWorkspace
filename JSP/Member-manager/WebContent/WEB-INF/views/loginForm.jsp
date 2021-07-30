@@ -14,27 +14,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<c:url value='/css/default.css' />">
-	
-
-<style>
-</style>
-<script>
-	
-</script>
 </head>
 <body>
-
 	<%@ include file="/WEB-INF/frame/header.jsp"%>
-
 	<%@ include file="/WEB-INF/frame/nav.jsp"%>
 
 	<div class="contents">
-
 		<h2>Login</h2>
 		<hr>
-
-		<form action="<c:url value='/login.jsp'/>" method="post">
-
+		<form action="<c:url value='/login.do'/>" method="post">
 			<table>
 				<tr>
 					<th>ID</th><%--=reid--%>
@@ -56,13 +44,7 @@
 					<td><input type="submit"></td>
 				</tr>
 			</table>
-
 		</form>
-
-
-
 	</div>
-
-
 </body>
 </html>

@@ -68,24 +68,17 @@
 					$('#loadingimg').addClass('display_none');
 				}
 			});
-			
 		});
-		
 	});
-	
 </script>
 </head>
 <body>
-
 	<%@ include file="/WEB-INF/frame/header.jsp"%>
-
 	<%@ include file="/WEB-INF/frame/nav.jsp"%>
-
 	<div class="contents">
-
 		<h2>회원가입</h2>
 		<hr>
-		<form action="memberReg.jsp" method="post" enctype="multipart/form-data"> 
+		<form action="memberReg.do" method="post" enctype="multipart/form-data"> 
 			<table>
 				<tr>
 					<td>아이디</td>
@@ -110,16 +103,12 @@
 				<tr>
 					<td></td>
 					<td>
-						<input type="submit">
+						<input type="submit" value="회원가입">
 						<input type="reset" >
 					</td>
 				</tr>
 			</table>
 		</form>
-
-
 	</div>
-
-
 </body>
 </html>

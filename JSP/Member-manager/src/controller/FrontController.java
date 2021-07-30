@@ -90,7 +90,7 @@ public class FrontController extends HttpServlet {
 		// 결과 Data
 		///Object resultObj = null;
 		// view 페이지
-		String viewPage = "/WEB-INF/views/index.jsp";
+		String viewPage = "/index.jsp";
 		Command command = null;
 		
 		command = commands.get(commandUri);
@@ -99,11 +99,9 @@ public class FrontController extends HttpServlet {
 			command = new InvalidCommandImpl();
 		}
 		
-		viewPage = command.getPage(request);
+		viewPage = command.getPage(request,response);
 		// 4. viewPage로 포워딩
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
-
 	}
-
 }

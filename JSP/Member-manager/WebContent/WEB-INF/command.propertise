@@ -1,3 +1,9 @@
 ## 메인페이지
 /=service.InvalidCommandImpl
 /loginForm.do=service.loginFormCommandImpl
+/login.do=service.loginCommandImpl
+/logout.do=service.logoutCommandImpl
+/regForm.do=service.regFormCommandImpl
+/member_list.do=service.memberListCommandImpl
+/mypage.do=service.myPageCommandImpl
+/memberReg.do=service.memberRegCommandImpl

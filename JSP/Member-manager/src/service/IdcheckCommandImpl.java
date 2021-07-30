@@ -2,16 +2,17 @@ package service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
-public class InvalidCommandImpl implements Command {
+public class IdcheckCommandImpl implements Command {
 
 	@Override
 	public String getPage(HttpServletRequest request, HttpServletResponse response) {
 
 		//.... 핵심처리
-		
-		return "/index.jsp";
+		String memberId = request.getParameter("mid");
+		request.setAttribute("resultIdCheck", IdCheckService.getInstance().idCheck(memberId));
+
+		return "/WEB-INF/view/idcheck.jsp";
 	}
 
 }
