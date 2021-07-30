@@ -12,7 +12,7 @@ import domain.Member;
 import util.ConnectionProvider;
 import util.CookieBox;
 
-public class loginCommandImpl implements Command {
+public class LoginCommandImpl implements Command {
 
 	@Override
 	public String getPage(HttpServletRequest request, HttpServletResponse response) throws IOException {

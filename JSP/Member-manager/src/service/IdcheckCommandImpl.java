@@ -11,7 +11,7 @@ public class IdcheckCommandImpl implements Command {
 		//.... 핵심처리
 		String memberId = request.getParameter("mid");
 		request.setAttribute("resultIdCheck", IdCheckService.getInstance().idCheck(memberId));
-
+		
 		return "/WEB-INF/views/idcheck.jsp";
 	}
 

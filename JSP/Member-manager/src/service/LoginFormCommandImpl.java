@@ -3,7 +3,7 @@ package service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class loginFormCommandImpl implements Command {
+public class LoginFormCommandImpl implements Command {
 
 	@Override
 	public String getPage(HttpServletRequest request, HttpServletResponse response) {

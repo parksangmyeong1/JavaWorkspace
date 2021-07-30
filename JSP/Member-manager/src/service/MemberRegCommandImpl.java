@@ -13,7 +13,7 @@ import dao.MemberDao;
 import util.ConnectionProvider;
 import util.JdbcUtil;
 
-public class memberRegCommandImpl implements Command {
+public class MemberRegCommandImpl implements Command {
 
 	@Override
 	public String getPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
