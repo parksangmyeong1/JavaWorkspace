@@ -63,7 +63,6 @@ public class FrontController extends HttpServlet {
 		}
 	}
 	
-	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -75,8 +74,6 @@ public class FrontController extends HttpServlet {
 			throws ServletException, IOException {
 		doProcess(request, response);
 	}
-	
-	
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

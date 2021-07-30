@@ -4,11 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<style>
-</style>
-<script>
-</script>
+<title>Greeting</title>
 </head>
 <body>
 	<h1>greeting.jsp</h1>
