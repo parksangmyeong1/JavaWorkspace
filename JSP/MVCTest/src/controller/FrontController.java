@@ -47,7 +47,9 @@ public class FrontController extends HttpServlet {
 		Iterator<Object> itr = prop.keySet().iterator();
 		while(itr.hasNext()) {
 			String command = (String) itr.next();
+
 			String commandClassName = prop.getProperty(command);
+
 			// 클래스 이름으로 해당 클래스의 인스턴스 생성
 			try {
 				Class commandClass = Class.forName(commandClassName);
@@ -80,7 +82,7 @@ public class FrontController extends HttpServlet {
 
 		// 1. 사용자의 요청 분석 : URI를 추출해서 사용
 		String commandUri = request.getRequestURI();
-		// http://localhost:8080/mvc/guest/list.do -> /mvc/guest/list.do
+		// http://localhost:8080/mvc/list.do -> /mvc/list.do
 		if (commandUri.indexOf(request.getContextPath()) == 0) {
 			commandUri = commandUri.substring(request.getContextPath().length());
 		}
@@ -92,6 +94,7 @@ public class FrontController extends HttpServlet {
 		Command command = null;
 		
 		command = commands.get(commandUri);
+
 		if(command == null) {
 			command = new InvalidCommandImpl();
 		}
