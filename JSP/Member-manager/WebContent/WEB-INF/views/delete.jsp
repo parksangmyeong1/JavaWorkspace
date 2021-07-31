@@ -4,7 +4,7 @@
 <c:if test="${ resultDel > 0 }">
 	<script>
 		alert('삭제되었습니다.');
-		location.href="<c:url value="/memberList.do"/>";
+		location.href="<c:url value="/logout.do"/>";
 	</script>
 </c:if>
 <c:if test="${ resultDel eq 0 }">

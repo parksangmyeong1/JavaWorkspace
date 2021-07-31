@@ -40,8 +40,7 @@ public class LoginCommandImpl implements Command {
 				Member member = dao.selectByIdPw(conn, memberId, password);
 				
 				if(member != null){
-					// 회원의 정보를 Session 객체에 저장 
-					//session.setAttribute("member", member);
+					// 회원의 정보, 간략한 정보를 Session 객체에 저장 
 					request.getSession().setAttribute("member", member);
 					request.getSession().setAttribute("loginInfo", member.toLoginInfo());
 					loginChk = true;
@@ -61,10 +60,8 @@ public class LoginCommandImpl implements Command {
 			response.addCookie(CookieBox.makeCookie("reid", memberId, "/", 0));
 		}
 		
-		if(loginChk){
-			return "/index.jsp";
-		} else {
-		return "/WEB-INF/views/notLogin.jsp";
-		}
+		request.setAttribute("loginChk", loginChk);
+		
+		return "/WEB-INF/views/login.jsp";
 	}
 }

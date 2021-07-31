@@ -4,4 +4,5 @@
 <script>
 	alert('로그아웃 되었습니다.');
 	location.href = '<c:url value='/' />';
+	// location.href = 'index.jsp';
 </script>

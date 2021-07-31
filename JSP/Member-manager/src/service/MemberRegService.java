@@ -73,7 +73,7 @@ public class MemberRegService {
 				} else {
 					String uploadUri = "upload";
 					String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-					System.out.println(dir);
+					// System.out.println(dir);
 					
 					File saveDir = new File(dir); 
 					

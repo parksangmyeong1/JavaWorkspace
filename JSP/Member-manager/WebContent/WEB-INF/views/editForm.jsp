@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>edit_view</title>
+<title>회원 수정 화면</title>
 </head>
 <body>
 	<h1>회원 정보 수정</h1>
