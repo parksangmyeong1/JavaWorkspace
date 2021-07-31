@@ -81,7 +81,6 @@ public class MemberDao {
 						rs.getString(5),
 						rs.getTimestamp(6)));
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,11 +88,8 @@ public class MemberDao {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(stmt);
 		}
-
 		return list;
-
 	}
-	
 	
 	public Member selectByIdPw(Connection conn, String id, String pw) {
 		
@@ -117,19 +113,12 @@ public class MemberDao {
 				member.setMembername(rs.getString("membername"));
 				member.setRegdate(rs.getTimestamp("regdate"));
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
-		
-		
-		
-		
 		return member;
 	}
 
@@ -160,4 +149,77 @@ public class MemberDao {
 		return cnt;
 	}
 
+	public int deleteMember(Connection conn, int idx) {
+		
+		int resultCnt = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = "delete from member where idx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			
+			resultCnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		return resultCnt;
+	}
+
+	public Member selectByIdx(Connection conn, int idx) {
+		
+		Member member = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sqlSelect = "select * from member where idx = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sqlSelect);
+			pstmt.setInt(1, idx);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				member = new Member();
+				member.setIdx(rs.getInt("idx"));
+				member.setMemberid(rs.getString("memberid"));
+				member.setPassword(rs.getString("password"));
+				member.setMembername(rs.getString("membername"));
+				member.setRegdate(rs.getTimestamp("regdate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+		}
+		return member;
+	}
+
+	public int updateMember(Connection conn, Member member) {
+		
+		int resultCnt = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = "update member set memberid=?,password=?,membername=? where idx=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getMemberid());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getMembername());
+			pstmt.setInt(4, member.getIdx());
+			
+			resultCnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		return resultCnt;
+	}
+	
 }

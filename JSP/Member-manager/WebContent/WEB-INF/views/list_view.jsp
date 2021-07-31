@@ -27,7 +27,7 @@
 	<hr>
 	<table border=1>
 		<tr>
-			<th>idx</th>			
+			<th>회원번호</th>			
 			<th>아이디</th>
 			<th>비밀번호</th>
 			<th>이름</th>
@@ -40,24 +40,24 @@
 			<td>${member.idx}</td>			
 			<td>
 				<img src="<c:url value="/upload/${member.memberphoto}"/>" height="30">
-			${member.memberid}</td>
+			${member.memberid}	</td>
 			<td>${member.password}</td>
 			<td>${member.membername}</td>
 			<td>${member.regdate}</td>
 			<td>
-				<a href="#">수정</a> 
-				<a href="#">삭제</a>
+				<a href="memberEditForm.do?idx=${ member.idx }">수정</a> 
+				<a href="javascript:delDept(${ member.idx })">삭제</a>
 			</td>
 		</tr>
 		</c:forEach>
 		</c:if>
 	</table>
-	<!-- <script>
+	<script>
 		function delDept(idx){
 			if(confirm('정말 삭제하시겠습니까?')){
-				//location.href = ''+idx;
+				location.href='memberDel.do?idx='+idx;
 			}
 		}
-	</script> -->
+	</script>
 </body>
 </html>

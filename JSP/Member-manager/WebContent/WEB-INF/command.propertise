@@ -8,3 +8,6 @@
 /memberList.do=service.MemberListCommandImpl
 /mypage.do=service.MypageCommandImpl
 /memberReg.do=service.MemberRegCommandImpl
+/memberDel.do=service.MemberDelCommandImpl
+/memberEditForm.do=service.MemberEditFormCommandImpl
+/memberEdit.do=service.MemberEditCommandImpl

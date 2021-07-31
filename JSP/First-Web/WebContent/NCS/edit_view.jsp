@@ -16,7 +16,7 @@
 	<form action="member_edit.jsp" method="post">
 		<table border="1">
 			<tr>
-				<td>인덱스</td>
+				<td>회원번호</td>
 				<td><input type="number" name="idx" value="${ member.idx }" readonly></td>
 			</tr>
 			<tr>

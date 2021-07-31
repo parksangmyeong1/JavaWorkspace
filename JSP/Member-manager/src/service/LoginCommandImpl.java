@@ -42,6 +42,7 @@ public class LoginCommandImpl implements Command {
 				if(member != null){
 					// 회원의 정보를 Session 객체에 저장 
 					//session.setAttribute("member", member);
+					request.getSession().setAttribute("member", member);
 					request.getSession().setAttribute("loginInfo", member.toLoginInfo());
 					loginChk = true;
 				}
