@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.display_none {
+	display: none;
+}
+
+.color_blue {
+	color: blue;
+}
+
+.color_red {
+	color: red;
+}
+
+#loadingimg {
+	height: 20px;
+}

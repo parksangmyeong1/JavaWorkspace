@@ -1,0 +1,16 @@
+## 메인페이지
+/=service.InvalidCommandImpl
+/loginForm.do=service.LoginFormCommandImpl
+/login.do=service.LoginCommandImpl
+/logout.do=service.LogoutCommandImpl
+/idcheck.do=service.IdcheckCommandImpl
+/regForm.do=service.RegFormCommandImpl
+/memberList.do=service.MemberListCommandImpl
+/mypage.do=service.MypageCommandImpl
+/memberReg.do=service.MemberRegCommandImpl
+/memberDel.do=service.MemberDelCommandImpl
+/memberEditForm.do=service.MemberEditFormCommandImpl
+/memberEdit.do=service.MemberEditCommandImpl
+/boardRegForm.do=board.BoardRegFormCommandImpl
+/writeboard.do=board.WriteBoardCommandImpl
+/boardList.do=board.BoardListCommandImpl
