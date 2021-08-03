@@ -2,31 +2,24 @@ package member.service;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import member.dao.Dao;
 import member.domain.Member;
 import member.domain.RegRequest;
 
-public class MemberRegService {
+public class MemberRegService2 {
 	
-	//Dao dao = new MemberDao();
-	private Dao dao; // 생성자 버전
-	private int num; // 기본타입 버전
+	// @Autowired 방식
 	
-	// setter 필요 - 프로퍼티 방식
-	public void setDao(Dao dao) {
-		this.dao = dao;
-	}
+	//@Autowired
+	//@Qualifier("member")
+	@Resource(name="guestDao")
+	private Dao dao;
 	
-	// 기본생성자 필요 - 프로퍼티 방식
-	public MemberRegService() {
-		System.out.println("MemberRegService 인스턴스 생성");
-	}
-	
-	// 생성자 방식
-	public MemberRegService(Dao dao) {
-		this.dao = dao;
-		System.out.println("MemberRegService 인스턴스 생성");
-	}
 	
 	public void regMember(RegRequest request) throws Exception {
 		

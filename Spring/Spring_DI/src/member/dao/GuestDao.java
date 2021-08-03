@@ -15,13 +15,11 @@ public class GuestDao implements Dao {
 	@Override
 	public void insert(Member member) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void update(Member member) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

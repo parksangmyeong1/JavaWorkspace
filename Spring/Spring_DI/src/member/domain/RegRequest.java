@@ -43,6 +43,4 @@ public class RegRequest {
 	public boolean isPasswordEqualToConfirmPassword() {
 		return password.equals(confirmPassword);
 	}
-	
-	
 }

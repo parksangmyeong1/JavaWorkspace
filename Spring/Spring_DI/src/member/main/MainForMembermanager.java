@@ -55,8 +55,6 @@ public class MainForMembermanager {
 			//e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 
 	private static void processNewMember(String[] values) {
@@ -65,6 +63,7 @@ public class MainForMembermanager {
 		//MemberRegService service = new MemberRegService(dao);
 		MemberRegService service = assembler.getRegService();
 		RegRequest request = new RegRequest();
+		
 		request.setEmail(values[1]);
 		request.setName(values[2]);
 		request.setPassword(values[3]);
@@ -84,9 +83,6 @@ public class MainForMembermanager {
 			//e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		
-		
-		
 	}
 
 	static void printMenu() {
@@ -100,5 +96,4 @@ public class MainForMembermanager {
 		System.out.println("change king@gmail.com 123 0000");
 		System.out.println("-------------------------------");
 	}
-
 }

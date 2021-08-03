@@ -4,6 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- 생성자 방식 -->
+	
 	<!-- MemberDao bean 등록 -->
 	<bean id="memberDao" class="member.dao.MemberDao"></bean>
 
@@ -12,6 +14,7 @@
 		<constructor-arg ref="memberDao" />
 	</bean>
 	
+	<!-- ChangePasswordService bean 등록 -->
 	<bean id="changePwService" class="member.service.ChangePasswordService">
 		<constructor-arg ref="memberDao"/>
 	</bean>

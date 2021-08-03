@@ -50,16 +50,5 @@ public class Member {
 		} else {
 			throw new Exception("비밀번호 불일치!");
 		}
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
