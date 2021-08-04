@@ -8,25 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>LoginForm</h1>
+	<h1>Login Request Data</h1>
 	<hr>                <!-- /First-Web/member/login.jsp -->
-	<form method="post"> 
 	<!-- action="/contextPath/member/login" -->
 	<!-- /First-Web/member/mypage.jsp -->
 		<table>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="id"></td>
+				<td>${ id }, ${ uid }, ${ loginReq.id }</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" name="pw"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit"></td>
+				<td>${ pw }, ${ upw }, ${ loginReq.pw }</td>
 			</tr>
 		</table>
-	</form>
 </body>
 </html>
