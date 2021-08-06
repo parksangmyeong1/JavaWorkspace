@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bitcamp.firstSpring.member.domain.LoginInfo;
 import com.bitcamp.firstSpring.member.domain.LoginRequest;
 
 @Controller
@@ -37,7 +38,7 @@ public class LoginController {
 			HttpServletRequest request,
 			// LoginRequest loginRequest,	// 빈즈 객체
 			@ModelAttribute("loginReq") LoginRequest loginRequest,	// 이름바꿔줌
-			Model model ) {
+			Model model) {
 		
 		// view에 전달한 데이터 저장 : Model 객체를 이용
 		model.addAttribute("id", id);
@@ -54,6 +55,10 @@ public class LoginController {
 		model.addAttribute("upw", upw);
 		
 		// System.out.println(loginRequest);	// 값이 자동으로 바인딩되서 들어온다. 모델에 저장됨.
+		
+		// 세션의 속성에 loginInfo 등록
+		request.getSession(false).setAttribute("loginInfo", new LoginInfo());
+		
 		
 		return "member/login";	// /WEB-INF/views/member/login.jsp
 	}
