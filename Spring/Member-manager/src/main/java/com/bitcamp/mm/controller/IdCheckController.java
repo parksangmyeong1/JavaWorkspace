@@ -15,10 +15,11 @@ public class IdCheckController {
 	@Autowired
 	IdCheckService service;
 	
-	@RequestMapping(value = "/member/idCheck")
+	@RequestMapping(value = "/member/idCheck", method = RequestMethod.POST)
 	public String idCheck(HttpServletRequest request) {
 		
 		String memberId = request.getParameter("mid");
+		
 		request.setAttribute("resultIdCheck", service.idCheck(memberId));
 		
 		return "member/idCheck";
