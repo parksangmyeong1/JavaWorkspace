@@ -15,7 +15,7 @@ public class IdCheckController {
 	@Autowired
 	IdCheckService service;
 	
-	@RequestMapping(value = "/member/idCheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/idCheck")
 	public String idCheck(HttpServletRequest request) {
 		
 		String memberId = request.getParameter("mid");
