@@ -1,6 +1,4 @@
-package com.bitcamp.mm.domain;
-
-import org.springframework.web.multipart.MultipartFile;
+package com.bitcamp.op.domain;
 
 public class LoginInfo {
 
@@ -37,5 +35,7 @@ public class LoginInfo {
 		return "LoginInfo [idx=" + idx + ", memberId=" + memberId + ", memberName=" + memberName + ", memberPhoto="
 				+ memberPhoto + "]";
 	}
+
+	
 
 }

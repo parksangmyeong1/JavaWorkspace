@@ -52,30 +52,35 @@ public class LoginService {
 		// ID 저장을 위한 쿠키 설정
 		// reid 값의 유무 체크
 		if (memberId != null && password != null && memberId.trim().length() > 2 && password.trim().length() > 2) {
-			try {
-				conn = ConnectionProvider.getConnection();
-				
-				Member member = dao.selectByIdPw(conn, memberId, password);
-				
-				if (member != null) {
-					session.setAttribute("loginInfo", member.toLoginInfo());
-					loginChk = true;
+				try {
+					conn = ConnectionProvider.getConnection();
+					
+					Member member = dao.selectByIdPw(conn, memberId, password);
+					
+					if (member != null) {
+						session.setAttribute("loginInfo", member.toLoginInfo());
+						loginChk = true;
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
-				if (reId != null && reId.equals("on")) {
-					Cookie cookie = new Cookie("reId", URLEncoder.encode(memberId, "utf-8"));
-					cookie.setMaxAge(60*60*24*365);
+				if(reId != null && reId.length() > 0) {
+					Cookie cookie = new Cookie("reid", reId);
+					cookie.setPath("/");
+					cookie.setMaxAge(60*60*24*365);	// 1년
+					
 					response.addCookie(cookie);
 				} else {
-					Cookie cookie = new Cookie("reId", URLEncoder.encode(memberId, "utf-8"));
+					Cookie cookie = new Cookie("reid", reId);
+					cookie.setPath("/");
 					cookie.setMaxAge(0);
+					
 					response.addCookie(cookie);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			} 
+			
 			
 			session.setAttribute("loginChk", loginChk);
 		}

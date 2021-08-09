@@ -1,9 +1,7 @@
-package com.bitcamp.mm.domain;
+package com.bitcamp.op.domain;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public class Member {
 
@@ -79,6 +77,8 @@ public class Member {
 		return new Date(getRegdate().getTime());
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "Member [idx=" + idx + ", memberid=" + memberid + ", password=" + password + ", membername=" + membername
@@ -90,5 +90,4 @@ public class Member {
 		return new LoginInfo(this.idx, this.memberid, this.membername, this.memberphoto);
 	}
 
-	
 }

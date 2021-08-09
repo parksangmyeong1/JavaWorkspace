@@ -56,7 +56,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 
 		String sql1 = "insert into member (memberid,password,membername) values (?, ?, ?)";
-		String sql2 = "insert into member (memberid,password,membername, memberphoto) values (?, ?, ?,?)";
+		String sql2 = "insert into member (memberid,password,membername, memberphoto) values (?, ?, ?, ?)";
 
 		try {
 			

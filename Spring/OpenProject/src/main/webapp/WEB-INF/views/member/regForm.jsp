@@ -6,7 +6,7 @@
 <head>
 <title>회원 가입 페이지</title>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp" %>
-<script src="/mm/js/regForm.js"></script>
+<script src="/js/regForm.js"></script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
@@ -14,7 +14,7 @@
 	<div class="contents">
 		<h2>회원가입</h2>
 		<hr>
-		<form method="post" enctype="multipart/form-data"> 
+		<form method="post" > 
 			<table>
 				<tr>
 					<td>아이디</td>
@@ -34,7 +34,7 @@
 				</tr>
 				<tr>
 					<td>사진</td>
-					<td><input type="file" name="memberphoto"></td>
+					<td><input type="file" name="photo"></td>
 				</tr>
 				<tr>
 					<td></td>

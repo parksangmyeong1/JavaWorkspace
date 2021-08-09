@@ -24,15 +24,15 @@ public class LoginController {
 	LoginService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String dispatchLoginForm(
-			@CookieValue(value = "remreId", required = false) String rememId,
+	public String loginForm(
+			@CookieValue(value = "reId", required = false) String reId,
 			Model model) {
-		model.addAttribute("rememId", rememId);
+		model.addAttribute("reId", reId);
 		return "member/loginForm";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String dispatchLoginView(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws UnsupportedEncodingException {
+	public String loginView(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws UnsupportedEncodingException {
 		service.loginMember(request, response, session);
 		
 		return "member/login";

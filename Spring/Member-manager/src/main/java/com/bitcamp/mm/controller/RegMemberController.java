@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bitcamp.mm.domain.RegFormCommand;
 import com.bitcamp.mm.service.RegMemberService;
 
 
@@ -19,13 +20,13 @@ public class RegMemberController {
 	RegMemberService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String dispatchRegForm() {
+	public String regForm() {
 		return "/member/regForm";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String dispatchRegView(HttpServletRequest request) throws FileUploadException {
-		request.setAttribute("resultReg", service.regMember(request));
+	public String regView(RegFormCommand regFormCommand, HttpServletRequest request) throws FileUploadException {
+		request.setAttribute("resultReg", service.regMember(regFormCommand, request));
 		
 		return "/member/regView";
 	}

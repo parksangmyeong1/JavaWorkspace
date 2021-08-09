@@ -43,18 +43,18 @@
 			<td>${member.regdate}</td>
 			<td>
 				<a href="#">수정</a> 
-				<a href="#">삭제</a>
+				<a href="javascript:delDept(${ member.idx })">삭제</a>
 			</td>
 		</tr>
 		</c:forEach>
 		</c:if>
 	</table>
-<!-- 	<script>
+ 	<script>
 		function delDept(idx){
 			if(confirm('정말 삭제하시겠습니까?')){
-				location.href='memberDel.do?idx='+idx;
+				location.href='memberDel?idx='+idx;
 			}
 		}
-	</script> -->
+	</script>
 </body>
 </html>

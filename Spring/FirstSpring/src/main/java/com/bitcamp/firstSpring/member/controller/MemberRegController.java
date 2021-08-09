@@ -40,12 +40,12 @@ public class MemberRegController {
 		String uid = request.getParameter("memberid");
 		String upw = request.getParameter("password");
 		String uname = request.getParameter("membername");
-		// String uphoto = request.getParameter("photo");
+		// String mphoto = request.getParameter("photo");
 		
 		model.addAttribute("mid", uid);
 		model.addAttribute("mpw", upw);
 		model.addAttribute("mname", uname);
-		// model.addAttribute("uphoto", uphoto);
+		// model.addAttribute("mphoto", mphoto);
 		
 		// /WEB-INF/views/member/loginForm.jsp
 		return "member/memberReg";

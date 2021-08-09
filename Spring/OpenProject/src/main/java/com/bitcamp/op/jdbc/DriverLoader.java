@@ -20,7 +20,6 @@ public class DriverLoader extends HttpServlet {
 				System.out.println("드라이버 로드 성공");
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("드라이버 로드 실패");
 			e.printStackTrace();
 		}

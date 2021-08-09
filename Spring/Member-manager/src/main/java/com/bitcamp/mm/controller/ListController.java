@@ -15,9 +15,9 @@ public class ListController {
 	MemberListService service;
 
 	@RequestMapping("/member/memberList")
-	public String dispatchListView(HttpServletRequest request) {
+	public String getListView(HttpServletRequest request) {
 		service.listMember(request);
 		
-		return "/member/listView";
+		return "member/listView";
 	}
 }
