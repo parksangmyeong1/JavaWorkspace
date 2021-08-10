@@ -1,131 +1,86 @@
-package service;
+package com.bitcamp.op.member.service;
 
-import dao.MemberDao;
-import domain.Member;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import util.ConnectionProvider;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.FileUploadException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bitcamp.op.domain.Member;
+import com.bitcamp.op.domain.MemberRegRequest;
+import com.bitcamp.op.jdbc.ConnectionProvider;
+import com.bitcamp.op.jdbc.JdbcUtil;
+import com.bitcamp.op.member.dao.MemberDao;
+
+@Service
 public class MemberRegService {
 	
-	private MemberRegService() {}
-	private static MemberRegService service = new MemberRegService();
-	public static MemberRegService getInstance() {
-		return service;
-	}
+	final String UPLOAD_URI = "/uploadfile";
 	
-	public int regMember(HttpServletRequest request) throws FileUploadException {
+	@Autowired
+	private MemberDao dao;
+	
+	public int regMember(MemberRegRequest regRequest,
+			HttpServletRequest request) throws FileUploadException {
 		
 		int resultCnt = 0;
-		
-		Member member = new Member();
-		
 		Connection conn = null;
-		MemberDao dao = null;
-		
 		File newFile = null;
 		
 		try {
-		// 1. multipart 여부 확인
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		
-		if(isMultipart){
+			// 1. 파일 저장
 			
-			// 2. 파일을 저장할 Factory 객체 생성
-			DiskFileItemFactory factory = new DiskFileItemFactory();
+			// 시스템 경로
+			String path = request.getSession().getServletContext().getRealPath(UPLOAD_URI);
+			// 새로운 저장 폴더 : File
+			File newDir = new File(path);
 			
-			// 3. 요청 처리를 (form 안에 있는 input 들을 분리 ) 위해서 ServletFileUpload 생성
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			
-			// 4. 사용자 요청을 파싱(분리 : 원하는 형태로 분리  input => FileItem)
-			// FileItem -> input 데이터를 저장하고 있는 객체
-			List<FileItem> items = upload.parseRequest(request);
-			
-			Iterator<FileItem> itr = items.iterator();
-			
-			while(itr.hasNext()){
-				
-				FileItem item = itr.next();  // text, checkbox, hidden, password, file
-				
-				// file과 file이외의 폼을 구분
-				if(item.isFormField()){
-					// 회원 아이디, 회원 이름, 비밀번호
-					String paramName = item.getFieldName();
-					if(paramName.equals("memberid")) {
-						//String value = item.getString("utf-8");
-						member.setMemberid(item.getString("utf-8"));
-					} else if(paramName.equals("password")) {
-						member.setPassword(item.getString("utf-8"));
-					} else if(paramName.equals("membername")) {
-						member.setMembername(item.getString("utf-8"));
-					}
-					
-				} else {
-					String uploadUri = "upload";
-					String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-					// System.out.println(dir);
-					
-					File saveDir = new File(dir); 
-					
-					if(!saveDir.exists()) {
-						saveDir.mkdir();
-					}
-					
-					String paramName = item.getFieldName();
-					if(paramName.equals("photo")) {
-						// 파일 이름, 사이즈
-						if(item.getName() != null && item.getSize() > 0) {
-							// 저장
-							newFile = new File(saveDir, item.getName());
-							item.write(newFile);
-							// DB 에 저장할 파일의 이름
-							member.setMemberphoto(item.getName());
-							System.out.println("파일 저장!!!");
-						}
-					}
-				}
+			// 폴더가 존재하지 않으면 폴더 생성
+			if(!newDir.exists()) {
+				newDir.mkdir();
+				System.out.println("저장 폴더를 생성했습니다.");
 			}
+			// 파일 저장시에 파일 이름이 같으면 덮어쓴다 -> 회원별 고유한 파일 이름을 만들자!!
+			// 회원 아이디와 currentTimeMillis로 유니크한 파일이름 설정
+			String newFileName = regRequest.getMemberid()+System.currentTimeMillis();
 			
-		}  else {
-			throw new Exception("multipart 타입이 아닙니다!");
-		}
-		
-		//////////////////////////////////////
-		// DB insert
-		// Connection, MemberDao
-		
-		conn = ConnectionProvider.getConnection();
-		dao = MemberDao.getInstance();
-		
-		resultCnt = dao.insertMember(conn, member);
-		
-		} catch(SQLException e) {
+			// 새로운 File 객체
+			newFile = new File(newDir, newFileName);
+			
+			// 파일 저장
+			if(regRequest.getPhoto() != null && !regRequest.getPhoto().isEmpty())
+			regRequest.getPhoto().transferTo(newFile);
+			
+			// 2. dao저장
+			conn = ConnectionProvider.getConnection();
+			
+			// Member 객체 생성 -> 저장된 파일의 이름을 set
+			Member member = regRequest.toMember();
+			
+			member.setMemberphoto(newFileName);
+			
+			resultCnt = dao.insertMember(conn, member);
+			
+			
+			
+		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
-			// DB 입력시 오류라면 파일을 삭제!!!!
+		} catch (SQLException e) {
+			// DB 예외 발생 시 -> 저장된 파일을 삭제
 			if(newFile != null && newFile.exists()) {
-				// 파일을 삭제
 				newFile.delete();
-				System.out.println("파일 삭제!!");
 			}
-			
-		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(conn);
 		}
-		
-		request.setAttribute("result", resultCnt);
 		
 		return resultCnt;
+		
 	}
 }
