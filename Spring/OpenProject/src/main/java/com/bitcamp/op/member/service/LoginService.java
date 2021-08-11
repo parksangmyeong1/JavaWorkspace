@@ -31,6 +31,8 @@ public class LoginService {
 		
 		Member member = dao.selectByIdPw(id, pw);
 		
+		System.out.println(member);
+		
 		if(member != null) {
 			// 로그인 처리
 			session.setAttribute("loginInfo", member.toLoginInfo());

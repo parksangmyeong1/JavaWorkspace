@@ -20,7 +20,7 @@ public class MemberRowMapper implements RowMapper<Member> {
 		member.setMembername(rs.getString("membername"));
 		member.setRegdate(rs.getTimestamp("regdate"));
 		
-		return null;
+		return member;
 	}
 
 }
