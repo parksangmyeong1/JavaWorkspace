@@ -39,6 +39,7 @@ public class LoginController {
 			@RequestParam(value="reid", required = false) String reid,
 			HttpSession session,
 			HttpServletResponse response,
+			HttpServletRequest request,
 			Model model) {
 		
 		// 상용자가 입력한 id, pw 서비스에 전달해서 로그인 처리
@@ -47,10 +48,20 @@ public class LoginController {
 		
 		String view = "member/login";
 		
-		if(redirectUri != null && loginChk) {
-			view = "redirect:" + redirectUri;
+		if(chkURI(redirectUri) && loginChk) {
+			
+			redirectUri = redirectUri.substring(request.getContextPath().length());
+			view = "redirect:"+redirectUri;
 		}
 		
 		return view;
+	}
+	
+	private boolean chkURI(String uri) {
+		boolean chk = true;
+		if(!uri.startsWith("/op")) {
+			chk = false;
+		}
+		return chk;
 	}
 }

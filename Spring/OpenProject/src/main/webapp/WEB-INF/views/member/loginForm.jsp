@@ -25,10 +25,12 @@
 				</tr>
 				<tr>
 					<th></th>
+					<!-- = checked -->
 					<td>
 					<input type="checkbox" name="reid" value="on" ${cookie.reid ne null ? 'checked' : ''}> 
 					아이디 기억하기
-					<input type="text" name="redirectUri" value="${ redirectUri ne null ? redirectUri : '' }">					
+					<%-- <input type="hidden" name="redirectUri" value="${ redirectUri ne null ? redirectUri : '' }"> --%>
+					<input type="hidden" name="redirectUri" value="${ param.referer}">					
 					</td>
 				</tr>
 				<tr>

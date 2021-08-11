@@ -25,6 +25,8 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter{
 			return true;
 		}
 		
+		// header의 referer 없이 이전 페이지로 이동하도록 처리
+		// parameter 로 이전 uri 전달
 		response.sendRedirect(request.getContextPath()+"/member/login");
 		return false;
 	}
