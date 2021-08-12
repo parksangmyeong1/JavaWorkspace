@@ -1,4 +1,4 @@
-package com.bitcamp.op.domain;
+package com.bitcamp.op.member.domain;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,6 +49,6 @@ public class MemberRegRequest {
 	// 사용자에게 받는 건 MemberRegRequest지만 DB저장은 Member라서 바꿔줘야한다.
 	public Member toMember() {
 		return new Member(0, memberid, password, membername, 
-				"s", null);
+				null, null);
 	}
 }

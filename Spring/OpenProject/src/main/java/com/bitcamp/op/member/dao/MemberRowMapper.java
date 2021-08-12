@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.bitcamp.op.domain.Member;
+import com.bitcamp.op.member.domain.Member;
 
 public class MemberRowMapper implements RowMapper<Member> {
 

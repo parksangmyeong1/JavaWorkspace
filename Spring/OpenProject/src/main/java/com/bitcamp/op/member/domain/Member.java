@@ -1,4 +1,4 @@
-package com.bitcamp.op.domain;
+package com.bitcamp.op.member.domain;
 
 import java.sql.Timestamp;
 import java.util.Date;

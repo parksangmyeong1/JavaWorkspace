@@ -10,8 +10,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bitcamp.op.domain.Member;
 import com.bitcamp.op.member.dao.JdbcTemplateMemberDao;
+import com.bitcamp.op.member.dao.mybatisMemberDao;
+import com.bitcamp.op.member.domain.Member;
 
 @Service
 public class LoginService {
@@ -19,8 +20,11 @@ public class LoginService {
 //	@Autowired
 //	MemberDao dao;
 	
+//	@Autowired
+//	private JdbcTemplateMemberDao dao;
+	
 	@Autowired
-	private JdbcTemplateMemberDao dao;
+	private mybatisMemberDao dao;
 	
 	public boolean login(String id, String pw, String reid, 
 			HttpSession session, HttpServletResponse response) {

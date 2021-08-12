@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bitcamp.op.domain.Member;
-import com.bitcamp.op.domain.MemberRegRequest;
 import com.bitcamp.op.member.dao.JdbcTemplateMemberDao;
+import com.bitcamp.op.member.dao.mybatisMemberDao;
+import com.bitcamp.op.member.domain.Member;
+import com.bitcamp.op.member.domain.MemberRegRequest;
 
 @Service
 public class MemberRegService {
@@ -21,9 +22,12 @@ public class MemberRegService {
 	//@Autowired
 	//private MemberDao dao;
 	
-	@Autowired
-	private JdbcTemplateMemberDao dao;
+//	@Autowired
+//	private JdbcTemplateMemberDao dao;
 	// Template 사용으로 connection 사라짐
+	
+	@Autowired
+	private mybatisMemberDao dao;
 	
 	public int regMember(
 			MemberRegRequest regRequest,
@@ -94,7 +98,7 @@ public class MemberRegService {
 			//conn = ConnectionProvider.getConnection();
 			
 			// resultCnt = dao.insertMember(member);
-			resultCnt = dao.insertMember1(member);
+			resultCnt = dao.insertMember(member);
 			
 			System.out.println("새롭게 등록된 idx => " + member.getIdx());
 			// idx 값은 자식 테이블의 insert 시 외래키로 사용

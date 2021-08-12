@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.bitcamp.op.domain.Member;
 import com.bitcamp.op.jdbc.JdbcUtil;
+import com.bitcamp.op.member.domain.Member;
 
 @Repository
 public class MemberDao {
