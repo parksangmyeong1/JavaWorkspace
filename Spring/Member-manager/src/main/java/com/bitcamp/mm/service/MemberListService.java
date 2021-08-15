@@ -1,37 +1,28 @@
-package com.bitcamp.mm.service;
+package com.bitcamp.op.member.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bitcamp.mm.dao.MemberDao;
-import com.bitcamp.mm.jdbc.ConnectionProvider;
-import com.bitcamp.mm.jdbc.JdbcUtil;
+import com.bitcamp.op.member.dao.Dao;
+import com.bitcamp.op.member.domain.Member;
+import com.bitcamp.op.member.domain.SearchType;
 
 @Service
 public class MemberListService {
 
+	private Dao dao;
+
 	@Autowired
-	MemberDao dao;
+	private SqlSessionTemplate template;
+
+	public List<Member> getMemberList(){
+		return template.getMapper(Dao.class).selectAll();
+	}
 	
-	public void listMember(HttpServletRequest request) {
-		Connection conn = null;
-		
-		try {
-			conn = ConnectionProvider.getConnection();
-			
-			request.setAttribute("resultList", dao.selectList(conn));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(conn);
-		}
-		
+	public List<Member> getMemberList(SearchType searchType){
+		return template.getMapper(Dao.class).selectMember(searchType);
 	}
 }

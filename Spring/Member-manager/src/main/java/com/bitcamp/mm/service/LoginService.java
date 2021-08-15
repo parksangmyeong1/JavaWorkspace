@@ -1,88 +1,74 @@
-package com.bitcamp.mm.service;
+package com.bitcamp.op.member.service;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bitcamp.mm.dao.MemberDao;
-import com.bitcamp.mm.domain.Member;
-import com.bitcamp.mm.jdbc.ConnectionProvider;
+import com.bitcamp.op.member.dao.Dao;
+import com.bitcamp.op.member.dao.JdbcTemplateMemberDao;
+import com.bitcamp.op.member.dao.mybatisMemberDao;
+import com.bitcamp.op.member.domain.Member;
 
 @Service
 public class LoginService {
+
+//	@Autowired
+//	MemberDao dao;
+	
+//	@Autowired
+//	private JdbcTemplateMemberDao dao;
+	
+//	@Autowired
+//	private mybatisMemberDao dao;
 	
 	@Autowired
-	MemberDao dao;
-
-	public void loginMember(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	private SqlSessionTemplate template;
+	
+	private Dao dao;
+	
+	public boolean login(String id, String pw, String reid, 
+			HttpSession session, HttpServletResponse response) {
+		
 		boolean loginChk = false;
 		
-		String memberId = request.getParameter("memberid");
-		String password = request.getParameter("password");
-		String reId = request.getParameter("reid");
+		// Connection conn = null; Template 사용으로 connection 필요없어짐
 		
-		Connection conn = null;
+		// 인터페이스 Dao의 구현체 Mapper
+		dao = template.getMapper(Dao.class);
 		
-		if(memberId!=null && password!=null && memberId.trim().length()>2 && password.trim().length()>3){
+		System.out.println("인터페이스 매퍼 dao 생성");
+		
+		Member member = dao.selectByIdPw(id, pw);
+		
+		if(member != null) {
+			// 로그인 처리
+			session.setAttribute("loginInfo", member.toLoginInfo());
 			
-			try{
-				conn = ConnectionProvider.getConnection();	
-				Member member = dao.selectByIdPw(conn, memberId, password);
-				
-				if(member != null){
-					// 회원의 정보, 간략한 정보를 Session 객체에 저장 
-					request.getSession().setAttribute("member", member);
-					request.getSession().setAttribute("loginInfo", member.toLoginInfo());
-					loginChk = true;
-				}
-			} catch (SQLException e){
-				e.printStackTrace();
-			}
+			loginChk = true;
 		}
 		
-		// ID 저장을 위한 쿠키 설정
-		// reid 값의 유무 체크
-		if (memberId != null && password != null && memberId.trim().length() > 2 && password.trim().length() > 2) {
-				try {
-					conn = ConnectionProvider.getConnection();
-					
-					Member member = dao.selectByIdPw(conn, memberId, password);
-					
-					if (member != null) {
-						session.setAttribute("loginInfo", member.toLoginInfo());
-						loginChk = true;
-					}
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				if(reId != null && reId.length() > 0) {
-					Cookie cookie = new Cookie("reid", reId);
-					cookie.setPath("/");
-					cookie.setMaxAge(60*60*24*365);	// 1년
-					
-					response.addCookie(cookie);
-				} else {
-					Cookie cookie = new Cookie("reid", reId);
-					cookie.setPath("/");
-					cookie.setMaxAge(0);
-					
-					response.addCookie(cookie);
-				}
+		// 아이디 저장을 위한 Cookie 설정
+		if(reid != null && reid.length() > 0) {
+			Cookie cookie = new Cookie("reid", id);
+			cookie.setPath("/");
+			cookie.setMaxAge(60*60*24*365);	// 1년
 			
+			response.addCookie(cookie);
+		} else {
+			Cookie cookie = new Cookie("reid", id);
+			cookie.setPath("/");
+			cookie.setMaxAge(0);
 			
-			session.setAttribute("loginChk", loginChk);
+			response.addCookie(cookie);
 		}
+		
+		return loginChk;
 	}
 }

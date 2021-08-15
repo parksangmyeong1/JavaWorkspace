@@ -1,30 +1,41 @@
-package com.bitcamp.mm.service;
+package com.bitcamp.op.member.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.bitcamp.mm.dao.MemberDao;
-import com.bitcamp.mm.domain.Member;
-import com.bitcamp.mm.domain.MemberRegRequest;
-import com.bitcamp.mm.jdbc.ConnectionProvider;
+import com.bitcamp.op.member.dao.Dao;
+import com.bitcamp.op.member.dao.JdbcTemplateMemberDao;
+import com.bitcamp.op.member.dao.mybatisMemberDao;
+import com.bitcamp.op.member.domain.Member;
+import com.bitcamp.op.member.domain.MemberRegRequest;
 
 @Service
-public class RegMemberService {
-	
-	@Autowired
-	private MemberDao dao;
+public class MemberRegService {
 	
 	final String UPLOAD_URI = "/uploadfile";
-
+	
+	//@Autowired
+	//private MemberDao dao;
+	
+//	@Autowired
+//	private JdbcTemplateMemberDao dao;
+	// Template 사용으로 connection 사라짐
+	
+//	@Autowired
+//	private mybatisMemberDao dao;
+	
+	@Autowired
+	private SqlSessionTemplate template;
+	
+	private Dao dao;
+	
 	public int regMember(
 			MemberRegRequest regRequest,
 			HttpServletRequest request
