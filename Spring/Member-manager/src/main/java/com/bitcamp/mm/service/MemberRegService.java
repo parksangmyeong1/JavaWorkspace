@@ -1,4 +1,4 @@
-package com.bitcamp.op.member.service;
+package com.bitcamp.mm.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,15 +6,12 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bitcamp.op.member.dao.Dao;
-import com.bitcamp.op.member.dao.JdbcTemplateMemberDao;
-import com.bitcamp.op.member.dao.mybatisMemberDao;
-import com.bitcamp.op.member.domain.Member;
-import com.bitcamp.op.member.domain.MemberRegRequest;
+import com.bitcamp.mm.dao.Dao;
+import com.bitcamp.mm.domain.Member;
+import com.bitcamp.mm.domain.MemberRegRequest;
 
 @Service
 public class MemberRegService {

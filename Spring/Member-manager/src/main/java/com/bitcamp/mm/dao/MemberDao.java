@@ -13,41 +13,10 @@ import org.springframework.stereotype.Repository;
 import com.bitcamp.mm.domain.Member;
 import com.bitcamp.mm.jdbc.JdbcUtil;
 
+
 @Repository
 public class MemberDao {
 
-	public List<Member> selectList(Connection conn) {
-
-		List<Member> list = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-
-		try {
-			stmt = conn.createStatement();
-
-			String sql = "select * from member";
-
-			rs = stmt.executeQuery(sql);
-
-			list = new ArrayList<Member>();
-
-			while (rs.next()) {
-				list.add(new Member(
-						rs.getInt(1), 
-						rs.getString(2), 
-						rs.getString(3), 
-						rs.getString(4),
-						rs.getString(5),
-						rs.getTimestamp(6)));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(stmt);
-		}
-		return list;
-	}
 
 	public int insertMember(Connection conn, Member member) throws SQLException {
 
@@ -56,7 +25,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 
 		String sql1 = "insert into member (memberid,password,membername) values (?, ?, ?)";
-		String sql2 = "insert into member (memberid,password,membername, memberphoto) values (?, ?, ?, ?)";
+		String sql2 = "insert into member (memberid,password,membername, memberphoto) values (?, ?, ?,?)";
 
 		try {
 			
@@ -81,6 +50,41 @@ public class MemberDao {
 
 		return resultCnt;
 
+	}
+
+	public List<Member> selectList(Connection conn) {
+
+		List<Member> list = null;
+
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = conn.createStatement();
+
+			String sql = "select * from member";
+
+			rs = stmt.executeQuery(sql);
+
+			list = new ArrayList<Member>();
+
+			while (rs.next()) {
+				list.add(new Member(
+						rs.getInt(1), 
+						rs.getString(2), 
+						rs.getString(3), 
+						rs.getString(4),
+						rs.getString(5),
+						rs.getTimestamp(6)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
+		}
+		return list;
 	}
 	
 	public Member selectByIdPw(Connection conn, String id, String pw) {
