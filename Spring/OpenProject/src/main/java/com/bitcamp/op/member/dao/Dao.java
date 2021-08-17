@@ -25,4 +25,7 @@ public interface Dao {
 	int selectTotalCount();
 	// 검색을 통한 회원 리스트
 	List<Member> selectMember(SearchType searchType);
+	
+	// Rest get : idx값으로 Member 객체 반환
+	Member selectByIdx(int idx);
 }

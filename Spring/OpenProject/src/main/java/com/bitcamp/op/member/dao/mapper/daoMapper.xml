@@ -86,6 +86,11 @@
 		</where>
 	</select>
 	
+	<select id="selectByIdx"
+		resultType="com.bitcamp.op.member.domain.Member">
+		select * from member where idx=#{idx}
+	</select>
+	
 	<sql id="searchId">
 		<!-- or가 생략된다. -->
 		or memberid like concat('%',#{keyword},'%')
