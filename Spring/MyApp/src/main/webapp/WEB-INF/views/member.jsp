@@ -56,7 +56,7 @@ img{
 		$('#memberid').focusout(function(){
 			// ajax 비동기 통신 > id를 서버로 보내고 사용 가능 유무의 응답 코드를 받는다 -> 화면에 메시지 출력
 			$.ajax({
-				url : 'http://localhost:8080/op/member/idCheck',
+				url : 'http://13.209.82.145:8080/op/member/idCheck',
 				type : 'post',
 				data : {
 					mid : $(this).val()
@@ -136,7 +136,7 @@ img{
 	
 	function memberList(){
 		$.ajax({
-			url : 'http://localhost:8080/op/members',
+			url : 'http://13.209.82.145:8080/op/members',
 			type : 'GET',
 			success : function(data){
 				// console.log(data);
@@ -146,7 +146,7 @@ img{
 					html += 'idx : ' + item.idx + '<br>';
 					html += '아이디 : ' + item.memberid + '<br>';
 					html += '이름 : ' + item.membername + '<br>';
-					html += '사진 : <img src="http://localhost:8080/op/uploadfile/' + item.memberphoto + '"><br>';
+					html += '사진 : <img src="http://13.209.82.145:8080/op/uploadfile/' + item.memberphoto + '"><br>';
 					html += '등록일 : ' + item.regdate + '<br>';
 					html += '</div>';
 					
@@ -172,7 +172,7 @@ img{
 				<td><input type="text" name="memberid" id="memberid"> <span
 					id="msg" class="display_none"></span> <img id="loadingimg"
 					class="display_none" alt="loading"
-					src="http://localhost8080/op/images/loading.gif"/></td>
+					src="http://13.209.82.145:8080/op/images/loading.gif"/></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>

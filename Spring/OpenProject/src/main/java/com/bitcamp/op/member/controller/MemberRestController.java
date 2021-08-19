@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +40,13 @@ public class MemberRestController {
 	 * @PostMapping
 	 */
 	@GetMapping("/members")
+	@CrossOrigin	// 어디에서 요청이 들어오든 통신 가능
 	public List<Member> getMembers(){
 		return service.getMembers();
 	}
 	
 	@GetMapping("/members1")
+	@CrossOrigin
 	public Map<Integer, Member> getMembers1(){
 		
 		return service.getMembers1();
