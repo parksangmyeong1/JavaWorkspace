@@ -87,7 +87,205 @@
         float: left;
     }
 
-    
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+
+    .Wrapper{
+        width: 1050px;
+        margin: 0 auto;
+        padding-top: 20px;
+    }
+    .Wrapper>#content{
+        width: 860px;
+        float: left;
+        display: block;
+        position: relative;
+    }
+    /* 사이드바 */
+    .Wrapper>.sidebar{
+        width: 150px;
+        height: 245px;
+        float: right;
+        background-color: #EEE;
+        border: 1px solid #DDD;
+        text-align: center;
+    }
+    .Wrapper>.sidebar>.floating-banner>.tabs{
+        height:26px;
+        border:1px solid #c8d0d7;
+        background:#ddd;
+    }
+    .Wrapper>.sidebar>.floating-banner>.shortcut_title{
+        color: #222;
+        font-size: 13px;
+    }
+    .shortcut_keys{
+        text-align: left;
+        background-color: white;
+        padding: 10px 0;
+    }
+    .shortcut_keys>li{
+        padding: 2px 5px;
+    }
+    .shortcut_keys>li>a{
+        padding-top: -px;
+    }
+    .shortcut_keys>li>a>img{
+        width: 20px;
+        position: relative;
+        top: 4px;
+    }
+    .contents{
+        color: #444;
+        font-size: 12px;
+        line-height: 1.5;
+        display: block;
+    }
+    /* 게시판 머리글 */
+    .board_header{
+        margin-bottom: 5px;
+    }
+    .board_nav{
+        margin: 0 1px 0px;
+        padding: 0 0 0 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 1px 1px #aaa;
+        overflow: hidden;
+        line-height: 40px;    
+        font-size: 14px;
+    }
+    .nav_left>a{
+        width: 30px;
+        float: left;
+    }
+    .nav_right>li{
+        list-style: none;
+        float: left;
+        margin-right: 10px;
+    }
+    .nav_left>.a1{
+        padding-right: 10px;
+        margin-right: 10px;
+        border-right: 1px solid #ddd;
+    }
+
+    /* 체크박스 */
+    .check_box input{
+        display: none;
+    }
+    .check_box .icon{
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-color: transparent;
+        border: 1px solid #000;
+        border-radius: 5px;
+        position: relative;
+        cursor: pointer;
+    }
+    .check_box .icon::before, .check_box .icon::after{
+        content: '';
+        display: inline-block;
+        width: 3px;
+        height: 0;
+        background-color: #ff1100;
+        position: absolute;
+        transform-origin: left top;
+        border-radius: 5px;
+    }
+    .check_box .icon::before{
+        top: 5px;
+        left: 1px;
+        transform: rotate(-45deg);
+    }
+    .check_box .icon::after{
+        top: 10px;
+        left: 10px;
+        transform: rotate(-135deg);
+    }
+    .check_box input:checked ~ .icon{
+        border-color: #ff1100;
+    }
+    .check_box input:checked ~ .icon::before{
+        height: 10px;
+        transition: all .35s ease;
+    }
+    .check_box input:checked ~ .icon::after{
+        height: 15px;
+        transition: all .35s ease .35s;
+    }
+
+    .page_wrap {
+	text-align:center;
+	font-size:0;
+ }
+.page_nation {
+	display:inline-block;
+}
+
+.page_nation a{
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:1px solid #e6e6e6;
+	width:28px;
+	height:28px;
+	line-height:28px;
+	text-align:center;
+	background-color:#fff;
+	font-size:13px;
+	color:#999999;
+	text-decoration:none;
+}
+.page_nation>a.now a:hover, .page_nation>a:focus, .page_nation a.active{
+	color:#fff;
+    font-weight: bold;
+	background-color:rgb(066, 133, 244);
+	border:1px solid rgb(066, 133, 244);
+}
+.page_nation .arrow {
+	border:1px solid #ccc;
+}
+.page_nation .first {
+	background:#f8f8f8;
+	margin-left:0;
+}
+.page_nation .prev {
+	background:#f8f8f8;
+	margin-right:7px;
+}
+.page_nation .next {
+	background:#f8f8f8;
+	margin-left:7px;
+}
+.page_nation .end {
+	background:#f8f8f8 url("") no-repeat center center;
+	margin-right:0;
+}
+.btn_write{
+    padding: 4px 14px 4px 10px;
+    font-size: 11px;
+    display: inline-block;
+    position: relative;
+    line-height: 28px;
+    height: 28px;
+    margin: 0 0 0 5px;
+    padding: 4px 20px;
+    background: linear-gradient(to bottom,#fff 0,#f3f3f3 100%);
+    border: 1px solid;
+    border-color: #ccc #c6c6c6 #c3c3c3 #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 </style>
 <body>
     <header>
@@ -124,12 +322,136 @@
             </div>
         </div>
     </header>
-    <section>
-        <div>
-            <h3><a href="#">COB 게시판</a></h3>
-        </div>
-    </section>
 
-    
+    <div id="container">
+        <div class="Wrapper">
+            <!-- sidebar -->
+            <div class="sidebar">
+                <div class="floating-banner">
+                    <ul class="tabs">
+                        <li class="shortcut_title">
+                            <a href="#">단축키<img src="https://cdn.ppomppu.co.kr/images/personal_setting_icon.png"></a>
+                        </li>
+                    </ul>
+                    <ul class="tab-contents-container">
+                        <div class="tab-contents" id="tab1-contents">
+                            <ul class="shortcut_keys">
+                                <li>
+                                    <a href="#"><img src="https://img.icons8.com/color/48/000000/1.png"/>회사소개</a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="https://img.icons8.com/color/48/000000/2.png"/>모임</a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="https://img.icons8.com/color/48/000000/3.png"/>게시판</a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="https://img.icons8.com/color/48/000000/4.png"/>자유게시판</a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="https://img.icons8.com/color/48/000000/5.png"/>잡담게시판</a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="https://img.icons8.com/color/48/000000/6.png"/>카페</a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="https://img.icons8.com/color/48/000000/7.png"/>게임</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div id="content">
+                <!-- contents -->
+                <div class="contents">
+                    <div class="board_header">
+                        <h2><a href="#">COB 게시판</a></h2>
+                    </div>
+                    <div class="board_nav">
+                        <div class="nav_left">
+                            <a class="home" href="#">
+                                <img src="https://img.icons8.com/material-outlined/24/000000/home-page.png"/>
+                            </a>
+                            <a class="a1" href="#">전체</a>
+                        </div>
+                        <div class="nav_right">
+                            <li>	
+                                <a href="#" style="color:#003f7f">질문 / 잡담</a>		
+                            </li>
+                            <li>	
+                                <a href="#" style="color:#007fff" >착샷</a>		
+                            </li>
+                            <li>	
+                                <a href="#" style="color:#00bf5f" >후기</a>
+                            </li>
+                            <li>	
+                                <a href="#" style="color:#7f3f00" >드로우/출시</a>	
+                            </li>
+                            <li>	
+                                <a href="#" style="color:#4f007c" ">패션TIP</a>	
+                            </li>
+                           <li>	
+                               <a href="#" style="color:#ff7f00" >정보/세일</a>	
+                            </li>
+                            <li>	
+                                <a href="" style="color:#ffaaaa" >미용</a> 
+                            </li>	
+                            <li>	
+                                <a href="#" style="color:#000000" >이벤트</a>	
+                            </li>
+                            <li>
+                               <a href="#" style="color:#ff0000" >공지</a>		
+                            </li>
+                        </div>
+                        <div class="check_box">
+                            <input type="checkbox" id="notice_hidden">
+                            <span class="icon"></span>
+                            <label for="notice_hidden">공지 숨기기</label>
+                        </div>
+                        <div class="paging_cnt">
+
+                        </div>
+                    </div>
+                </div>
+                <!-- searchbar -->
+                <div>
+                    <span class="btn_img itx_wrp">	
+                        <button type="submit" onclick="jQuery(this).parents('form.bd_srch_btm').submit(); return false;" class="ico_16px search">Search</button>	
+                        <label for="bd_srch_btm_itx_4477817">검색</label>	
+                        <input type="text" name="search_keyword" class="search">	
+                    </span>
+                    <span class="search_categori">	
+                        <select>
+                            <option value="title_content">제목+내용</option>
+                            <option value="title">제목</option>
+                            <option value="nick_name">닉네임</option>		
+                        </select>	
+                    </span>
+                    <!-- 글쓰기 페이지로 보내기 -->
+                    <a href="#" class="btn_write">글쓰기</a>
+                </div>
+                <!-- paging -->
+                <div class="page_wrap">
+                    <div class="page_nation">
+                        <a href="#" class="first"><img src="images/page_pprev.png"></a>
+                        <a href="#" class="prev"><img src="images/page_prev.png"></a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>
+                        <a href="#">8</a>
+                        <a href="#">9</a>
+                        <a href="#">10</a>
+                        <a href="#" class="next"><img src="images/page_next.png"></a>
+                        <a href="#" class="end"><img src="images/page_nnext.png"></a>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
