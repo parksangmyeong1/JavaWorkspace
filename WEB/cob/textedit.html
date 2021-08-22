@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>text edit</title>
+</head>
+<style>
+    div{
+        display: block;
+    }
+</style>
+<body>
+    
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+</head>
+<style>
+    /* header start */
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+
+    ul {
+        list-style: none;
+    }
+    header {
+        position: relative;
+        z-index: 20;
+        min-width: 980px;
+        width: 100%;
+        height: 140px;
+        background-color: rgb(66, 133, 244);
+        text-align: center;
+    }
+    .MultiBar {
+        display: inline-block;
+        height: 30px;
+        width: 100%;
+        max-width: 1280px;
+        padding: 12px 0px 5px;
+    } 
+
+    .area_gnb {
+        font-size: 12px;
+        width: 500px;
+        height: 30px;
+        float: right;
+        color: white;
+    }
+
+    .area_gnb>li {
+        float: right;
+        width: 75px;
+    }
+
+    .container {
+        display: inline-block;
+        height: 93px;
+        width: 100%;
+        max-width: 1280px;
+        position: relative;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        width: 180px;
+        margin-left: -90px;
+    }
+
+    .main_naviwrap {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1280px;
+        height: 80px;
+        margin-top: -98px;
+        padding-bottom: 10px;
+    }
+    .main_nav {
+        padding-top: 45px;
+    }
+    .main_nav>.left_ul {
+        float: left;
+        overflow: hidden;
+    }
+    .main_nav>.right_ul {
+        float: right;
+        overflow: hidden;
+    }
+
+    .main_nav>ul>li {
+        color: white;
+        width: 85px;
+        float: left;
+    }
+    /* header end */
+
+    /* contents */
+    .Wrapper{
+        width: 1050px;
+        margin: 0 auto;
+        padding-top: 20px;
+    }
+    .Wrapper>#content{
+        width: 860px;
+        float: left;
+        display: block;
+        position: relative;
+    }
+
+    body{
+        padding-left: 20px;
+        padding-top: 5px;
+    }
+    form{
+        margin: 10px 0;
+    }
+    button{
+        border: none;
+        outline: none;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+    #output{
+        width: 100%;
+        height: 400px;
+        border: 1px solid #DDD;
+        border-radius: 5px;
+    }
+    .active{
+        border: 1px solid crimson;
+    }
+    .WritingHeader{
+        overflow: hidden;
+        border-bottom: 1px solid #111;
+        padding-bottom: 10px;
+    }
+    .title{
+        float: left;
+    }
+    .upload_contents{
+        float: right;
+        min-width: 46px;
+        height: 36px;
+        margin-left: 10px;
+        padding: 0 12px;
+        font-size: 13px;
+        line-height: 36px;
+        background-color: rgb(166, 212, 255);
+        border-radius: 5px;
+        color: rgb(4, 65, 163);
+    }
+    
+    textarea{
+        display: block;
+        width: 100%;
+        min-height: 40px;
+        padding: 11px 12px 10px;
+        border: 1px solid #DDD;
+        box-sizing: border-box;
+        overflow: hidden;
+        resize: none;
+        font-size: 15px;
+        line-height: 17px;
+        outline: none;
+    }
+    .articlecate>select{
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #DDD;
+    }
+    .textarea_input{
+        height: 40px;
+        border-radius: 5px;
+    }
+</style>
+<body>
+
+    <header>
+        <div class="MultiBar">
+            <ul class="area_gnb">
+                <li>시작페이지로</li>
+                <li>다크모드</li>
+                <li>마이페이지</li>
+                <li>로그인</li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <img src="../cob/images/cob_white.png" class="logo">
+        </div>
+        <div class="main_naviwrap">
+            <div class="main_nav">
+                <ul class="left_ul">
+                    <li>회사소개</li>
+                    <li>회사소개</li>
+                    <li>회사소개</li>    
+                </ul>
+            </div>
+        </div>
+
+        <div class="main_naviwrap">
+            <div class="main_nav">
+                <ul class="right_ul">
+                    <li>모임</li>
+                    <li>게시판</li>
+                    <li>카페</li>
+                    <li>게임</li>    
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="Wrapper"> 
+        <div id="content">
+            <div class="WritingWrap">
+                <div class="WritingHeader">
+                    <h2 class="title">게시판 글쓰기</h2>
+                    <a href="#"><span class="upload_contents">등록</span></a>
+                </div>
+                <div class="articlecate">
+                    <select name="title" id="" style="width:100px;height:30px">
+                        <option value="">잡담</option>
+                        <option value="">질문</option>
+                        <option value="">후기</option>
+                        <option value="">드로우/출시</option>
+                        <option value="">게임TIP</option>
+                        <option value="">정보/세일</option>
+                        <option value="">지역</option>
+                        <option value="">기타</option>
+                        <option value="">공지</option>
+                    </select>
+                </div>
+                <div class="articletitle">
+                    <textarea placeholder="제목을 입력해 주세요." class="textarea_input"></textarea>
+                </div>
+                <div class="write_contents">
+                    <form class="btns-form">
+                        <button type="button" data-cmd="justifyLeft">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <button type="button" data-cmd="justifyCenter">
+                            <i class="fas fa-align-center"></i>
+                        </button>
+                        <button type="button" data-cmd="justifyFull">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                        <button type="button" data-cmd="justifyRight">
+                            <i class="fas fa-align-right"></i>
+                        </button>
+                        <button type="button" data-cmd="bold">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button type="button" data-cmd="italic">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button type="button" data-cmd="underline">
+                            <i class="fas fa-underline"></i>
+                        </button>
+                        <button type="button" data-cmd="insertOrderedList">
+                            <i class="fas fa-list-ol"></i>
+                        </button>
+                        <button type="button" data-cmd="insertUnorderedList">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                        <button type="button" data-cmd="insertImage">
+                            <i class="far fa-image"></i>
+                        </button>
+                        <button type="button" data-cmd="createLink">
+                            <i class="fas fa-link"></i>
+                        </button>
+                        <button type="button" data-cmd="showCode" name="active">
+                            <i class="fas fa-code"></i>
+                        </button>
+                    </form>
+                    <iframe id="output" name="textField">내용을 입력해주세요.</iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    
+    <script>
+        
+        const buttons = document.querySelectorAll('button');
+        const btnForm = document.querySelector(".btns-form");
+        let showCode = true;
+
+        textField.document.designMode = "On";
+
+        btnForm.addEventListener("click", async(e) => {
+            const cmd = e.target.closest('button').getAttribute('data-cmd');
+            switch(cmd){
+                case 'insertImage':
+                case 'createLink':
+                    const url = await prompt('Enter Link Here: ', "");
+                    textField.document.execCommand(cmd, false, url);
+
+                    const atags = textField.document.querySelectorAll("a");
+                    atags.forEach((atag) => {
+                        atag.target = "_blank";
+                        atag.addEventListener("mouseover", (e) => {textField.document.designMode = "Off"; });
+                        atag.addEventListener("mouseout", (e) => {textField.document.designMode = "On"; });
+                    });
+                    break;
+                case 'showCode':
+                    const textFieldBody = textField.document.querySelector("body"); 
+                    if(showCode){
+                        textFieldBody.textContent = textFieldBody.innerHTML;
+                        showCode = false;
+                    }
+                    else{
+                        textFieldBody.innerHTML = textFieldBody.textContent;
+                        showCode = true;
+                    }
+                    break;
+                default:
+                    textField.document.execCommand(cmd, false, null);
+                    break;
+            }
+        });
+    </script>
+</body>
+</html> 
