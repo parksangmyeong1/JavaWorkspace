@@ -7,25 +7,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Open Project : 회원 리스트</title>
-<%@ include file="/WEB-INF/views/frame/metaheader.jsp"%>
+<%@ include file="/WEB-INF/views/frame/bootstrap_metaheader.jsp"%>
 </head>
-<body>
-	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
-	<%@ include file="/WEB-INF/views/frame/nav.jsp"%>
-	<div id="content">
-		<h2>회원 리스트</h2>
+<body class="bg-light">
+<%-- 	<%@ include file="/WEB-INF/views/frame/header.jsp"%>
+	<%@ include file="/WEB-INF/views/frame/nav.jsp"%> --%>
+	<%@ include file="/WEB-INF/views/frame/bootstrap_header.jsp"%>
+	
+	<main role="main" class="container">
+		<div class="my-3 p-3 bg-white rounded shadow-sm">
+			<h2>회원 리스트</h2>
 		<hr>
-		<form>
-			검색타입
-			<select name="searchType">
+		<form class="form-inline">
+			<label class="mr-2">검색타입</label>
+			<select name="searchType" class="form-control mr-2">
 				<option value="id">아이디</option>
 				<option value="name">이름</option>
 				<option value="both">아이디+이름</option>
 			</select>
-			검색 키워드<input type="text" name="keyword">
-			<input type="submit" value="검색">
+			<label class="mr-2">검색 키워드</label>
+			<input type="text" class="form-control mr-2" name="keyword">
+			<input type="submit" class="form-control btn btn-success mr-2" value="검색">
 		</form>
-		<table class="border">
+		<table class="table">
 			<tr>
 				<th>IDX</th>
 				<th>아이디</th>
@@ -44,12 +48,14 @@
 				<td>${member.memberphoto}</td>
 				<td><fmt:formatDate value="${member.date}" type="both"/></td>
 				<td>
-					<a class="border" href="edit?idx=${member.idx}">수정</a> 
-					<a class="border" href="delete?idx=${member.idx}">삭제</a>
+					<a class="btn btn-primary" href="edit?idx=${member.idx}">수정</a> 
+					<a class="btn btn-danger" href="delete?idx=${member.idx}">삭제</a>
 				</td>
 			</tr>
 			</c:forEach>
 		</table>
 	</div>
+	</main>
+	<%@ include file="/WEB-INF/views/frame/bootstrap_footer.jsp"%>
 </body>
 </html> 
