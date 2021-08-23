@@ -6,15 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>contents</title>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
     /* header start */
     *{
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
     }
     a{
         text-decoration: none;
@@ -112,6 +107,24 @@
         display: block;
         position: relative;
     }
+    .board_header{
+        margin-bottom: 5px;
+        overflow: hidden;
+    }
+    .board_header>h3>a{
+        float: left;
+        margin-right: 10px;
+    }
+    .categori {
+        float: left;
+        border-left: 1px solid #AAA;
+        border-right: 1px solid #AAA;
+        padding: 0 10px;
+    }
+    .comments-text{
+        margin-bottom: 10px;
+    }
+
 </style>
 </head>
 <body>
@@ -152,7 +165,131 @@
 
     <div class="Wrapper">
         <div class="WritingWrap">
-            
+            <div class="board_header">
+                <h3><a href="#">COB 게시판</a></h3>
+                <a href="#" class="categori">잡담</a>
+            </div>
+            <div class="contents-wrap">
+                <div class="contents-header">
+                    
+                </div>
+                <div class="contents-info">
+                    
+                </div>
+                <div class="contents-text">
+                    <div class="contents-etc">
+
+                    </div>
+                </div>
+                <div class="contents-crud">
+
+                </div>
+                <div class="comments-wrap" style="width: 815px;">
+                    <div class="comments-best" style="border:5px solid rgb(243, 123, 123); margin-bottom: 10px;">
+                        <div style="background:#ffdddd;color:red;padding:9px 0 9px 0;">
+                            <span style="margin-left:10px;font-weight:bold;">베스트 댓글</span>
+                        </div>
+                        <div class="park" style="overflow: hidden;margin-top: 5px;">			
+                            <div class="comments-profile">
+                                <img src="https://img.icons8.com/ios/50/000000/nerd--v1.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
+                            </div>
+                            <div class="comments-info" style="margin-bottom: 10px;">
+                                <a href="#">
+                                    <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >park</a>
+                                    <span class="date">2021.06.30</span>
+                                    <span class="date">답글쓰기</span>	
+                                    <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                                    <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                                    <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                            </div>
+                            <div class="comments-text" style="margin-bottom: 5px;">
+                                유익한 정보 감사합니다.<br>댓글 남기고 가여~~
+                            </div>					
+                        </div>
+                    </div>
+                    <div class="comments">
+                        <ul>
+                            <li>
+                                <div class="park" style="margin-bottom: 10px; overflow: hidden; border-bottom: 1px solid #AAA; font-size: 12px;">			
+                                    <div class="comments-profile">
+                                        <img src="https://img.icons8.com/ios/50/000000/cat-profile.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
+                                    </div>
+                                    <div class="comments-info" style="margin-bottom: 10px;">
+                                        <a href="#">
+                                            <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >senei</a>
+                                            <span class="date">2021.06.30</span>
+                                            <span class="date">답글쓰기</span>	
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                    </div>
+                                    <div class="comments-text">
+                                        1111111111111<br>zzz
+                                    </div>					
+                                </div>	
+                            </li>
+                            <li class="recomments" style="margin-left: 4%;">
+                                <img style="float: left; width: 20px;" src="https://img.icons8.com/ios/50/000000/right3.png"/>
+                                <div class="park" style="margin-bottom: 10px; overflow: hidden; border-bottom: 1px solid #AAA; font-size: 12px;">			
+                                    <div class="comments-profile">
+                                        <img src="https://img.icons8.com/ios/50/000000/user-female-circle.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
+                                    </div>
+                                    <div class="comments-info" style="margin-bottom: 10px;">
+                                        <a href="#">
+                                            <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >son</a>
+                                            <span class="date">2021.06.30</span>
+                                            <span class="date">답글쓰기</span>	
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                    </div>
+                                    <div class="comments-text">
+                                        ㄱㅅㄱㅅㄱㅅㄱㅅ
+                                    </div>					
+                                </div>	
+                            </li>
+                            <li>
+                                <div class="park" style="margin-bottom: 10px; overflow: hidden; border-bottom: 1px solid #AAA; font-size: 12px;">			
+                                    <div class="comments-profile">
+                                        <img src="https://img.icons8.com/ios/50/000000/cat-profile.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
+                                    </div>
+                                    <div class="comments-info" style="margin-bottom: 10px;">
+                                        <a href="#">
+                                            <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >king</a>
+                                            <span class="date">2021.06.30</span>
+                                            <span class="date">답글쓰기</span>	
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                                            <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                    </div>
+                                    <div class="comments-text">
+                                        222222222222222222<br>댓글 남기고 가여~~
+                                    </div>					
+                                </div>	
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="comments-write" style="border: 1px solid #ddd; border-bottom-color: #ccc; border-radius: 8px;
+                    box-shadow:0 1px 3px -1px rgb(0 0 0 / 10%); overflow: hidden; padding: 8px 15px; margin-bottom: 15px;">
+                        <label for="write-comments"><strong style="padding-left:5px;">댓글 쓰기</strong></label>
+                        <div style="margin-top: 13px;">
+                            <textarea id="write-comments" cols="50" rows="4" style="border-radius: 5px;border: 1px solid #CCC; resize: none; float: left; min-height: 4em; height: 46px; width: 90%; margin-left: 3px; padding: 4px" placeholder="댓글을 입력해주세요."></textarea>
+                            <input type="submit" style="float: right; width: 60px; height: 50px; " value="등록">
+                        </div>
+                    </div>
+                    <div class="comments-paging" style="text-align: center; margin-bottom: 20px;">
+                        <a href="#"><span>첫 페이지</span></a>			
+                        <a href="#">1</a>			
+                        <a href="#">2</a>
+                        <a href="#">3</a>	
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">7</a>					
+                        <a href="#"><span>끝 페이지</span></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
