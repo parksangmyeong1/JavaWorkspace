@@ -7,9 +7,18 @@
     <title>Come on, Board</title>
 </head>
 <style>
+    /* header start */
     * {
         margin: 0;
         padding: 0;
+    }
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        text-decoration: underline;
     }
 
     ul {
@@ -86,16 +95,9 @@
         width: 85px;
         float: left;
     }
+    /* header end */
 
-
-    a{
-        text-decoration: none;
-        color: black;
-    }
-    a:hover{
-        text-decoration: underline;
-    }
-
+    /* wrapper start */
     .Wrapper{
         width: 1050px;
         margin: 0 auto;
@@ -107,7 +109,9 @@
         display: block;
         position: relative;
     }
-    /* 사이드바 */
+    /* wrapper end */
+    
+    /* side-bar start */
     .Wrapper>.sidebar{
         width: 150px;
         height: 245px;
@@ -147,7 +151,9 @@
         line-height: 1.5;
         display: block;
     }
-    /* 게시판 머리글 */
+    /* side-bar end */
+
+    /* board-header */
     .board_header{
         margin-bottom: 5px;
     }
@@ -177,8 +183,9 @@
         margin-right: 10px;
         border-right: 1px solid #ddd;
     }
+    /* board-header */
 
-    /* 체크박스 */
+    /* checkbox */
     .check_box{
         float: right;
     }
@@ -226,9 +233,9 @@
         height: 15px;
         transition: all .35s ease .35s;
     }
-    /* 체크박스 end */
+    /* checkbox end */
 
-    /* list count paging */
+    /* list-count-paging */
     .dataPerPage{
         float: right;
         margin: 0 10px;
@@ -241,25 +248,26 @@
     .page_nation {
         display:inline-block;
     }
-    /* list count paging end*/
+    /* list-count-paging end*/
 
     /* contents */
     table {
         width: 100%;
-        border-top: 1px solid #444444;
+        margin: 15px 0;
         border-collapse: collapse;
+        border-top: 1px solid #DDD;
     }
     th, td {
         border-bottom: 1px solid #444444;
         text-align: center;
         padding: 2px;
     }
-    table .notice>.writer, table .notice>.title{
+    .notice>.writer,.notice>.title, .content>.writer,.content>.title{
         text-align: left;
     }
     /* contents end */
     
-    /* 검색창줄 start */
+    /* search-bar start */
     .search_wrap{
         overflow: hidden;
         margin: 20px 0;
@@ -321,9 +329,9 @@
         border-radius: 3px;
         cursor: pointer;
     }
-    /* 검색창 end */
+    /* search-bar end */
 
-    /* pageing start */
+    /* paging start */
     .page_nation a{
         display:block;
         margin:0 3px;
@@ -360,14 +368,11 @@
         background:#f8f8f8;
         margin-left:7px;
     }
-    .page_nation .end {
+    .page_nation .last {
         background:#f8f8f8 url("") no-repeat center center;
         margin-right:0;
     }
-    /* pageing end */
-
-    
-
+    /* paging end */
 
 </style>
 <body>
@@ -454,7 +459,7 @@
                     <div class="board_nav">
                         <div class="nav_left">
                             <a class="home" href="#">
-                                <img src="https://img.icons8.com/material-outlined/24/000000/home-page.png"/>
+                                <img style="margin-bottom: -7px;" src="https://img.icons8.com/material-outlined/24/000000/home-page.png"/>
                             </a>
                             <a class="a1" href="#">전체</a>
                         </div>
@@ -505,7 +510,7 @@
                     </div>
                     <div>
                         <table>
-                            <thead class="bg_f_f9">	
+                            <thead style="height: 35px;">	
                                 <tr>
                                     <th scope="col" class="m_no">
                                         <span>카테고리</span>
@@ -532,7 +537,7 @@
                                     <td class="cate" style="color:#3f007f"><a href="#" style="color:#3f007f">공지</a></td>	
                                     <td class="title">	
                                         <a href="#"><span style="font-weight:bold;;color:#bf0000">공지] 게시판을 사용하기 전에 반드시 읽어야 하는 통합 공지!!!</span></a>
-                                        <span class="extraimages"></span>	
+                                        <span style="font-weight: bold;">11</span>	
                                     </td>															
                                     <td class="writer">
                                         <span>	
@@ -543,9 +548,9 @@
                                     <td class="views">1162949</td>	
                                     <td class="good_count">&nbsp;</td>						
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a><span style="font-weight: bold;margin-left: 5px;">11</span></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -555,9 +560,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -567,9 +572,11 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a>
+                                        <span style="font-weight: bold;margin-left: 5px;">5</span>
+                                        <img style="margin-bottom: -7px;" src="https://img.icons8.com/material-outlined/24/000000/image.png"/></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -579,9 +586,10 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a>
+                                        <span style="font-weight: bold;margin-left: 5px;">110</span></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -591,9 +599,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -603,9 +611,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -615,9 +623,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -627,9 +635,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -639,9 +647,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -651,9 +659,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -663,9 +671,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -675,9 +683,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -687,9 +695,10 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a>
+                                        <span style="font-weight: bold;margin-left: 5px;">10</span></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -699,9 +708,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -711,9 +720,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -723,9 +732,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -735,9 +744,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -747,9 +756,11 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a>
+                                        <span style="font-weight: bold;margin-left: 5px;">11</span>
+                                        <img src="https://img.icons8.com/material-outlined/24/000000/image.png"/></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -759,9 +770,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -771,9 +782,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -783,9 +794,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -795,9 +806,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -807,9 +818,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -819,9 +830,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -831,9 +842,9 @@
                                     <td class="views">13</td>														
                                     <td class="good_count">1</td>
                                 </tr>
-                                <tr class="notice">
+                                <tr class="content">
                                     <td class="cate" style="color:#f50000"><a href="#" >잡담</a></td>
-                                    <td class="title">1번 게시글</td>
+                                    <td class="title"><a href="#">1번 게시글</a></td>
                                     <td class="writer">
                                         <span>	
                                         <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>		
@@ -881,7 +892,7 @@
                         <a href="#">9</a>
                         <a href="#">10</a>
                         <a href="#" class="next"><img src="images/page_next.png"></a>
-                        <a href="#" class="end"><img src="images/page_nnext.png"></a>
+                        <a href="#" class="last"><img src="images/page_nnext.png"></a>
                     </div>
                  </div>
             </div>
