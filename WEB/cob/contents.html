@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>contents</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js" 
+integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
+crossorigin="anonymous">
+</script>
+    
 <style>
     /* header start */
     *{
@@ -94,19 +99,24 @@
         float: left;
     }
     /* header end */
-
-    /* contents */
+    
     .Wrapper{
         width: 1050px;
         margin: 0 auto;
         padding-top: 20px;
     }
-    .contents{
-        border: 1px solid #CCC;
-        border-radius: 5px;
+    .Wrapper>.WritingWrap{
+        width: 815px;
     }
+    .Wrapper>.WritingWrap>.contents{
+        border: 1px solid #CCC;
+        padding: 0 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    /* board_header */
     .board_header{
-        margin: 15px;
+        margin-top: 15px;
         padding-bottom: 10px;
         overflow: hidden;
         border-bottom: 1px solid #CCC;
@@ -115,30 +125,365 @@
         float: left;
         margin-right: 10px;
     }
-    .categori {
+    .board_header>.categori {
         float: left;
         border-left: 1px solid #AAA;
         border-right: 1px solid #AAA;
         padding: 0 10px;
     }
+
+    .board_header>.categori-right {
+        float: right;
+        border-left: 1px solid #AAA;
+        padding: 0 10px;
+    }
+    .board_header>.categori-write {
+        float: right;
+        border-left: 1px solid #AAA;
+        padding-left: 10px;
+    }
+    /* board_header end */
+
+    /* contents-header start */
+    .contents-header{
+        border-bottom: 1px solid #CCC;
+    }
+    .contents-header>.header1, .contents-header>.header2{
+        margin: 10px 0;
+        padding: 0 10px;
+        overflow: hidden;
+    }
+    .contents-header>.header1>.title{
+        float: left;
+    }
+    .contents-header>.header1>.time, .contents-header>.header1>a{
+        float: right;
+    }
+    .contents-header>.header1 img{
+        width: 18px;
+        margin-right: 5px;
+    }
+    .contents-header>.header2 img{
+        vertical-align:middle;
+        float: left;
+    }
+    .contents-header>.header2 span{
+        float: right;
+        margin-right: 10px;
+    }
+    .contents-header>.header2>.commentsCnt{
+        margin: 0;
+    }
+    /* contents-header end */
+    
+    /* comments-text start */
     .comments-text{
         margin-bottom: 10px;
+        overflow: hidden;
     }
-    .WritingWrap{
-        width: 815px;
-    }
-    .contents-crud>a{
-        float: left; 
-        border-radius: 5px; 
-        padding: 4px 14px 4px 10px;
-        font-size: 11px;
-        line-height: 1.6;
-        background: #cfcfcf;
-        margin-right: 10px;
+    /* comments-text end */
+    
+    /* contents-etc start */
+    .contents-etc{
+        overflow: hidden;
+        text-align:center;
         margin-bottom: 10px;
     }
+    .contents-etc>.updown{
+        margin-bottom: 30px;
+    }
+    .contents-etc>.updown>.up{
+        display: inline-block;
+        width: 100px;
+        border: 3px solid #4a90e2;
+        padding: 10px 17px 5px;
+        margin-right: 20px;
+    }
+    .contents-etc>.updown>.up img, .contents-etc>.updown>.down img{
+        width:30px;
+        margin-right: 10px;
+    }
+    .contents-etc>.updown>.up>strong{
+        color: #4a90e2;
+        vertical-align: 50%;
+    }
+    .contents-etc>.updown>.down{
+        display: inline-block;
+        width: 100px;
+        border: 3px solid #fa314a;
+        padding: 10px 17px 5px;
+    }
+    .contents-etc>.updown>.down>strong{
+        color: #fa314a;
+        vertical-align: 50%;
+    }
+    /* contents-etc end */
+
+    /* contents-crud start */
+    .contents-crud{
+        overflow: hidden;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 10px;
+    }
+    .contents-crud>a{
+        border-radius: 5px; 
+        padding: 4px 14px 4px 14px;
+        font-size: 11px;
+        background: #cfcfcf;
+        margin: 0 10px 10px 0;
+    }
+    .contents-crud>.contents-c{
+        background-color: rgb(166, 212, 255, 0.5);
+        color: rgb(4, 65, 163);
+    }
+    .contents-crud>.contents-u{
+        background-color: rgb(160, 247, 163, 0.5);
+        color: rgb(39, 180, 46);
+    }
+    .contents-crud>.contents-d{
+        background-color: rgb(253, 176, 176, 0.5);
+        color: rgb(253, 60, 60);
+    }
+    .contents-crud>.contents-r{
+        float: right;
+        margin-right: 0px;
+    }
+    /* contents-crud end */
+
+    /* comments-text start */
+    .contents-text{
+        text-align: center; 
+        padding: 30px 0 50px 0;
+    }
+    .contents-text>img{
+        max-width: 100%;
+    }
+    .icons-wrap>a>img{
+        width:25px; 
+        height:25px; 
+        float: right;
+        margin: 0 10px 10px 0;
+    }
+    /* comments-text end */
+
+    /* comments-best start */
+    .id{
+        overflow: hidden;
+        margin-top: 5px;
+        border-bottom: 1px solid #AAA;
+        font-size: 12px;
+    }
+    .comments-best{
+        border:5px solid rgb(243, 123, 123);
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .comments-best>.commemts-best-title{
+        background:#ffdddd;
+        color:red;
+        padding: 9px 0;
+    }
+    .comments-best>.commemts-best-title>span{
+        margin-left: 10px;
+        font-weight: bold;
+    }
+    
+    .comments-profile{
+        float: left; 
+        margin-right:3px; 
+        width: 60px; 
+        height:60px;
+    }
+    .comments-profile>img{
+        margin-right:3px; 
+        width: 60px; height:60px;
+    }
+    .comments-info{
+        margin-bottom: 10px;
+    }
+    .comments-info img{
+        vertical-align: middle;
+        width:25px; 
+        height:25px; 
+        float: right;
+        margin-right: 10px;
+    }
+    .comments .comments-info>a>.rank, .comments-best .comments-info>a>.rank{
+        float: left;
+        vertical-align: middle;
+        margin-right: 3px;
+        width: 18px;
+        height: 18px;
+    }
+
+    /* recomments start */
+    .recomments{
+        overflow: hidden;
+        background-color: rgb(198, 224, 248);
+        border: 5px solid rgb(125, 106, 235);
+        border-radius: 8px;
+        box-shadow:0 1px 3px -1px rgb(0 0 0 / 10%);
+        padding: 8px 15px;
+        margin-bottom: 15px;
+    }
+
+    .recomments>img{
+        float: left; 
+        width: 20px;
+    }
+    .recomments>.write{
+        font-size: 12px;
+    }
+    .remove-comments{
+        float: right;
+        font-size: 12px;
+    }
+    .recomments>.recomments-text{
+        margin-top: 13px;
+    }
+    .recomments>.recomments-text>.write-comments{
+        border-radius: 5px;
+        border: 1px solid #CCC; 
+        resize: none; float: 
+        left; min-height: 4em; 
+        height: 46px; 
+        width: 85%; 
+        margin-left: 3px; 
+        padding: 4px;
+    }
+    .recomments>.recomments-text>input{
+        float: right; 
+        width: 60px; 
+        height: 50px; 
+        color: rgb(198, 224, 248); 
+        background-color: rgb(166, 212, 255); 
+        border-radius: 5px; 
+        color: rgb(4, 65, 163);
+    }
+    /* recomments end */
+
+    /* re-reconmments start */
+    .re-recomments{
+        overflow: hidden;
+    }
+    .re-recomments>img{
+        width: 20px;
+        float: left;
+        margin-left: 4%;
+    }
+    .re-recomments-profile>img{
+        float: left; 
+        margin-right:3px; 
+        width: 60px; 
+        height:60px;
+    }
+    .re-recomments-info .rank{
+        float: left;
+        margin-right:3px; 
+        width:18px; 
+        height:18px;
+    }
+    .re-recomments-info{
+        font-size: 12px;
+    }
+    .re-recomments-text>.write-comments{
+        border-radius: 5px;
+        border: 1px solid #CCC; 
+        resize: none; float: 
+        left; min-height: 4em; 
+        height: 46px; 
+        width: 85%; 
+        margin-left: 3px; 
+        padding: 4px;
+    }
+    .re-recomments>.re-recomments-text>input{
+        
+    }
+    .re-re-recomments>..write-comments{
+        
+    }
+    /* re-reconmments end */
+    
+    /* comments-write start */
+    .comments-write{
+        border: 5px solid rgb(125, 106, 235); 
+        border-radius: 8px;
+        box-shadow:0 1px 3px -1px rgb(0 0 0 / 10%);
+        overflow: hidden; 
+        padding: 8px 15px; 
+        margin-bottom: 15px; 
+        background-color: rgb(198, 224, 248);
+    }
+    .comments-write>label{
+        padding-left:5px;
+    }
+    .comments-write>div{
+        margin-top: 13px;
+    }
+    .comments-write>div>.write-comments{
+        border-radius: 5px;
+        border: 1px solid #CCC;
+        resize: none; 
+        float: left; 
+        min-height: 4em; 
+        height: 46px; 
+        width: 90%; 
+        margin-left: 3px; 
+        padding: 4px;
+    }
+    .comments-write>div>input{
+        float: right; 
+        width: 60px; 
+        height: 50px; 
+        color: rgb(198, 224, 248); 
+        background-color: rgb(166, 212, 255); 
+        border-radius: 5px; 
+        color: rgb(4, 65, 163);
+    }
+    /* comments-best end */
+    
+    /* comments-paging start */
+    .comments-paging{
+        text-align: center; 
+        margin-bottom: 20px;
+    }
+    /* comments-paging end */
+
+    .display-none{
+        display: none;
+    }
+    .remove-comments:hover, .add-recomments:hover{
+        cursor: pointer;
+    }
+    
 
 </style>
+
+<script>
+    $(document).ready(function(){
+        $('.add-recomments').click(function(){
+            // $('.add-recomments ~ .recomments').removeClass('display-none');
+            $(this).nextAll().removeClass('display-none');
+        })
+        $('.add-re-recomments').click(function(){
+            // $('.add-recomments ~ .recomments').removeClass('display-none');
+            $(this).nextAll().removeClass('display-none');
+        })
+        $('.write').click(function(){
+            $('.recomments').addClass('display-none');
+        })
+        $('.remove-comments').click(function(){
+            $('.recomments').addClass('display-none');
+        })
+        $('.re-write').click(function(){
+            $('.re-re-recomments').addClass('display-none');
+        })
+        $('.remove-re-recomments').click(function(){
+            $('.re-re-recomments').addClass('display-none');
+        })
+    });
+</script>
+
 </head>
 <body>
     <header>
@@ -180,123 +525,186 @@
         <div class="WritingWrap">
             <div class="contents">
                 <div class="board_header">
-                    <h3><a href="#">COB 게시판</a></h3>
-                    <a href="#" class="categori">잡담</a>
+                    <h3><a href="board.html">COB 게시판</a></h3>
+                    <a href="board.html" class="categori">잡담</a>
+                    <a href="textedit.html" class="categori-write">글쓰기</a>
+                    <a href="#" class="categori-right">다음글</a>
+                    <a href="#" class="categori-right">이전글</a>
+                    <a href="board.html" class="categori-right">목록</a>
                 </div>
                 <div class="contents-wrap">
                     <div class="contents-header">
-                        
-                    </div>
-                    <div class="contents-info">
-                        
+                        <div class="header1">
+                            <span class="title">안녕하세요 새롭게 가입했습니다. 반가워요!!!!</span>
+                            <span class="time">2021.08.16 13:11</span>
+                            <a herf="#" onclick="return alert('주소가 복사되었습니다.')">
+                                <img src="https://img.icons8.com/pastel-glyph/64/000000/copy--v1.png" alt="링크 주소복사 아이콘" title="주소복사">
+                            </a>
+                        </div>
+                        <div class="header2">
+                            <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>
+                            <span class="commentsCnt">댓글 : 4</span>
+                            <span>좋아요 : 11</span>
+                            <span>조회수 : 20</span>
+                        </div>
                     </div>
                     <div class="contents-text">
-                        <div class="contents-etc">
-    
+                        <p>게임 1</p><br><br>
+                        <img src="images/game1.jpg"><br><br>
+                        <p>게임 2</p><br><br>
+                        <img src="images/game2.jpg"><br><br>
+                        <p>게임 3</p><br><br>
+                        <img src="images/game3.jpg"><br><br>
+                        <p>게임 4</p><br><br>
+                        <img src="images/game4.jpg"><br><br>
+                        <p>게임 같이 할 사람 구해요!!</p>
+                    </div>
+                    <div class="contents-etc">
+                        <div class="updown">
+                            <div class="up">
+                                <a><img src="https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png"/></a>
+                                <strong>2000</strong>
+                            </div>
+                            <div class="down">
+                                <a><img src="https://img.icons8.com/material-rounded/24/fa314a/thumbs-down.png"/></a>
+                                <strong >3</strong>
+                            </div>
+                        </div>
+                        <div class="icons-wrap">
+                            <a><img alert src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                            <a><img src="https://img.icons8.com/wired/64/000000/paste.png"/></a>
+                            <a><img src="https://img.icons8.com/material-outlined/24/000000/share.png"/></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="contents-crud" style="overflow: hidden; border-bottom: 1px solid #CCC; margin-bottom: 10px;">
-                <a href="#" style="background-color: rgb(166, 212, 255, 0.5); color: rgb(4, 65, 163); border: none;">글쓰기</a>
-                <a href="#" style="background-color: rgb(160, 247, 163, 0.5); color: rgb(39, 180, 46); border: none;">수정</a>
-                <a href="#" style="background-color: rgb(253, 176, 176, 0.5); color: rgb(253, 60, 60); border: none;">삭제</a>
-                <a href="#" style="float: right; margin-right: 0px;">목록</a>
+            <div class="contents-crud">
+                <a href="textedit.html" class="contents-c">글쓰기</a>
+                <a href="#" class="contents-u" >수정</a>
+                <a href="#" class="contents-d" onclick="return confirm('해당게시글을 삭제하시겠습니까?');">삭제</a>
+                <a href="board.html" class="contents-r">목록</a>
             </div>
             <div class="comments-wrap">
-                <div class="comments-best" style="border:5px solid rgb(243, 123, 123); margin-bottom: 10px;">
-                    <div style="background:#ffdddd;color:red;padding:9px 0 9px 0;">
-                        <span style="margin-left:10px;font-weight:bold;">베스트 댓글</span>
+                <div class="comments-best">
+                    <div class="commemts-best-title">
+                        <span>베스트 댓글</span>
                     </div>
-                    <div class="park" style="overflow: hidden;margin-top: 5px;">			
+                    <div>			
                         <div class="comments-profile">
-                            <img src="https://img.icons8.com/ios/50/000000/nerd--v1.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
+                            <img src="https://img.icons8.com/ios/50/000000/nerd--v1.png" >
                         </div>
-                        <div class="comments-info" style="margin-bottom: 10px;">
-                            <a href="#">
-                                <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >park</a>
-                                <span class="date">2021.06.30 12:20</span>
-                                <span class="date">답글쓰기</span>	
-                                <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                                <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                        <div class="comments-info">
+                            <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png">park</a>
+                            <span class="date">2021.06.30 12:20</span>
+                            <a class="add-recomments">답글쓰기</a>	
+                            <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                            <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                            <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                            <div class="comments-text">
+                                유익한 정보 감사합니다.<br>댓글 남기고 가여~~
+                            </div>
+                            <div class="recomments display-none">
+                                <label class="write">댓글 쓰기</label> 
+                                <a class="remove-comments">닫기</a>
+                                <div class="recomments-text">
+                                    <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                    <input type="submit" onclick="submitcomments()" value="등록">
+                                </div>
+                            </div>
                         </div>
-                        <div class="comments-text" style="margin-bottom: 5px;">
-                            유익한 정보 감사합니다.<br>댓글 남기고 가여~~
-                        </div>					
                     </div>
                 </div>
                 <div class="comments">
                     <ul>
                         <li>
-                            <div class="park" style="margin-bottom: 10px; overflow: hidden; border-bottom: 1px solid #AAA; font-size: 12px;">			
+                            <div class="id">
                                 <div class="comments-profile">
-                                    <img src="https://img.icons8.com/ios/50/000000/cat-profile.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
+                                    <img src="https://img.icons8.com/ios/50/000000/cat-profile.png" >
                                 </div>
-                                <div class="comments-info" style="margin-bottom: 10px;">
-                                    <a href="#">
-                                        <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >senei</a>
-                                        <span class="date">2021.06.30 19:18</span>
-                                        <span class="date">답글쓰기</span>	
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
-                                </div>
-                                <div class="comments-text">
-                                    1111111111111<br>zzz
-                                </div>					
-                            </div>	
-                        </li>
-                        <li class="recomments" style="margin-left: 4%;">
-                            <img style="float: left; width: 20px;" src="https://img.icons8.com/ios/50/000000/right3.png"/>
-                            <div class="park" style="margin-bottom: 10px; overflow: hidden; border-bottom: 1px solid #AAA; font-size: 12px;">			
-                                <div class="comments-profile">
-                                    <img src="https://img.icons8.com/ios/50/000000/user-female-circle.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
-                                </div>
-                                <div class="comments-info" style="margin-bottom: 10px;">
-                                    <a href="#">
-                                        <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >son</a>
-                                        <span class="date">2021.06.30 10:56</span>
-                                        <span class="date">답글쓰기</span>	
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
-                                </div>
-                                <div class="comments-text">
-                                    ㄱㅅㄱㅅㄱㅅㄱㅅ
-                                </div>					
+                                <div class="comments-info">
+                                    <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >senei</a>
+                                    <span class="date">2021.06.30 19:18</span>
+                                    <a class="add-recomments" class="date">답글쓰기</a>	
+                                    <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                                    <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                                    <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                    <div class="comments-text">
+                                        1111111111111<br>zzz
+                                    </div>
+                                    <div class="recomments display-none">
+                                        <label class="write">댓글 쓰기</label> 
+                                        <a class="remove-comments">닫기</a>
+                                        <div class="recomments-text">
+                                            <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                            <input type="submit" onclick="submitcomments()" value="등록">
+                                        </div>
+                                    </div>
+                                </div>		
                             </div>	
                         </li>
                         <li>
-                            <div class="park" style="margin-bottom: 10px; overflow: hidden; border-bottom: 1px solid #AAA; font-size: 12px;">			
+                            <div class="id">			
                                 <div class="comments-profile">
-                                    <img src="https://img.icons8.com/ios/50/000000/cat-profile.png" style="float: left; vertical-align:middle; margin-right:3px; width: 60px; height:60px;" >
+                                    <img src="https://img.icons8.com/ios/50/000000/cat-profile.png">
                                 </div>
-                                <div class="comments-info" style="margin-bottom: 10px;">
-                                    <a href="#">
-                                        <img src="https://img.icons8.com/ios/50/fa314a/diamond.png" style="vertical-align:middle; margin-right:3px; width:18px; height:18px;" >king</a>
-                                        <span class="date">2021.06.30 11:16</span>
-                                        <span class="date">답글쓰기</span>	
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                                        <a><img style="vertical-align:middle;width:25px; height:25px; float: right;margin-right: 10px;" src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                <div class="comments-info">
+                                    <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >king</a>
+                                    <span class="date">2021.06.30 11:16</span>
+                                    <a class="add-recomments" class="date">답글쓰기</a>	
+                                    <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                                    <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                                    <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                    <div class="comments-text">
+                                        222222222222222222<br>댓글 남기고 가여~~
+                                    </div>
+                                    <div class="recomments display-none">
+                                        <label class="write">댓글 쓰기</label> 
+                                        <a class="remove-comments">닫기</a>
+                                        <div class="recomments-text">
+                                            <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                            <input type="submit" onclick="submitcomments()" value="등록">
+                                        </div>
+                                    </div>
+                                    <div class="re-recomments">
+                                        <img src="https://img.icons8.com/ios/50/000000/right3.png"/>
+                                        <div class="id">			
+                                            <div class="re-recomments-profile">
+                                                <img src="https://img.icons8.com/ios/50/000000/user-female-circle.png">
+                                            </div>
+                                            <div class="re-recomments-info">
+                                                <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >son</a>
+                                                <span class="date">2021.06.30 10:56</span>
+                                                <a class="add-re-recomments" class="date">답글쓰기</a>	
+                                                <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                                                <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
+                                                <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                                <div class="comments-text">
+                                                    ㄱㅅㄱㅅㄱㅅㄱㅅ<br>ㄱㅅㄱㅅㄱㅅㄱㅅ
+                                                </div>
+                                                <div class="re-re-recomments display-none">
+                                                    <label class="re-write">댓글 쓰기</label> 
+                                                    <a class="remove-re-recomments">닫기</a>
+                                                    <div class="re-recomments-text">
+                                                        <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                                                        <input type="submit" onclick="submitcomments()" value="등록">
+                                                    </div>
+                                                </div>
+                                            </div>		
+                                        </div>	
+                                    </div>
                                 </div>
-                                <div class="comments-text">
-                                    222222222222222222<br>댓글 남기고 가여~~
-                                </div>					
-                            </div>	
+                            </div>
                         </li>
                     </ul>
                 </div>
-                <div class="comments-write" style="border: 5px solid rgb(125, 106, 235); border-radius: 8px;
-                box-shadow:0 1px 3px -1px rgb(0 0 0 / 10%); overflow: hidden; padding: 8px 15px; margin-bottom: 15px; background-color: rgb(198, 224, 248);">
-                    <label for="write-comments" style="padding-left:5px;">댓글 쓰기</label>
-                    <div style="margin-top: 13px;">
-                        <textarea id="write-comments" cols="50" rows="4" style="border-radius: 5px;border: 1px solid #CCC; resize: none; float: left; min-height: 4em; height: 46px; width: 90%; margin-left: 3px; padding: 4px" placeholder="댓글을 입력해주세요."></textarea>
-                        <input type="submit" style="float: right; width: 60px; height: 50px; color: rgb(198, 224, 248); background-color: rgb(166, 212, 255); border-radius: 5px; color: rgb(4, 65, 163);" value="등록">
+                <div class="comments-write">
+                    <label>댓글 쓰기</label>
+                    <div>
+                        <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+                        <input type="submit" onclick="submitcomments()" value="등록">
                     </div>
                 </div>
-                <div class="comments-paging" style="text-align: center; margin-bottom: 20px;">
+                <div class="comments-paging">
                     <a href="#"><span>첫 페이지</span></a>			
                     <a href="#">1</a>			
                     <a href="#">2</a>
@@ -308,6 +716,9 @@
                     <a href="#"><span>끝 페이지</span></a>
                 </div>
             </div>
+        </div>
+        <div class="control-bar">
+            control-bar
         </div>
     </div>
 </body>
