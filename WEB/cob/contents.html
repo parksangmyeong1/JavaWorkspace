@@ -23,7 +23,9 @@ crossorigin="anonymous">
     a:hover{
         text-decoration: underline;
     }
-
+    div{
+        display: block;
+    }
     ul {
         list-style: none;
     }
@@ -227,9 +229,8 @@ crossorigin="anonymous">
     }
     .contents-crud>a{
         border-radius: 5px; 
-        padding: 4px 14px 4px 14px;
-        font-size: 11px;
-        background: #cfcfcf;
+        padding: 4px 14px;
+        font-size: 12px;
         margin: 0 10px 10px 0;
     }
     .contents-crud>.contents-c{
@@ -246,6 +247,7 @@ crossorigin="anonymous">
     }
     .contents-crud>.contents-r{
         float: right;
+        background: #cfcfcf;
         margin-right: 0px;
     }
     /* contents-crud end */
@@ -273,6 +275,8 @@ crossorigin="anonymous">
         border-bottom: 1px solid #AAA;
         font-size: 12px;
     }
+
+    /* 베스트 댓글 */
     .comments-best{
         border:5px solid rgb(243, 123, 123);
         border-radius: 8px;
@@ -288,6 +292,7 @@ crossorigin="anonymous">
         font-weight: bold;
     }
     
+    /* 댓글 공통 */
     .comments-profile{
         float: left; 
         margin-right:3px; 
@@ -308,7 +313,7 @@ crossorigin="anonymous">
         float: right;
         margin-right: 10px;
     }
-    .comments .comments-info>a>.rank, .comments-best .comments-info>a>.rank{
+    .comments-info .rank{
         float: left;
         vertical-align: middle;
         margin-right: 3px;
@@ -322,21 +327,11 @@ crossorigin="anonymous">
         background-color: rgb(198, 224, 248);
         border: 5px solid rgb(125, 106, 235);
         border-radius: 8px;
-        box-shadow:0 1px 3px -1px rgb(0 0 0 / 10%);
         padding: 8px 15px;
-        margin-bottom: 15px;
     }
 
-    .recomments>img{
-        float: left; 
-        width: 20px;
-    }
-    .recomments>.write{
-        font-size: 12px;
-    }
     .remove-comments{
         float: right;
-        font-size: 12px;
     }
     .recomments>.recomments-text{
         margin-top: 13px;
@@ -344,11 +339,9 @@ crossorigin="anonymous">
     .recomments>.recomments-text>.write-comments{
         border-radius: 5px;
         border: 1px solid #CCC; 
-        resize: none; float: 
-        left; min-height: 4em; 
-        height: 46px; 
-        width: 85%; 
-        margin-left: 3px; 
+        resize: none; 
+        float: left;
+        width: 85%;  
         padding: 4px;
     }
     .recomments>.recomments-text>input{
@@ -367,40 +360,44 @@ crossorigin="anonymous">
         overflow: hidden;
     }
     .re-recomments>img{
-        width: 20px;
         float: left;
         margin-left: 4%;
     }
     .re-recomments-profile>img{
         float: left; 
-        margin-right:3px; 
         width: 60px; 
         height:60px;
     }
-    .re-recomments-info .rank{
-        float: left;
-        margin-right:3px; 
-        width:18px; 
-        height:18px;
+
+    .re-re-recomments{
+        overflow: hidden;
+        background-color: rgb(198, 224, 248);
+        border: 5px solid rgb(125, 106, 235);
+        border-radius: 8px;
+        padding: 8px 15px;
+        margin-bottom: 15px;
     }
-    .re-recomments-info{
-        font-size: 12px;
+    .re-re-recomments>.re-recomments-text{
+        margin-top: 10px;
     }
-    .re-recomments-text>.write-comments{
+    .re-re-recomments>.re-recomments-text>.write-comments{
         border-radius: 5px;
         border: 1px solid #CCC; 
-        resize: none; float: 
-        left; min-height: 4em; 
-        height: 46px; 
-        width: 85%; 
-        margin-left: 3px; 
+        resize: none; 
+        width: 85%;  
         padding: 4px;
     }
-    .re-recomments>.re-recomments-text>input{
-        
+    .re-re-recomments>.re-recomments-text>input{
+        float: right; 
+        width: 60px; 
+        height: 50px; 
+        color: rgb(198, 224, 248); 
+        background-color: rgb(166, 212, 255); 
+        border-radius: 5px; 
+        color: rgb(4, 65, 163);
     }
-    .re-re-recomments>..write-comments{
-        
+    .remove-re-recomments{
+        float: right;
     }
     /* re-reconmments end */
     
@@ -425,17 +422,13 @@ crossorigin="anonymous">
         border: 1px solid #CCC;
         resize: none; 
         float: left; 
-        min-height: 4em; 
-        height: 46px; 
-        width: 90%; 
-        margin-left: 3px; 
+        width: 90%;  
         padding: 4px;
     }
     .comments-write>div>input{
         float: right; 
         width: 60px; 
-        height: 50px; 
-        color: rgb(198, 224, 248); 
+        height: 50px;  
         background-color: rgb(166, 212, 255); 
         border-radius: 5px; 
         color: rgb(4, 65, 163);
