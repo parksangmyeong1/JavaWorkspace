@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+</head>
+<style>
+    .ck.ck-editor {
+        max-width: 700px;
+    }
+    .ck-editor__editable {
+        min-height: 300px;
+    }
+     
+    </style>
+<body>
+    <!-- 2. TEXT 편집 툴을 사용할 textarea -->
+    <textarea name="content" id="editor" placeholder="내용을 입력해주세요."></textarea>
+    <script>
+    // 3. CKEditor5를 생성할 textarea 지정
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+        
+    </script>
+</body>
+</html>

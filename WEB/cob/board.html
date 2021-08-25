@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Come on, Board</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" 
+integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
+crossorigin="anonymous">
+</script>
+
 </head>
 <style>
     /* header start */
@@ -262,6 +267,9 @@
         text-align: center;
         padding: 2px;
     }
+    th.title{
+        width: 489.1px;
+    }
     .notice{
         background-color: #EEE;
     }
@@ -377,7 +385,48 @@
     }
     /* paging end */
 
+    .display-none{
+        display: none;
+    }
+
 </style>
+
+<script>
+    $(document).ready(function(){
+        
+        // 공지 숨기기
+        $("label[for='notice_hidden']").on("click", function(){
+            $('.notice').toggle();
+        })
+        
+        var isCtrl, isAlt;  // ctrl. Alt 눌림 여부 확인
+
+        document.onkeydown = function(e) {
+            if (e.which == 17)  isCtrl = true;
+            if (e.which == 18)  isAlt = true;
+
+            if (e.which == 65 && isCtrl == true && isAlt == true) {  // Ctrl + Alt + a
+                alert('Ctrl + alt + a입력');
+            }
+            if (e.which == 66 && isCtrl == true && isAlt == true) {  // Ctrl + Alt + b
+                alert('Ctrl + alt + b입력');
+            }
+            if (e.which == 67 && isCtrl == true && isAlt == true) {  // Ctrl + Alt + c
+                alert('Ctrl + alt + c입력');
+            }
+            if (e.which == 68 && isCtrl == true && isAlt == true) {  // Ctrl + Alt + d
+                alert('Ctrl + alt + d입력');
+            }
+            if (e.which == 69 && isCtrl == true && isAlt == true) {  // Ctrl + Alt + e
+                alert('Ctrl + alt + e입력');
+            }
+            if (e.which == 70 && isCtrl == true && isAlt == true) {  // Ctrl + Alt + f
+                alert('Ctrl + alt + f입력');
+                location="file:///C:/Users/parks/OneDrive/%EB%AC%B8%EC%84%9C/Git/JavaWorkspace/WEB/cob/contents.html"
+            }
+        }
+    });
+</script>
 <body>
     <header>
         <div class="MultiBar">
@@ -480,7 +529,7 @@
                                 <a href="#" style="color:#7f3f00" >드로우/출시</a>	
                             </li>
                             <li>	
-                                <a href="#" style="color:#4f007c" ">게임TIP</a>	
+                                <a href="#" style="color:#4f007c" >게임TIP</a>	
                             </li>
                            <li>	
                                <a href="#" style="color:#ff7f00" >정보/세일</a>	

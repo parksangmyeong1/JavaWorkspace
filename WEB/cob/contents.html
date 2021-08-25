@@ -167,13 +167,18 @@ crossorigin="anonymous">
     }
     .contents-header>.header2 img{
         vertical-align:middle;
+    }
+    .contents-header>.header2>a{
         float: left;
     }
-    .contents-header>.header2 span{
+    .contents-header>.header2>.nick-box{
+        float: left;
+    }
+    .contents-header-info>span{
         float: right;
         margin-right: 10px;
     }
-    .contents-header>.header2>.commentsCnt{
+    .contents-header-info>.commentsCnt{
         margin: 0;
     }
     /* contents-header end */
@@ -368,37 +373,6 @@ crossorigin="anonymous">
         width: 60px; 
         height:60px;
     }
-
-    .re-re-recomments{
-        overflow: hidden;
-        background-color: rgb(198, 224, 248);
-        border: 5px solid rgb(125, 106, 235);
-        border-radius: 8px;
-        padding: 8px 15px;
-        margin-bottom: 15px;
-    }
-    .re-re-recomments>.re-recomments-text{
-        margin-top: 10px;
-    }
-    .re-re-recomments>.re-recomments-text>.write-comments{
-        border-radius: 5px;
-        border: 1px solid #CCC; 
-        resize: none; 
-        width: 85%;  
-        padding: 4px;
-    }
-    .re-re-recomments>.re-recomments-text>input{
-        float: right; 
-        width: 60px; 
-        height: 50px; 
-        color: rgb(198, 224, 248); 
-        background-color: rgb(166, 212, 255); 
-        border-radius: 5px; 
-        color: rgb(4, 65, 163);
-    }
-    .remove-re-recomments{
-        float: right;
-    }
     /* re-reconmments end */
     
     /* comments-write start */
@@ -448,19 +422,41 @@ crossorigin="anonymous">
     .remove-comments:hover, .add-recomments:hover{
         cursor: pointer;
     }
-    
+
+    .nick-box {
+        overflow-y: auto;
+        position: absolute;
+        margin-left: 60px;
+        z-index: 1;
+        padding: 10px 0;
+        border: 1px solid rgba(0,0,0,.06);
+        border-radius: 6px;
+        background-color: #fff;
+        color: #000;
+    }
+    .nick-box li{
+        padding: 5px 0;
+        font-size: 14px;
+    }
+    .nick-box li:hover{
+        cursor: pointer;
+        background-color: #EEE;
+    }
+    .imgSelect{
+        cursor: pointer;
+    }
 
 </style>
 
 <script>
     $(document).ready(function(){
+
+        // 댓글 하나만 입력하도록 설정
         $('.add-recomments').click(function(){
-            // $('.add-recomments ~ .recomments').removeClass('display-none');
-            $(this).nextAll().removeClass('display-none');
-        })
-        $('.add-re-recomments').click(function(){
-            // $('.add-recomments ~ .recomments').removeClass('display-none');
-            $(this).nextAll().removeClass('display-none');
+            var add_recomments = $(this).attr('data-recomments');
+            console.log(add_recomments);
+            $('.recomments').addClass('display-none');
+            $('.'+add_recomments).removeClass('display-none');
         })
         $('.write').click(function(){
             $('.recomments').addClass('display-none');
@@ -468,18 +464,62 @@ crossorigin="anonymous">
         $('.remove-comments').click(function(){
             $('.recomments').addClass('display-none');
         })
-        $('.re-write').click(function(){
-            $('.re-re-recomments').addClass('display-none');
+
+        // 회원 정보
+        $('.imgSelect').click(function(){
+            var data_id = $(this).attr('data-id');
+            console.log(data_id);
+            $('.nick-box').addClass('display-none');
+            $('.'+data_id).removeClass('display-none');
         })
-        $('.remove-re-recomments').click(function(){
-            $('.re-re-recomments').addClass('display-none');
+        // url 복사 기능
+        $('.copy-url').click(function(){
+            copyLink();
         })
+
+        // 외부영역 클릭 시 팝업 닫기
+        $(document).mouseup(function (e){
+        var LayerPopup = $(".nick-box");
+            if(LayerPopup.has(e.target).length === 0){
+                LayerPopup.addClass("display-none");
+        }
+});
     });
+
+    //  url 복사 기능
+    function copyLink(){
+
+        let currentUrl = window.document.location.href;
+
+        let t = document.createElement("textarea");
+        document.body.appendChild(t);
+        t.value = currentUrl;
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+
+        alert('주소를 복사하였습니다.');
+    }
+    // $(function(){
+
+        //     /* 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
+        //     $('.imgSelect').click(function(e) {
+        //         var divTop = e.clientY; //상단 좌표
+        //         var divLeft = e.clientX - 130; //좌측 좌표
+        //         console.log(divTop, divLeft);
+        //         $('.imgSelect').next('.nick-box').css({
+        //             "top": divTop
+        //             ,"left": divLeft
+        //             , "position": "absolute"
+        //         }).show();
+        //     });
+
+        // });
 </script>
 
 </head>
 <body>
-    <header>
+    <header id="top">
         <div class="MultiBar">
             <ul class="area_gnb">
                 <li>시작페이지로</li>
@@ -513,7 +553,7 @@ crossorigin="anonymous">
             </div>
         </div>
     </header>
-
+    
     <div class="Wrapper">
         <div class="WritingWrap">
             <div class="contents">
@@ -530,15 +570,23 @@ crossorigin="anonymous">
                         <div class="header1">
                             <span class="title">안녕하세요 새롭게 가입했습니다. 반가워요!!!!</span>
                             <span class="time">2021.08.16 13:11</span>
-                            <a herf="#" onclick="return alert('주소가 복사되었습니다.')">
+                            <a herf="#" class="copy-url">
                                 <img src="https://img.icons8.com/pastel-glyph/64/000000/copy--v1.png" alt="링크 주소복사 아이콘" title="주소복사">
                             </a>
                         </div>
                         <div class="header2">
-                            <a href="#"></a><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>
-                            <span class="commentsCnt">댓글 : 4</span>
-                            <span>좋아요 : 11</span>
-                            <span>조회수 : 20</span>
+                            <a href="#" class="imgSelect" data-id="id1"><img src="https://img.icons8.com/material-outlined/24/000000/black-jaguar.png"/>park</a>
+                            <div class="nick-box id1 display-none">
+                                <ul>
+                                    <li>작성글보기</li>
+                                    <li>회원정보보기</li>
+                                </ul>
+                            </div>
+                            <div class="contents-header-info">
+                                <span class="commentsCnt">조회수 : 20</span>
+                                <span>좋아요 : 11</span>
+                                <span >댓글 : 4</span>
+                            </div>
                         </div>
                     </div>
                     <div class="contents-text">
@@ -577,7 +625,7 @@ crossorigin="anonymous">
                 <a href="#" class="contents-d" onclick="return confirm('해당게시글을 삭제하시겠습니까?');">삭제</a>
                 <a href="board.html" class="contents-r">목록</a>
             </div>
-            <div class="comments-wrap">
+            <div class="comments-wrap" id="comments">
                 <div class="comments-best">
                     <div class="commemts-best-title">
                         <span>베스트 댓글</span>
@@ -587,16 +635,23 @@ crossorigin="anonymous">
                             <img src="https://img.icons8.com/ios/50/000000/nerd--v1.png" >
                         </div>
                         <div class="comments-info">
-                            <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png">park</a>
+                            <a><img class="rank imgSelect" data-id="id2" src="https://img.icons8.com/ios/50/fa314a/diamond.png">park
+                                <div class="nick-box id2 display-none">
+                                    <ul>
+                                        <li>작성글보기</li>
+                                        <li>회원정보보기</li>
+                                    </ul>
+                                </div> 
+                            </a>
                             <span class="date">2021.06.30 12:20</span>
-                            <a class="add-recomments">답글쓰기</a>	
+                            <a class="add-recomments" data-recomments="comments1">답글쓰기</a>	
                             <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
                             <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
                             <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
                             <div class="comments-text">
                                 유익한 정보 감사합니다.<br>댓글 남기고 가여~~
                             </div>
-                            <div class="recomments display-none">
+                            <div class="recomments comments1 display-none">
                                 <label class="write">댓글 쓰기</label> 
                                 <a class="remove-comments">닫기</a>
                                 <div class="recomments-text">
@@ -615,16 +670,23 @@ crossorigin="anonymous">
                                     <img src="https://img.icons8.com/ios/50/000000/cat-profile.png" >
                                 </div>
                                 <div class="comments-info">
-                                    <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >senei</a>
+                                    <a><img class="rank imgSelect" data-id="id3" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >senei
+                                        <div class="nick-box id3 display-none">
+                                            <ul>
+                                                <li>작성글보기</li>
+                                                <li>회원정보보기</li>
+                                            </ul>
+                                        </div>
+                                    </a>
                                     <span class="date">2021.06.30 19:18</span>
-                                    <a class="add-recomments" class="date">답글쓰기</a>	
+                                    <a class="add-recomments" data-recomments="comments2" class="date">답글쓰기</a>	
                                     <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
                                     <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
                                     <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
                                     <div class="comments-text">
                                         1111111111111<br>zzz
                                     </div>
-                                    <div class="recomments display-none">
+                                    <div class="recomments comments2 display-none">
                                         <label class="write">댓글 쓰기</label> 
                                         <a class="remove-comments">닫기</a>
                                         <div class="recomments-text">
@@ -641,16 +703,23 @@ crossorigin="anonymous">
                                     <img src="https://img.icons8.com/ios/50/000000/cat-profile.png">
                                 </div>
                                 <div class="comments-info">
-                                    <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >king</a>
+                                    <a><img class="rank imgSelect" data-id="id4" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >king
+                                        <div class="nick-box id4 display-none">
+                                            <ul>
+                                                <li>작성글보기</li>
+                                                <li>회원정보보기</li>
+                                            </ul>
+                                        </div>
+                                    </a>
                                     <span class="date">2021.06.30 11:16</span>
-                                    <a class="add-recomments" class="date">답글쓰기</a>	
+                                    <a class="add-recomments" data-recomments="comments3" class="date">답글쓰기</a>	
                                     <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
                                     <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
                                     <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
                                     <div class="comments-text">
                                         222222222222222222<br>댓글 남기고 가여~~
                                     </div>
-                                    <div class="recomments display-none">
+                                    <div class="recomments comments3 display-none">
                                         <label class="write">댓글 쓰기</label> 
                                         <a class="remove-comments">닫기</a>
                                         <div class="recomments-text">
@@ -667,20 +736,11 @@ crossorigin="anonymous">
                                             <div class="re-recomments-info">
                                                 <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >son</a>
                                                 <span class="date">2021.06.30 10:56</span>
-                                                <a class="add-re-recomments" class="date">답글쓰기</a>	
                                                 <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
                                                 <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
                                                 <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
                                                 <div class="comments-text">
                                                     ㄱㅅㄱㅅㄱㅅㄱㅅ<br>ㄱㅅㄱㅅㄱㅅㄱㅅ
-                                                </div>
-                                                <div class="re-re-recomments display-none">
-                                                    <label class="re-write">댓글 쓰기</label> 
-                                                    <a class="remove-re-recomments">닫기</a>
-                                                    <div class="re-recomments-text">
-                                                        <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
-                                                        <input type="submit" onclick="submitcomments()" value="등록">
-                                                    </div>
                                                 </div>
                                             </div>		
                                         </div>	
@@ -710,8 +770,13 @@ crossorigin="anonymous">
                 </div>
             </div>
         </div>
-        <div class="control-bar">
-            control-bar
+        <div class="control-bar" style="position: fixed; bottom: 25%; right: 25%">
+            <a href="#top">맨위로</a>
+            <a href="#comments">댓글로</a>
+            <a href="#bottom">맨아래로</a>
+        </div>
+        <div id="bottom">
+
         </div>
     </div>
 </body>
