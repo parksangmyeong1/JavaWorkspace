@@ -8,8 +8,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js" 
 integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
 crossorigin="anonymous">
-</script>
-    
+</script>    
 <style>
     /* header start */
     *{
@@ -199,6 +198,9 @@ crossorigin="anonymous">
     .contents-etc>.updown{
         margin-bottom: 30px;
     }
+    .contents-etc>.updown>div:hover{
+        cursor: pointer;
+    }
     .contents-etc>.updown>.up{
         display: inline-block;
         width: 100px;
@@ -302,14 +304,14 @@ crossorigin="anonymous">
         float: left; 
         margin-right:3px; 
         width: 60px; 
-        height:60px;
+        height: 60px;
     }
     .comments-profile>img{
         margin-right:3px; 
         width: 60px; height:60px;
     }
     .comments-info{
-        margin-bottom: 10px;
+        margin: 5px 0 10px 0;
     }
     .comments-info img{
         vertical-align: middle;
@@ -445,12 +447,50 @@ crossorigin="anonymous">
     .imgSelect{
         cursor: pointer;
     }
+    
+    /* btn-like */
+    .btn-like, .btn-dislike {
+        float: right;
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        color: transparent;
+        text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
+    }
+    .btn-like:hover, .btn-dislike:hover {
+        text-shadow: 0 0 0 #ea0;
+    }
+    .btn-like.done, .btn-dislike.done {
+        color: inherit;
+        text-shadow: 0;
+    }
+    .btn-like.done:hover, .btn-dislike.done:hover {
+        color: transparent;
+        text-shadow: 0 0 0 #777;
+    }
+    /* btn-like */
+
+    /* control-bar start */
+    .control-bar{ 
+        position: fixed; 
+        bottom: 18%; right: 32%;
+        border: 1px solid #AAA; 
+        border-radius: 5px;
+        text-align: center;  
+        padding: 5px;
+    }
+    .control-bar>a:hover{
+        cursor: pointer;
+        text-decoration: none;
+    }
+    /* control-bar end */
 
 </style>
 
 <script>
+    
     $(document).ready(function(){
-
+        
         // 댓글 하나만 입력하도록 설정
         $('.add-recomments').click(function(){
             var add_recomments = $(this).attr('data-recomments');
@@ -483,8 +523,35 @@ crossorigin="anonymous">
             if(LayerPopup.has(e.target).length === 0){
                 LayerPopup.addClass("display-none");
         }
-});
+
+        });
+
+        // 댓글 좋아요 싫어요 중 하나만 눌리도록 설정
+        $('.btn-like').click(function(){
+            $(this).toggleClass("done");
+            $(this).next().removeClass("done");
+        });
+        $('.btn-dislike').click(function(){
+            $(this).toggleClass("done");
+            $(this).prev().removeClass("done");
+        });
     });
+
+    // 게시글 좋아요 싫어요 누르면 숫자 증가 시키기
+    function count(type){
+            const upresult = document.getElementById('upresult');
+            const downresult = document.getElementById('downresult');
+            
+            // 더하기
+            if(type === 'up') {
+                number = parseInt(upresult.innerText) + 1;
+                upresult.innerText = number;
+            }else if(type === 'down')  {
+                number = parseInt(downresult.innerText) + 1;
+                downresult.innerText = number;
+            }
+        }
+        
 
     //  url 복사 기능
     function copyLink(){
@@ -500,21 +567,7 @@ crossorigin="anonymous">
 
         alert('주소를 복사하였습니다.');
     }
-    // $(function(){
 
-        //     /* 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
-        //     $('.imgSelect').click(function(e) {
-        //         var divTop = e.clientY; //상단 좌표
-        //         var divLeft = e.clientX - 130; //좌측 좌표
-        //         console.log(divTop, divLeft);
-        //         $('.imgSelect').next('.nick-box').css({
-        //             "top": divTop
-        //             ,"left": divLeft
-        //             , "position": "absolute"
-        //         }).show();
-        //     });
-
-        // });
 </script>
 
 </head>
@@ -585,7 +638,7 @@ crossorigin="anonymous">
                             <div class="contents-header-info">
                                 <span class="commentsCnt">조회수 : 20</span>
                                 <span>좋아요 : 11</span>
-                                <span >댓글 : 4</span>
+                                <span>댓글 : 4</span>
                             </div>
                         </div>
                     </div>
@@ -602,13 +655,13 @@ crossorigin="anonymous">
                     </div>
                     <div class="contents-etc">
                         <div class="updown">
-                            <div class="up">
+                            <div class="up" onclick='count("up")'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png"/></a>
-                                <strong>2000</strong>
+                                <strong id="upresult" >2000</strong>
                             </div>
-                            <div class="down">
+                            <div class="down" onclick='count("down")'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/fa314a/thumbs-down.png"/></a>
-                                <strong >3</strong>
+                                <strong id="downresult">161</strong>
                             </div>
                         </div>
                         <div class="icons-wrap">
@@ -646,8 +699,8 @@ crossorigin="anonymous">
                             <span class="date">2021.06.30 12:20</span>
                             <a class="add-recomments" data-recomments="comments1">답글쓰기</a>	
                             <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                            <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                            <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                            <button class="btn-like">👎</button>
+                            <button class="btn-dislike">👍</button>
                             <div class="comments-text">
                                 유익한 정보 감사합니다.<br>댓글 남기고 가여~~
                             </div>
@@ -681,8 +734,8 @@ crossorigin="anonymous">
                                     <span class="date">2021.06.30 19:18</span>
                                     <a class="add-recomments" data-recomments="comments2" class="date">답글쓰기</a>	
                                     <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                    <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                                    <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                    <button class="btn-like">👎</button>
+                                    <button class="btn-dislike">👍</button>
                                     <div class="comments-text">
                                         1111111111111<br>zzz
                                     </div>
@@ -714,8 +767,8 @@ crossorigin="anonymous">
                                     <span class="date">2021.06.30 11:16</span>
                                     <a class="add-recomments" data-recomments="comments3" class="date">답글쓰기</a>	
                                     <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                    <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                                    <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                    <button class="btn-like">👎</button>
+                                    <button class="btn-dislike">👍</button>
                                     <div class="comments-text">
                                         222222222222222222<br>댓글 남기고 가여~~
                                     </div>
@@ -737,8 +790,8 @@ crossorigin="anonymous">
                                                 <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >son</a>
                                                 <span class="date">2021.06.30 10:56</span>
                                                 <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                                <a><img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png"/></a>
-                                                <a><img src="https://img.icons8.com/material-outlined/32/000000/thumb-up.png"/></a>
+                                                <button class="btn-like">👎</button>
+                                                <button class="btn-dislike">👍</button>
                                                 <div class="comments-text">
                                                     ㄱㅅㄱㅅㄱㅅㄱㅅ<br>ㄱㅅㄱㅅㄱㅅㄱㅅ
                                                 </div>
@@ -770,13 +823,10 @@ crossorigin="anonymous">
                 </div>
             </div>
         </div>
-        <div class="control-bar" style="position: fixed; bottom: 25%; right: 25%">
-            <a href="#top">맨위로</a>
-            <a href="#comments">댓글로</a>
-            <a href="#bottom">맨아래로</a>
-        </div>
-        <div id="bottom">
-
+        <div class="control-bar">
+            <a href="#top">⬆</a><br>
+            <a href="#comments">💬</a><br>
+            <a href="#bottom">⬇</a>
         </div>
     </div>
 </body>
