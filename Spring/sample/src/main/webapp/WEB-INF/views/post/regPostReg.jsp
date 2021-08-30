@@ -18,22 +18,32 @@ crossorigin="anonymous">
 		<form id="form" method="post">
 			<table style="width:900px">
 				<tr>
+					<!-- session에서 구해온다. -->
 					<td>멤버 idx</td>
 					<td>
 						<input type="number" name="memIdx" id="memIdx">
 						</td>
 				</tr>
 				<tr>
+					<!-- session에서 구해온다 -->
 					<td>닉네임</td>
 					<td>
 						<input type="text" name="postWriter">
 						</td>
 				</tr>
 				<tr>
+					<!-- select로 값을 저장 -->
 					<td>카테고리</td>
 					<td>
-						<input type="text" name="postSort">
-						</td>
+						<!-- <input type="text" name="postSort"> -->
+						<select name="postSort">
+							<option value="잡담">잡담</option>
+							<option value="장난">장난</option>
+							<option value="지역">지역</option>
+							<option value="정보">정보</option>
+							<option value="공지">공지</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>제목</td>

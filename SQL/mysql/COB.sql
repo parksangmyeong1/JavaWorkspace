@@ -14,6 +14,8 @@ memAuth varchar(10) not null default 'member' -- member, manager, ban, cafe
 );
 drop table member1;
 
+select * from member1;
+
 insert into member1 (memId, nickName, memPassword, memName, memBirth, memTel, memEmail)
 values('park', 'park', '1111', 'park', '950324', '010-3903-5854','park@gmail.com');
 insert into member1 (memId, nickName, memPassword, memName, memBirth, memTel, memEmail) 
@@ -60,6 +62,9 @@ insert into post (memIdx, views, postWriter, postTitle, postContent, postSort, p
 values(4, 20, 'park', '검색용 가나다라', '마바사아', '잡담', 200, 10, 20);
 insert into post (memIdx, views, postWriter, postTitle, postContent, postSort, postLike, postDisLike, postRep) 
 values(5, 10, 'park', '검색용 자차카', '타파하', '잡담', 200, 10, 20);
+
+insert into post (memIdx, postWriter, postTitle, postContent, postSort, postLike, postDisLike, postRep) 
+values(1, 'nick1', 'test1 제목', 'test1 내용');
 
 select * from post;
 select * from post limit 2; -- 제한 2개
@@ -123,6 +128,8 @@ recommDislike int not null default 0,
 recommRep int not null default 0,
 foreign key(commIdx) references comment(commIdx)
 );
+
+drop table recomment;
 
 -- 대댓글 작성
 insert into recomment(commIdx, recommContent)

@@ -14,35 +14,31 @@
 		<hr>
 		<table class="table">
 			<tr>
-				<th>postIdx</th>
-				<th>memIdx</th>
-				<th>postWriter</th>
-				<th>postSort</th>
-				<th>postTitle</th>
-				<th>postContent</th>
-				<th>postRegDate</th>
-				<th>views</th>
-				<th>postLike</th>
-				<th>postDislike</th>
-				<th>postRep</th>
-				<th>관리</th>
+				<!-- <th>postIdx</th>
+				<th>memIdx</th> -->
+				<th>카테고리</th>
+				<th>제목</th>
+				<!-- <th>postContent</th> -->
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
+				<th>추천</th>
+				<!-- <th>postDislike</th>
+				<th>postRep</th> -->
 			</tr>
 			<c:forEach items="${postList}" var="post" >
 			<tr>
-				<td>${post.postIdx}</td>
-				<td>${post.memIdx}</td>
-				<td>${post.postWriter}</td>
+				<%-- <td>${post.postIdx}</td>
+				<td>${post.memIdx}</td> --%>
 				<td>${post.postSort}</td>
-				<td>${post.postContent}</td>
+				<td>${post.postTitle}</td>
+				<%-- <td>${post.postContent}</td> --%>
+				<td>${post.postWriter}</td>
 				<td><fmt:formatDate value="${post.postRegDate}" type="date" pattern="yyyy.MM.dd"/></td>
 				<td>${post.views}</td>
 				<td>${post.postLike}</td>
-				<td>${post.postDislike}</td>
-				<td>${post.postRep}</td>
-				<td>
-					<a ">수정</a> 
-					<a ">삭제</a>
-				</td>
+				<%-- <td>${post.postDislike}</td>
+				<td>${post.postRep}</td> --%>
 			</tr>
 			</c:forEach>
 		</table>
