@@ -1,6 +1,6 @@
 create table member1(
 memIdx int not null auto_increment primary key,
-memId varchar(20) not null,
+memId varchar(20) unique key not null,
 nickName varchar(20) unique key not null,
 memPassword varchar(20) not null,
 memName varchar(20) not null,
@@ -10,11 +10,11 @@ memAddress varchar(255),
 memTel varchar(15) not null,
 memEmail varchar(40) not null,
 memPhoto varchar(255) default 'photo.png',
-memAuth int not null default 1
+memAuth varchar(10) not null default 'member' -- member, manager, ban, cafe
 );
 drop table member1;
 
-insert into member1 (memId, nickName, memPassword, memName, memBirth, memTel, memEmail) 
+insert into member1 (memId, nickName, memPassword, memName, memBirth, memTel, memEmail)
 values('park', 'park', '1111', 'park', '950324', '010-3903-5854','park@gmail.com');
 insert into member1 (memId, nickName, memPassword, memName, memBirth, memTel, memEmail) 
 values('test1', 'nick1', '1111', 'test1', '111111', '010-1111-1111','test1@gmail.com');
@@ -37,8 +37,7 @@ views int not null default 0,
 postLike int not null default 0,
 postDislike int not null default 0,
 postRep int not null default 0,
-constraint fk_memIdx foreign key(memIdx) references member1(memIdx),
-constraint fk_nickname foreign key(postWriter) references member1(nickName)
+constraint fk_memIdx foreign key(memIdx) references member1(memIdx)
 );
 
 drop table post;

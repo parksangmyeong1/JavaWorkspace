@@ -6,6 +6,21 @@
 <!-- 인터페이스의 full name을 namespace로 설정 -->
 <mapper namespace="com.bitcamp.cobsp.post.dao.Dao">
 	
+	<!-- select의 결과를 매핑하는 설정 -->
+	<resultMap id="postListResult" 
+		type="com.bitcamp.cobsp.post.domain.Post">
+		<id column="postIdx" property="postIdx"/>
+		<result column="membIdx" property="membIdx"/>
+		<result column="postWriter" property="postWriter"/>
+		<result column="postSort" property="postSort"/>
+		<result column="postContent" property="postContent"/>
+		<result column="postRegDate" property="postRegDate"/>
+		<result column="views" property="views"/>
+		<result column="postLike" property="postLike"/>
+		<result column="postDislike" property="postDislike"/>
+		<result column="postRep" property="postRep"/>
+	</resultMap>
+	
 	<insert id="insertPost"
 		parameterType="com.bitcamp.cobsp.post.domain.Post"
 		useGeneratedKeys="true"
@@ -13,5 +28,10 @@
 		insert into post (memIdx, postWriter, postTitle, postContent, postSort)
 		value (#{memIdx}, #{postWriter}, #{postTitle}, #{postContent}, #{postSort})
 	</insert>
+	
+	<select id="selectAll"
+		resultMap="postListResult">
+		select * from post order by postIdx
+	</select>
 	
 </mapper>
