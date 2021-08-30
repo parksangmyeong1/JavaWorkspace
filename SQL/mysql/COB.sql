@@ -63,9 +63,6 @@ values(4, 20, 'park', '검색용 가나다라', '마바사아', '잡담', 200, 1
 insert into post (memIdx, views, postWriter, postTitle, postContent, postSort, postLike, postDisLike, postRep) 
 values(5, 10, 'park', '검색용 자차카', '타파하', '잡담', 200, 10, 20);
 
-insert into post (memIdx, postWriter, postTitle, postContent, postSort, postLike, postDisLike, postRep) 
-values(1, 'nick1', 'test1 제목', 'test1 내용');
-
 select * from post;
 select * from post limit 2; -- 제한 2개
 select * from post where postTitle like '%가%';	-- 제목으로 찾기

@@ -10,12 +10,12 @@
 </head>
 <body>
 
-	<h2>회원 리스트</h2>
+	<h2>post 리스트</h2>
 		<hr>
 		<table class="table">
 			<tr>
 				<!-- <th>postIdx</th>
-				<th>memIdx</th> -->
+					<th>memIdx</th> -->
 				<th>카테고리</th>
 				<th>제목</th>
 				<!-- <th>postContent</th> -->
@@ -24,22 +24,23 @@
 				<th>조회수</th>
 				<th>추천</th>
 				<!-- <th>postDislike</th>
-				<th>postRep</th> -->
+					<th>postRep</th> -->
 			</tr>
-			<c:forEach items="${postList}" var="post" >
-			<tr>
-				<%-- <td>${post.postIdx}</td>
-				<td>${post.memIdx}</td> --%>
-				<td>${post.postSort}</td>
-				<td>${post.postTitle}</td>
-				<%-- <td>${post.postContent}</td> --%>
-				<td>${post.postWriter}</td>
-				<td><fmt:formatDate value="${post.postRegDate}" type="date" pattern="yyyy.MM.dd"/></td>
-				<td>${post.views}</td>
-				<td>${post.postLike}</td>
-				<%-- <td>${post.postDislike}</td>
-				<td>${post.postRep}</td> --%>
-			</tr>
+			<c:forEach items="${postList}" var="post">
+				<tr>
+					<%-- <td>${post.postIdx}</td>
+					<td>${post.memIdx}</td> --%>
+					<td>${post.postSort}</td>
+					<td>${post.postTitle}</td>
+					<%-- <td>${post.postContent}</td> --%>
+					<td>${post.postWriter}</td>
+					<td><fmt:formatDate value="${post.postRegDate}" type="date"
+							pattern="yyyy.MM.dd" /></td>
+					<td>${post.views}</td>
+					<td>${post.postLike}</td>
+					<%-- <td>${post.postDislike}</td>
+					<td>${post.postRep}</td> --%>
+				</tr>
 			</c:forEach>
 		</table>
 </body>
