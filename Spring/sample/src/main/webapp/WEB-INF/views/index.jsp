@@ -9,6 +9,8 @@
 </head>
 <body>
 	<h1>초기화면</h1>
-	<a href="<c:url value='/post/postReg'/>">게시판 작성</a>
+	<a href="<c:url value='/post/postReg'/>">naverEditor</a>
+	<a href="<c:url value='/post/test'/>">ckeditor</a>
+	<a href="<c:url value='/write'/>">summernote</a>
 </body>
 </html>

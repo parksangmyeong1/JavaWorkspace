@@ -20,6 +20,7 @@
 	<resources mapping="/images/**" location="/images/" />
 	<resources mapping="/uploadfile/**" location="/uploadfile/" />
 	<resources mapping="/smarteditor2/**" location="/smarteditor2/" />
+	<resources mapping="/ckeditor/**" location="/ckeditor/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -27,6 +28,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg value="C:\Users\parks\OneDrive\문서\Git\JavaWorkspace\Spring\sample\src\main\webapp\resources"></beans:constructor-arg>
+	</beans:bean>
+	
+	<!-- multipartResolver -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 				p:defaultEncoding="utf-8"
 				p:maxUploadSize="10000000">

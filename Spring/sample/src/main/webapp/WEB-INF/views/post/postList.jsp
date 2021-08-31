@@ -18,6 +18,7 @@
 					<th>memIdx</th> -->
 				<th>카테고리</th>
 				<th>제목</th>
+				<th>내용</th>
 				<!-- <th>postContent</th> -->
 				<th>작성자</th>
 				<th>작성일</th>
@@ -33,6 +34,7 @@
 					<td>${post.postSort}</td>
 					<td>${post.postTitle}</td>
 					<%-- <td>${post.postContent}</td> --%>
+					<td>${post.postContent}</td>
 					<td>${post.postWriter}</td>
 					<td><fmt:formatDate value="${post.postRegDate}" type="date"
 							pattern="yyyy.MM.dd" /></td>
