@@ -136,7 +136,7 @@ img{
 	
 	function memberList(){
 		$.ajax({
-			url : 'http://13.209.82.145:8080/op/members',
+			url : 'http://localhost:8081/members',
 			type : 'GET',
 			success : function(data){
 				// console.log(data);
