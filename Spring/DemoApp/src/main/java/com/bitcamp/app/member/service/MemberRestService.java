@@ -18,17 +18,16 @@ public class MemberRestService {
 	
 	@Autowired
 	private SqlSessionTemplate template;
-
+	
+	// idx 로 검색한 Member 정보
 	public Member getMember(int idx) {
-		
 		dao = template.getMapper(MemberMapper.class);
-		
 		return dao.selectByIdx(idx);
 	}
-	
-	public List<Member> getMembers(){
+
+	// 모든 Member 정보
+	public List<Member> getMembers() {
 		dao = template.getMapper(MemberMapper.class);
-		
 		return dao.selectAll();
 	}
 
@@ -36,12 +35,11 @@ public class MemberRestService {
 		
 		List<Member> list = getMembers();
 		Map<Integer, Member> members = new HashMap<Integer, Member>();
-		
 		for(int i=0; i<list.size(); i++) {
 			members.put(list.get(i).getIdx(), list.get(i));
 		}
 		
 		return members;
 	}
-	
+
 }

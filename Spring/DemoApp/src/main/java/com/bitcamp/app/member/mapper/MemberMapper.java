@@ -6,7 +6,7 @@ import com.bitcamp.app.member.domain.Member;
 import com.bitcamp.app.member.domain.SearchType;
 
 
-public interface MemberMapper {
+public interface MemberMapper{
 	
 	// 로그인
 	Member selectByIdPw(String id, String pw);

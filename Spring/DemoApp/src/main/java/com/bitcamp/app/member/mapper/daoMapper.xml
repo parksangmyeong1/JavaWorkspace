@@ -44,7 +44,7 @@
 	</update>
 	
 	<delete id="deleteMember">
-		delete from memeber where idx = #{idx}		
+		delete from member where idx = #{idx}		
 	</delete>
 	
 	<!-- 전체 회원의 리스트 -->

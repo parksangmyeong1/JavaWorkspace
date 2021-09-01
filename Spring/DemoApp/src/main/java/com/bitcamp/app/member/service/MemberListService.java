@@ -14,14 +14,14 @@ import com.bitcamp.app.member.mapper.MemberMapper;
 public class MemberListService {
 
 	private MemberMapper dao;
-
+	
 	@Autowired
 	private SqlSessionTemplate template;
-
+	
 	public List<Member> getMemberList(){
 		return template.getMapper(MemberMapper.class).selectAll();
 	}
-	
+
 	public List<Member> getMemberList(SearchType searchType){
 		return template.getMapper(MemberMapper.class).selectMember(searchType);
 	}
