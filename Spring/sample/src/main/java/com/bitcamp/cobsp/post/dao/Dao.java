@@ -8,6 +8,8 @@ public interface Dao {
 	
 	// 게시글 등록
 	int insertPost(Post post);
+	// 게시글 정보 수정
+	int updateMember(Post post);
 	// 게시글 리스트
 	List<Post> selectAll();
 }

@@ -68,6 +68,8 @@ public class CkeditorFileUploadController {
                         
                         System.out.println(json);
                         printWriter.println(json);
+                        String a = json.toString();
+                        return a;
                         
                     }catch(IOException e){
                         e.printStackTrace();
