@@ -21,6 +21,7 @@
 		<result column="postRep" property="postRep"/>
 	</resultMap>
 	
+	<!-- 게시글 등록 -->
 	<insert id="insertPost"
 		parameterType="com.bitcamp.cobsp.post.domain.Post"
 		useGeneratedKeys="true"
@@ -29,14 +30,22 @@
 		value (#{memIdx}, #{postWriter}, #{postTitle}, #{postContent}, #{postSort})
 	</insert>
 	
+	<!-- 게시글 리스트 출력 -->
 	<select id="selectAll"
 		resultMap="postListResult">
 		select * from post order by postIdx
 	</select>
 	
+	<!-- 게시글 수정 -->
 	<update id="updatePost"
 		parameterType="com.bitcamp.cobsp.post.domain.Post">
 		update post set postTitle = #{postTitle}, postContent = #{postContent}, postSort = #{postSort} where postIdx = #{postIdx}
 	</update>
+	
+	<!-- 해당 게시글 출력 -->
+	<select id="selectPostByPostIdx"
+		resultMap="postListResult">
+		select * from post where postIdx = #{postIdx}
+	</select>
 	
 </mapper>

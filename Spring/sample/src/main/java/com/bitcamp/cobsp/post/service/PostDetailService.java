@@ -1,35 +1,29 @@
 package com.bitcamp.cobsp.post.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.cobsp.post.dao.Dao;
 import com.bitcamp.cobsp.post.domain.Post;
-import com.bitcamp.cobsp.post.domain.PostRegRequest;
 
 @Service
-public class PostRegService {
+public class PostDetailService {
 
 	@Autowired
 	private SqlSessionTemplate template;
 	
 	private Dao dao;
 	
-	public int regPost(
-			PostRegRequest regRequest,
-			HttpServletRequest request) {
+	public Post selectpostDetail(int postIdx) {
 		
 		int resultCnt = 0;
-
-		Post post = regRequest.toPost();
-		System.out.println(post);
 		
-		dao = template.getMapper(Dao.class);
-		resultCnt = dao.insertPost(post);
+		Post post = null;
 
-		return resultCnt;
+		dao = template.getMapper(Dao.class);
+		post = dao.selectPostByPostIdx(postIdx);
+
+		return post;
 	}
 }

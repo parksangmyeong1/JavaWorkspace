@@ -30,7 +30,7 @@
                         <li><a href="#"><img src="/cobsp/images/meet.png"><br>모 임</a></li>
                         <li><a href="#"><img src="/cobsp/images/cafe.png"><br>보드게임카페</a></li>
                         <li><a href="#"><img src="/cobsp/images/game.png"><br>보드게임</a></li>
-                        <li><a href="#"><img src="/cobsp/images/board.png"><br>게시판</a></li>
+                        <li><a href="<c:url value='/post/postList'/>"><img src="/cobsp/images/board.png"><br>게시판</a></li>
                     </ul>
     
                 </div>

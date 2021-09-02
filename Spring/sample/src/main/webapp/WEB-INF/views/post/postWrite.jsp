@@ -63,18 +63,14 @@ $(document).ready(function() {
 			<div class="WritingWrap">
 				<div class="WritingHeader">
 					<h2 class="title">게시판 글쓰기</h2>
-					<input id="subBtn" type="button" value="글 작성"
-						class="upload_contents" form="postForm"
-						onclick="goWrite(this.form)" />
+					<input id="subBtn" type="button" value="등록" class="upload_contents" form="postForm" onclick="goWrite(this.form)" />
 				</div>
 				<div class="write_contents">
 					<form id="postForm" method="post">
-						<input type="number" name="memIdx" style="width: 20%;"
-							placeholder="멤버 idx" /><br> <input type="text"
-							name="postWriter" style="width: 20%;" placeholder="작성자" /><br>
+						<input type="number" name="memIdx" style="width: 20%;" placeholder="멤버 idx" /><br> 
+						<input type="text" name="postWriter" style="width: 20%;" placeholder="작성자" /><br>
 						<div class="articlecate">
-							<select name="postSort" placeholder="카테고리"
-								style="width: 100px; height: 30px">
+							<select name="postSort" placeholder="카테고리" style="width: 100px; height: 30px">
 								<option value="잡담">잡담</option>
 								<option value="질문">질문</option>
 								<option value="후기">후기</option>
@@ -86,7 +82,7 @@ $(document).ready(function() {
 								<option value="공지">공지</option>
 							</select>
 						</div>
-						<input type="text" name="postTitle" class="postTitle" placeholder="제목" /> <br><br>
+						<input type="text" name="postTitle" class="postTitle" placeholder="제목" /> <br>
 						<textarea id="summernote" name="postContent"></textarea>
 						<!-- <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
 					</form>
