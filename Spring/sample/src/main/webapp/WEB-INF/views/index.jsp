@@ -18,19 +18,19 @@
     <div class="content">
         <div class="content_wrap">
             <div id="search_bar">
-                <img src="/images/logo_color.png" id="search_logo">
+                <img src="/cobsp/images/logo_color.png" id="search_logo">
                 <div class="wrap">
                     <input type="text" name="searchText" placeholder="검색어를 입력해주세요.">
-                    <button type="button" id="search_btn"><img id="search_img" src="/cob/images/search.png"></button>
+                    <button type="button" id="search_btn"><img id="search_img" src="/cobsp/images/search.png"></button>
                 </div>
             </div>
             <div id="menu_wrap">
                 <div class="content_menu">
                     <ul>
-                        <li><a href="#"><img src="/cob/images/meet.png"><br>모 임</a></li>
-                        <li><a href="#"><img src="/cob/images/cafe.png"><br>보드게임카페</a></li>
-                        <li><a href="#"><img src="/cob/images/game.png"><br>보드게임</a></li>
-                        <li><a href="#"><img src="/cob/images/board.png"><br>게시판</a></li>
+                        <li><a href="#"><img src="/cobsp/images/meet.png"><br>모 임</a></li>
+                        <li><a href="#"><img src="/cobsp/images/cafe.png"><br>보드게임카페</a></li>
+                        <li><a href="#"><img src="/cobsp/images/game.png"><br>보드게임</a></li>
+                        <li><a href="#"><img src="/cobsp/images/board.png"><br>게시판</a></li>
                     </ul>
     
                 </div>

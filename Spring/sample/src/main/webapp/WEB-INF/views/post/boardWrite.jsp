@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 <!-- include summernote-ko-KR -->
 <link href="/js/summernote-ko-KR.js">
 <title>글쓰기</title>
-
+<%@ include file="/WEB-INF/views/frame/metaheader.jsp" %>
 <script>
 $(document).ready(function() {
 	$('#summernote').summernote({
@@ -56,57 +57,64 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<h2 style="text-align: center;">글 작성</h2><br><br><br>
+<%@ include file="/WEB-INF/views/frame/header.jsp" %>
+	<div class="Wrapper">
+		<div id="content">
+			<div class="WritingWrap">
+				<div class="WritingHeader">
+					<h2 class="title">게시판 글쓰기</h2>
+					<input id="subBtn" type="button" value="글 작성"
+						class="upload_contents" form="postForm"
+						onclick="goWrite(this.form)" />
+				</div>
+				<div class="write_contents">
+					<form id="postForm" method="post">
+						<input type="number" name="memIdx" style="width: 20%;"
+							placeholder="멤버 idx" /><br> <input type="text"
+							name="postWriter" style="width: 20%;" placeholder="작성자" /><br>
+						<div class="articlecate">
+							<select name="postSort" placeholder="카테고리"
+								style="width: 100px; height: 30px">
+								<option value="잡담">잡담</option>
+								<option value="질문">질문</option>
+								<option value="후기">후기</option>
+								<option value="드로우/출시">드로우/출시</option>
+								<option value="게임TIP">게임TIP</option>
+								<option value="정보/세일">정보/세일</option>
+								<option value="지역">지역</option>
+								<option value="기타">기타</option>
+								<option value="공지">공지</option>
+							</select>
+						</div>
+						<input type="text" name="postTitle" class="postTitle" placeholder="제목" /> <br><br>
+						<textarea id="summernote" name="postContent"></textarea>
+						<!-- <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function goWrite(frm) {
+			var postTitle = frm.postTitle.value;
+			var postWriter = frm.postWriter.value;
+			var postContent = frm.postContent.value;
+			
+			if (postWriter.trim() == ''){
+				alert("작성자를 입력해주세요");
+				return false;
+			}
+			if (postTitle.trim() == ''){
+				alert("제목을 입력해주세요");
+				return false;
+			}
 
-<div style="width: 60%; margin: auto;">
-	<form method="post" method="post">
-		<input type="number" name="memIdx" style="width: 20%;" placeholder="멤버 idx"/><br>
-		<input type="text" name="postWriter" style="width: 20%;" placeholder="작성자"/><br>
-		<input type="text" name="postSort" style="width: 20%;" placeholder="카테고리"/><br>
-		<input type="text" name="postTitle" style="width: 40%;" placeholder="제목"/>
-		<br><br> 
-		<textarea id="summernote" name="postContent"></textarea>
-		<input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/>
-	</form>
-</div>
-<script>
-	function goWrite(frm) {
-		var postTitle = frm.postTitle.value;
-		var postWriter = frm.postWriter.value;
-		var postContent = frm.postContent.value;
-		
-		if (postWriter.trim() == ''){
-			alert("작성자를 입력해주세요");
-			return false;
+			if (postContent.trim() == '') {
+				alert("내용을 입력해주세요");
+				return false;
+			}
+			frm.submit();
 		}
-		if (postTitle.trim() == ''){
-			alert("제목을 입력해주세요");
-			return false;
-		}
-		
-		if (postContent.trim() == ''){
-			alert("내용을 입력해주세요");
-			return false;
-		}
-		frm.submit();
-	}
-	
-	// 콜백함수
-	function uploadSummernoteImageFile(file, editor) {
-        data = new FormData();
-        data.append("file", file);
-        $.ajax({
-            data : data,
-            type : "POST",
-            url : "/uploadSummernoteImageFile",
-            contentType : false,
-            processData : false,
-            success : function(data) {
-                //항상 업로드된 파일의 url이 있어야 한다.
-                $(editor).summernote('insertImage', data.url);
-            }
-        });
-    }
-</script>
+	</script>
 </body>
 </html>

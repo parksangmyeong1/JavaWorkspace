@@ -11,7 +11,7 @@
         </div>
 
         <div class="container">
-            <a href="index.html"><img src="/images/logo_white.png" class="logo"></a>
+            <a href="index.html"><img src="/cobsp/images/logo_white.png" class="logo"></a>
         </div>
 
 
