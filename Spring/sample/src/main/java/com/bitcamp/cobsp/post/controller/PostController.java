@@ -72,7 +72,7 @@ public class PostController {
 		
 		model.addAttribute("postDetail", post);
 		 
-		return "post/viewForm"; 
+		return "post/postDetail"; 
 	
 	}
 

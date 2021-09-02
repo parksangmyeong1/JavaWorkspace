@@ -6,3 +6,4 @@
 <link rel="icon" href="/cobsp/images/simple_logo.png">
 <link rel="stylesheet" href="/cobsp/css/postReg.css">
 <link rel="stylesheet" href="/cobsp/css/postList.css">
+<link rel="stylesheet" href="/cobsp/css/postDetil.css">
