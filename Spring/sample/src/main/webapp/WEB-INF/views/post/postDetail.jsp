@@ -9,8 +9,11 @@
 <title>Open Project : 게시글 보기</title>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp" %>
 </head>
+<script src="https://code.jquery.com/jquery-1.12.4.js" 
+integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
+crossorigin="anonymous">
+</script>
 <script>
-    
     $(document).ready(function(){
         
         // 댓글 하나만 입력하도록 설정
@@ -97,18 +100,18 @@
         <div class="WritingWrap">
             <div class="contents">
                 <div class="board_header">
-                    <h3><a href="board.html">COB 게시판</a></h3>
-                    <a href="board.html" class="categori">잡담</a>
-                    <a href="textedit.html" class="categori-write">글쓰기</a>
-                    <a href="#" class="categori-right">다음글</a>
-                    <a href="#" class="categori-right">이전글</a>
-                    <a href="board.html" class="categori-right">목록</a>
+                    <h3><a href="<c:url value='/post/postList'/>">COB 게시판</a></h3>
+                    <a href="<c:url value='post/postList'/>" class="categori">잡담</a>
+                    <a href="<c:url value='/post/write'/>" class="categori-write">글쓰기</a>
+                    <a href="<c:url value='/post/postDetail?postIdx=${postDetail[0].postIdx}'/>" class="categori-right">다음글</a>
+                    <a href="<c:url value='/post/postDetail?postIdx=${postDetail[2].postIdx}'/>" class="categori-right">이전글</a>
+                    <a href="<c:url value='/post/postList'/>" class="categori-right">목록</a>
                 </div>
                 <div class="contents-wrap">
                     <div class="contents-header">
                         <div class="header1">
-                            <span class="title">${postDetail.postTitle}</span>
-                            <span class="time"><fmt:formatDate value="${postDetail.postRegDate}" type="date"
+                            <span class="title">${postDetail[1].postTitle}</span>
+                            <span class="time"><fmt:formatDate value="${postDetail[1].postRegDate}" type="date"
 							pattern="yyyy.MM.dd" /></span>
                             <a herf="#" class="copy-url">
                                 <img src="/cobsp/images/copy--v1.png" alt="링크 주소복사 아이콘" title="주소복사">
@@ -116,7 +119,7 @@
                         </div>
                         <div class="header2">
                             <a href="#" class="imgSelect" data-id="id1">
-                            	<img src="/cobsp/images/user.png"/>${postDetail.postRegDate}
+                            	<img src="/cobsp/images/user.png"/>${postDetail[1].postRegDate}
                             </a>
                             <div class="nick-box id1 display-none">
                                 <ul>
@@ -125,28 +128,28 @@
                                 </ul>
                             </div>
                             <div class="contents-header-info">
-                                <span class="commentsCnt">조회수 : ${postDetail.views}</span>
-                                <span>좋아요 : ${postDetail.postLike}</span>
+                                <span class="commentsCnt">조회수 : ${postDetail[1].views}</span>
+                                <span>좋아요 : ${postDetail[1].postLike}</span>
                                 <span>댓글 : 4</span>	<!-- 댓글 숫자 가져와야함 -->
                             </div>
                         </div>
                     </div>
                     <div class="contents-text">
-                        ${postDetail.postContent}
+                        ${postDetail[1].postContent}
                     </div>
                     <div class="contents-etc">
                         <div class="updown">
                             <div class="up" onclick='count("up")'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png"/></a>
-                                <strong id="upresult" >${postDetail.postLike}</strong>
+                                <strong id="upresult" >${postDetail[1].postLike}</strong>
                             </div>
                             <div class="down" onclick='count("down")'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/fa314a/thumbs-down.png"/></a>
-                                <strong id="downresult">${postDetail.postDislike}</strong>
+                                <strong id="downresult">${postDetail[1].postDislike}</strong>
                             </div>
                         </div>
                         <div class="icons-wrap">
-                            <a><img alert src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                            <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
                             <a><img src="https://img.icons8.com/wired/64/000000/paste.png"/></a>
                             <a><img src="https://img.icons8.com/material-outlined/24/000000/share.png"/></a>
                         </div>
@@ -154,10 +157,10 @@
                 </div>
             </div>
             <div class="contents-crud">
-                <a href="<c:url value='/write'/>" class="contents-c">글쓰기</a>
-                <a href="#" class="contents-u" >수정</a>
-                <a href="#" class="contents-d" onclick="return confirm('해당게시글을 삭제하시겠습니까?');">삭제</a>
-                <a href="board.html" class="contents-r">목록</a>
+                <a href="<c:url value='/post/write'/>" class="contents-c">글쓰기</a>
+                <a href="<c:url value='/post/postEdit?postIdx=${postDetail[1].postIdx}'/>" class="contents-u" >수정</a>
+                <a href="<c:url value='/post/postDelete?postIdx=${postDetail[1].postIdx}'/>" class="contents-d" onclick="return confirm('해당게시글을 삭제하시겠습니까?');">삭제</a>
+                <a href="<c:url value='/post/postList'/>" class="contents-r">목록</a>
             </div>
             <!-- 댓글 만들고 추가 시켜야함 -->
             <div class="comments-wrap" id="comments">
@@ -288,8 +291,11 @@
                 <div class="comments-write">
                     <label>댓글 쓰기</label>
                     <div>
-                        <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
-                        <input type="submit" onclick="submitcomments()" value="등록">
+                    	<form id="commForm" action="<c:url value='/comment/regComment'/>">
+	                    	<textarea class="write-comments" name="commContent" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+	                        <input type="hidden" name="postIdx" value="${postDetail[1].postIdx}">
+	                        <input type="submit" form="commForm" onclick="goWrite(this.form);" value="등록">
+                    	</form>
                     </div>
                 </div>
                 <div class="comments-paging">
@@ -312,6 +318,16 @@
         </div>
     </div>
     
-    
+    <script>
+		function goWrite(frm) {
+			var commContent = frm.commContent.value;
+			console.log(commContent);
+			if(commContent.trim() == ''){
+				alert("댓글 내용을 입력해주세요");
+				return false;
+			}
+			frm.submit();
+		}
+	</script>
 </body>
 </html> 

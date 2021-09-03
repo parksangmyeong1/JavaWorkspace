@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Open Project : 회원 리스트</title>
+<c:if test="${ param.deleteResult eq 1 }">
+	<script>
+		alert('해당 게시물이 삭제되었습니다.');
+	</script>
+</c:if>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp" %>
 </head>
 <body>
@@ -133,7 +138,7 @@
                         </span>
                     </div>
                     <!-- 글쓰기 페이지로 보내기 -->
-                    <a href="<c:url value='/write'/>" class="btn_write">글쓰기</a>
+                    <a href="<c:url value='/post/write'/>" class="btn_write">글쓰기</a>
                 </div>
                 <!-- paging_bar -->
                 <div class="page_wrap">

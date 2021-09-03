@@ -33,19 +33,43 @@
 	<!-- 게시글 리스트 출력 -->
 	<select id="selectAll"
 		resultMap="postListResult">
-		select * from post order by postIdx
+		select * from post order by postIdx desc
 	</select>
 	
 	<!-- 게시글 수정 -->
-	<update id="updatePost"
+	<update id="editPost"
 		parameterType="com.bitcamp.cobsp.post.domain.Post">
-		update post set postTitle = #{postTitle}, postContent = #{postContent}, postSort = #{postSort} where postIdx = #{postIdx}
+		update post set postSort = #{postSort}, postTitle = #{postTitle}, postContent = #{postContent} where postIdx = #{postIdx}
 	</update>
 	
+	<!-- 게시글 삭제 -->
+	
+	<delete id="deletePost">
+		delete from post where postIdx = #{postIdx}
+	</delete>
+	
 	<!-- 해당 게시글 출력 -->
-	<select id="selectPostByPostIdx"
-		resultMap="postListResult">
+	<select id="selectPostDetail" resultMap="postListResult">
+	<![CDATA[
+		select * from post where postIdx IN (
+          ( SELECT postIdx FROM post WHERE postIdx < #{postIdx} ORDER BY postIdx DESC LIMIT 1 ),
+          ( SELECT postIdx FROM post WHERE postIdx = #{postIdx} ),
+          ( SELECT postIdx FROM post WHERE postIdx > #{postIdx} ORDER BY postIdx LIMIT 1)
+       )
+       ]]>
+	</select>
+	
+	<!-- 수정할 게시글 가져오기 -->
+	<select id="selectByIdx" resultMap="postListResult"> 
 		select * from post where postIdx = #{postIdx}
 	</select>
 	
+
+	<insert id="insertComment"
+		parameterType="com.bitcamp.cobsp.comment.domain.Comment"
+		useGeneratedKeys="true"
+		keyProperty="commIdx">
+		insert into comment (postIdx, commContent)
+		value (#{postIdx}, #{commContent})
+	</insert>	
 </mapper>

@@ -2,6 +2,7 @@ package com.bitcamp.cobsp.post.dao;
 
 import java.util.List;
 
+import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.post.domain.Post;
 
 public interface Dao {
@@ -9,9 +10,19 @@ public interface Dao {
 	// 게시글 등록
 	int insertPost(Post post);
 	// 게시글 정보 수정
-	int updateMember(Post post);
+	int editPost(Post post);
+	// 게시글 삭제
+	int deletePost(int postIdx);
+	// 수정할 게시글 가져오기
+	Post selectByIdx(int postIdx);
 	// 상세 게시글
-	Post selectPostByPostIdx(int postIdx);
+	List<Post> selectPostDetail(int postIdx);
 	// 게시글 리스트
 	List<Post> selectAll();
+	
+	
+	
+	// 댓글 등록
+	int insertComment(Comment comment);
+	
 }
