@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
@@ -59,10 +58,14 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/post/write", method = RequestMethod.POST)
-	public String regPostView(@ModelAttribute("regRequest") PostRegRequest postRegRequest, HttpServletRequest request,
+	public String regPostView(
+			@ModelAttribute("regRequest") PostRegRequest postRegRequest, 
+			HttpServletRequest request,
 			Model model) {
+		
+		int resultCnt = 0;
 
-		int resultCnt = regService.regPost(postRegRequest, request);
+		resultCnt = regService.regPost(postRegRequest, request);
 		
 		model.addAttribute("resultReg", resultCnt);
 
@@ -73,7 +76,9 @@ public class PostController {
 
 	// 게시글 들어가기
 	@RequestMapping("/post/postDetail{postIdx}") 
-	public String openPostDetail(Model model, @RequestParam("postIdx") int postIdx) {
+	public String openPostDetail(
+			@RequestParam("postIdx") int postIdx, 
+			Model model) {
 	
 		List<Post> list = null;
 		
@@ -90,7 +95,9 @@ public class PostController {
 	
 	// 게시글 삭제
 	@RequestMapping("/post/postDelete{postIdx}") 
-	public String postDelete(Model model, @RequestParam("postIdx") int postIdx) {
+	public String postDelete(
+			@RequestParam("postIdx") int postIdx,
+			Model model) {
 
 		int resultCnt = 0;
 		
@@ -107,7 +114,9 @@ public class PostController {
 		
 	// 게시글 수정
 	@RequestMapping(value = "/post/postEdit{postIdx}", method = RequestMethod.GET) 
-	public String postEditForm(Model model, @RequestParam("postIdx") int postIdx) {
+	public String postEditForm(
+			@RequestParam("postIdx") int postIdx,
+			Model model) {
 
 		Post post = null;
 		
@@ -122,22 +131,23 @@ public class PostController {
 		return "post/postDetail";
 	}
 	
-	// 게시글 수정
-		@RequestMapping(value = "/post/postEdit{postIdx}", method = RequestMethod.POST) 
-		public String postEditView(Model model,Post post, @RequestParam("postIdx") int postIdx) {
+	@RequestMapping(value = "/post/postEdit{postIdx}", method = RequestMethod.POST) 
+	public String postEditView(
+			@RequestParam("postIdx") int postIdx,
+			Post post, Model model) {
 
-			int resultCnt = 0;
-			
-			resultCnt = editService.editPost(post);
-			
-			model.addAttribute("editResult", resultCnt);
+		int resultCnt = 0;
 
-			if(resultCnt != 0) {
-				return "redirect:postDetail?postIdx="+postIdx;
-			}
+		resultCnt = editService.editPost(post);
 
-			return "post/postDetail";
+		model.addAttribute("editResult", resultCnt);
+
+		if(resultCnt != 0) {
+			return "redirect:postDetail?postIdx="+postIdx;
 		}
+
+		return "post/postDetail";
+	}
 		
 //	// 댓글 숫자 조회
 //		@RequestMapping(value = "/post/getLike{postIdx}") 

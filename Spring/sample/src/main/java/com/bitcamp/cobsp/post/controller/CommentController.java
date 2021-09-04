@@ -1,6 +1,5 @@
 package com.bitcamp.cobsp.post.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitcamp.cobsp.comment.domain.CommentRegRequest;
 import com.bitcamp.cobsp.comments.controller.CommentRegService;
-import com.bitcamp.cobsp.post.domain.PostRegRequest;
 
 @Controller
 public class CommentController {
@@ -23,11 +20,13 @@ public class CommentController {
 
 	// 게시글 작성
 	@RequestMapping(value = "/comment/regComment", method = RequestMethod.GET)
-	public String regCommView(Model model, 
+	public String regCommView( 
 			@ModelAttribute("regRequest") CommentRegRequest commRegRequest, 
-			HttpServletRequest request
-			) {
-		int resultCnt = regService.regComment(commRegRequest, request);
+			HttpServletRequest request,
+			Model model) {
+		int resultCnt = 0;
+				
+		resultCnt = regService.regComment(commRegRequest, request);
 		model.addAttribute("resultCommReg", resultCnt);
 
 		String view = "redirect:/post/postDetail?postIdx="+commRegRequest.getPostIdx();

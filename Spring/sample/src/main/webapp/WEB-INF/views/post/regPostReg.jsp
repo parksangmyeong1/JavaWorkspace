@@ -31,14 +31,14 @@ crossorigin="anonymous">
 				<!-- select로 값을 저장 -->
 				<td>카테고리</td>
 				<td>
-					<!-- <input type="text" name="postSort"> --> <select
-					name="postSort">
+					<!-- <input type="text" name="postSort"> --> 
+					<select name="postSort">
 						<option value="잡담">잡담</option>
 						<option value="장난">장난</option>
 						<option value="지역">지역</option>
 						<option value="정보">정보</option>
 						<option value="공지">공지</option>
-				</select>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -52,8 +52,8 @@ crossorigin="anonymous">
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="button" value="등록" id="save"><input
-					type="reset"></td>
+				<td><input type="button" value="등록" id="save">
+				<input type="reset"></td>
 			</tr>
 		</table>
 	</form>

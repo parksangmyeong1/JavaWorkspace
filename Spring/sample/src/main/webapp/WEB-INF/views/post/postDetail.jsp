@@ -113,8 +113,8 @@ crossorigin="anonymous">
                             <span class="title">${postDetail[1].postTitle}</span>
                             <span class="time"><fmt:formatDate value="${postDetail[1].postRegDate}" type="date"
 							pattern="yyyy.MM.dd" /></span>
-                            <a herf="#" class="copy-url">
-                                <img src="/cobsp/images/copy--v1.png" alt="링크 주소복사 아이콘" title="주소복사">
+                            <a herf="#" >
+                                <img class="copy-url" src="/cobsp/images/copy--v1.png" alt="링크 주소복사 아이콘" title="주소복사">
                             </a>
                         </div>
                         <div class="header2">

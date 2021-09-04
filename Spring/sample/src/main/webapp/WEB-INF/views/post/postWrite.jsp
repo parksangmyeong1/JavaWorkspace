@@ -22,9 +22,9 @@ $(document).ready(function() {
 	$('#summernote').summernote({
 		placeholder: 'content',
 	    minHeight: 500,             // 최소 높이
-	    maxHeight: null,             // 최대 높이
-	    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-	    lang: "ko-KR",					// 한글 설정
+	    maxHeight: null,            // 최대 높이
+	    focus: true,                // 에디터 로딩후 포커스를 맞출지 여부
+	    lang: "ko-KR",				// 한글 설정
 	    /* callbacks: {
 			onImageUpload: function(files, editor, welEditable) {
 				for (var i = files.length - 1; i >= 0; i--) {

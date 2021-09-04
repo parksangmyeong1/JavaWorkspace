@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.comment.domain.CommentRegRequest;
 import com.bitcamp.cobsp.post.dao.Dao;
-import com.bitcamp.cobsp.post.domain.Post;
-import com.bitcamp.cobsp.post.domain.PostRegRequest;
 
 @Service
 public class CommentRegService {

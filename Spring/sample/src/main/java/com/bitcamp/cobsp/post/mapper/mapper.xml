@@ -43,7 +43,6 @@
 	</update>
 	
 	<!-- 게시글 삭제 -->
-	
 	<delete id="deletePost">
 		delete from post where postIdx = #{postIdx}
 	</delete>
@@ -64,7 +63,7 @@
 		select * from post where postIdx = #{postIdx}
 	</select>
 	
-
+	<!-- 댓글 등록 -->
 	<insert id="insertComment"
 		parameterType="com.bitcamp.cobsp.comment.domain.Comment"
 		useGeneratedKeys="true"
