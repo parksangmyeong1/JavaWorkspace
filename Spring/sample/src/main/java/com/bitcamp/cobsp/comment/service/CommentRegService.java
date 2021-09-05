@@ -1,4 +1,4 @@
-package com.bitcamp.cobsp.comments.controller;
+package com.bitcamp.cobsp.comment.service;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -8,6 +8,13 @@ public class CommentRegRequest {
 	private int postIdx;
 	private String commContent;
 
+	public CommentRegRequest() {}
+	
+	public CommentRegRequest(int postIdx, String commContent) {
+		this.postIdx = postIdx;
+		this.commContent = commContent;
+	}
+
 	public int getPostIdx() {
 		return postIdx;
 	}

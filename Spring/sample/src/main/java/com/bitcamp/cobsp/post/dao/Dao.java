@@ -24,5 +24,6 @@ public interface Dao {
 	
 	// 댓글 등록
 	int insertComment(Comment comment);
-	
+	// 댓글 조회
+	List<Comment> selectCommList(int postIdx);
 }

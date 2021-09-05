@@ -1,4 +1,6 @@
-package com.bitcamp.cobsp.post.controller;
+package com.bitcamp.cobsp.comment.controller;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,19 +10,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.comment.domain.CommentRegRequest;
-import com.bitcamp.cobsp.comments.controller.CommentRegService;
+import com.bitcamp.cobsp.comment.service.CommentListService;
+import com.bitcamp.cobsp.comment.service.CommentRegService;
 
 @Controller
 public class CommentController {
 
 	@Autowired
 	private CommentRegService regService;
+	
+	@Autowired
+	private CommentListService listService;
 
-	// 게시글 작성
-	@RequestMapping(value = "/comment/regComment", method = RequestMethod.GET)
-	public String regCommView( 
+	// 댓글 작성
+	@RequestMapping(value = "/comment/regComment", method = RequestMethod.POST)
+	@ResponseBody
+	public void regCommView( 
 			@ModelAttribute("regRequest") CommentRegRequest commRegRequest, 
 			HttpServletRequest request,
 			Model model) {
@@ -29,11 +38,21 @@ public class CommentController {
 		resultCnt = regService.regComment(commRegRequest, request);
 		model.addAttribute("resultCommReg", resultCnt);
 
-		String view = "redirect:/post/postDetail?postIdx="+commRegRequest.getPostIdx();
-
-		return view;
 	}
+	
+	// 댓글 조회
+	@RequestMapping(value = "/comment/commentList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Comment> regCommView( 
+			@ModelAttribute("postIdx") int postIdx, 
+			Model model) {
 
+		List<Comment> list = null;
+		
+		list = listService.getCommentList(postIdx);
+		System.out.println(list);
+		return list;
+	}
 //	// 게시글 들어가기
 //	@RequestMapping("/post/postDetail{postIdx}") 
 //	public String openPostDetail(Model model, @RequestParam("postIdx") int postIdx) {

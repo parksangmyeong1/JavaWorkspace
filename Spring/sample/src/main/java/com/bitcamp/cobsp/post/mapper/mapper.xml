@@ -10,7 +10,7 @@
 	<resultMap id="postListResult" 
 		type="com.bitcamp.cobsp.post.domain.Post">
 		<id column="postIdx" property="postIdx"/>
-		<result column="membIdx" property="membIdx"/>
+		<result column="memIdx" property="memIdx"/>
 		<result column="postWriter" property="postWriter"/>
 		<result column="postSort" property="postSort"/>
 		<result column="postContent" property="postContent"/>
@@ -19,6 +19,17 @@
 		<result column="postLike" property="postLike"/>
 		<result column="postDislike" property="postDislike"/>
 		<result column="postRep" property="postRep"/>
+	</resultMap>
+	
+	<resultMap id="commListResult" 
+		type="com.bitcamp.cobsp.comment.domain.Comment">
+		<id column="commIdx" property="commIdx"/>
+		<result column="postIdx" property="postIdx"/>
+		<result column="commContent" property="commContent"/>
+		<result column="commRegDate" property="commRegDate"/>
+		<result column="commLike" property="commLike"/>
+		<result column="commDislike" property="commDislike"/>
+		<result column="commRep" property="commRep"/>
 	</resultMap>
 	
 	<!-- 게시글 등록 -->
@@ -71,4 +82,10 @@
 		insert into comment (postIdx, commContent)
 		value (#{postIdx}, #{commContent})
 	</insert>	
+	
+	<!-- 댓글 조회 -->
+	<select id="selectCommList"
+		resultMap="commListResult">
+		select * from comment where postIdx = #{postIdx}
+	</select>
 </mapper>

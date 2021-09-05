@@ -15,7 +15,7 @@ crossorigin="anonymous">
 </script>
 <script>
     $(document).ready(function(){
-        
+    	showCommList();
         // 댓글 하나만 입력하도록 설정
         $('.add-recomments').click(function(){
             var add_recomments = $(this).attr('data-recomments');
@@ -291,10 +291,10 @@ crossorigin="anonymous">
                 <div class="comments-write">
                     <label>댓글 쓰기</label>
                     <div>
-                    	<form id="commForm" action="<c:url value='/comment/regComment'/>">
+                    	<form id="commForm">
 	                    	<textarea class="write-comments" name="commContent" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
-	                        <input type="hidden" name="postIdx" value="${postDetail[1].postIdx}">
-	                        <input type="submit" form="commForm" onclick="goWrite(this.form);" value="등록">
+	                        <input id="postIdx" type="hidden" name="postIdx" value="${postDetail[1].postIdx}">
+	                        <input id="insert_comment" type="button" form="commForm" value="등록">
                     	</form>
                     </div>
                 </div>
@@ -317,17 +317,56 @@ crossorigin="anonymous">
             <a href="#bottom">⬇</a>
         </div>
     </div>
-    
+    <div id="commList">
+    </div>
     <script>
-		function goWrite(frm) {
-			var commContent = frm.commContent.value;
-			console.log(commContent);
-			if(commContent.trim() == ''){
-				alert("댓글 내용을 입력해주세요");
-				return false;
-			}
-			frm.submit();
+		$('#insert_comment').on("click", function(){
+			var params = $('#commForm').serialize();
+			
+			console.log(params);
+			
+			$.ajax({
+				url : '<c:url value="/comment/regComment"/>',
+				type :"post",
+				data : params,
+				async: false,
+				success : function(){
+					showCommList();
+				},
+				error : function(){
+					alert("오류 발생!");
+				}
+			});
+			
+		});
+		
+		function showCommList(){
+			var postIdx = $('#postIdx').val();
+			console.log(postIdx);
+			
+			$.ajax({
+				url : '<c:url value="/comment/commentList"/>',
+				type : "post",
+				data : {"postIdx" : postIdx},
+				async: false,
+				success : function(list){
+					var htmls = "";
+					
+					if(list.length<1){
+						htmls = "등록된 댓글이 없습니다.";
+					}else{
+						for(var i=0;i<list.length; i++){
+							htmls += '<p>' + list[i].commContent + '</p><br>';
+						}
+					}
+					$('#commList').html(htmls);
+				},
+				error : function(){
+					alert("오류 발생!");
+				}
+			});
 		}
-	</script>
+    </script>
+    
 </body>
 </html> 
