@@ -1,6 +1,8 @@
 package com.bitcamp.cobsp.comment.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.comment.domain.CommentRegRequest;
+import com.bitcamp.cobsp.comment.service.CommentCountService;
+import com.bitcamp.cobsp.comment.service.CommentDeleteService;
+import com.bitcamp.cobsp.comment.service.CommentEditService;
 import com.bitcamp.cobsp.comment.service.CommentListService;
 import com.bitcamp.cobsp.comment.service.CommentRegService;
 
@@ -26,6 +31,15 @@ public class CommentController {
 	@Autowired
 	private CommentListService listService;
 
+	@Autowired
+	private CommentDeleteService deleteService;
+	
+	@Autowired
+	private CommentEditService editService;
+	
+	@Autowired
+	private CommentCountService countService;
+	
 	// 댓글 작성
 	@RequestMapping(value = "/comment/regComment", method = RequestMethod.POST)
 	@ResponseBody
@@ -53,72 +67,59 @@ public class CommentController {
 		System.out.println(list);
 		return list;
 	}
-//	// 게시글 들어가기
-//	@RequestMapping("/post/postDetail{postIdx}") 
-//	public String openPostDetail(Model model, @RequestParam("postIdx") int postIdx) {
-//	
-//		List<Post> list = null;
-//		
-//		list = detailService.selectpostDetail(postIdx);
-//		
-//		model.addAttribute("postDetail", list);
-//		
-//		if(list != null) {
-//			return "post/postDetail";
-//		}
-//		
-//		return "post/postDetail";
-//	}
-//	
-//	// 게시글 삭제
-//	@RequestMapping("/post/postDelete{postIdx}") 
-//	public String postDelete(Model model, @RequestParam("postIdx") int postIdx) {
-//
-//		int resultCnt = 0;
-//		
-//		resultCnt = deleteService.deletePost(postIdx);
-//
-//		model.addAttribute("deleteResult", resultCnt);
-//		
-//		if(resultCnt != 0) {
-//			return "redirect:postList";
-//		}
-//
-//		return "post/postDetail";
-//	}
-//		
-//	// 게시글 수정
-//	@RequestMapping(value = "/post/postEdit{postIdx}", method = RequestMethod.GET) 
-//	public String postEditForm(Model model, @RequestParam("postIdx") int postIdx) {
-//
-//		Post post = null;
-//		
-//		post = editService.selectByIdx(postIdx);
-//		
-//		model.addAttribute("postEdit", post);
-//
-//		if(post != null) {
-//			return "post/postEditForm";
-//		}
-//
-//		return "post/postDetail";
-//	}
-//	
-//	// 게시글 수정
-//		@RequestMapping(value = "/post/postEdit{postIdx}", method = RequestMethod.POST) 
-//		public String postEditView(Model model,Post post, @RequestParam("postIdx") int postIdx) {
-//
-//			int resultCnt = 0;
-//			
-//			resultCnt = editService.editPost(post);
-//			
-//			model.addAttribute("editResult", resultCnt);
-//
-//			if(resultCnt != 0) {
-//				return "redirect:postDetail?postIdx="+postIdx;
-//			}
-//
-//			return "post/postDetail";
-//		}
+	
+	// 댓글 삭제
+	@RequestMapping(value="/comment/deleteComment", method=RequestMethod.POST) 
+	@ResponseBody
+	public Map<String, Object> deleteComment(
+			@ModelAttribute("commIdx") int commIdx) throws Exception {
+		
+		int resultCnt = 0;
+		Map<String, Object> result = new HashMap<>();
+		try {
+			
+			resultCnt = deleteService.deleteComment(commIdx);
+			result.put("status", "OK");
+
+		} catch (Exception e) {
+		e.printStackTrace();
+		result.put("status", "False");
+		}
+		return result;
+	}
+
+		
+	// 게시글 수정
+	@RequestMapping(value = "/comment/editComment", method = RequestMethod.POST) 
+	@ResponseBody
+	public Map<String, Object> postEditView(
+			@ModelAttribute("commIdx") int commIdx,
+			@ModelAttribute("commContent") String commContent) {
+
+		int resultCnt = 0;
+		Map<String, Object> result = new HashMap<>();
+		
+		try {
+			
+			resultCnt = editService.editComment(commIdx, commContent);
+			result.put("status", "OK");
+
+		} catch (Exception e) {
+		e.printStackTrace();
+		result.put("status", "False");
+		}
+		return result;
+	}
+	
+	// 댓글 수 조회
+	@RequestMapping(value = "/comment/countComment", method = RequestMethod.POST) 
+	@ResponseBody
+	public int addViews(
+			@ModelAttribute("postIdx") int postIdx) {
+		int result = 0;
+		result = countService.countComment(postIdx);
+		
+		return result;
+	}
 
 }

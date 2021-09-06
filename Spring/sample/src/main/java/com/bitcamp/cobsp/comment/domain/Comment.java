@@ -7,6 +7,7 @@ public class Comment {
 
 	private int commIdx;
 	private int postIdx;
+	private String commWriter;
 	private String commContent;
 	private Timestamp commRegDate;
 	private int commLike;
@@ -15,10 +16,11 @@ public class Comment {
 	
 	public Comment() {}
 
-	public Comment(int commIdx, int postIdx, String commContent, Timestamp commRegDate, int commLike, int commDislike,
+	public Comment(int commIdx, int postIdx, String commWriter, String commContent, Timestamp commRegDate, int commLike, int commDislike,
 			int commRep) {
 		this.commIdx = commIdx;
 		this.postIdx = postIdx;
+		this.commWriter = commWriter;
 		this.commContent = commContent;
 		this.commRegDate = commRegDate;
 		this.commLike = commLike;
@@ -44,6 +46,14 @@ public class Comment {
 
 	public String getCommContent() {
 		return commContent;
+	}
+	
+	public void setCommWriter(String commWriter) {
+		this.commWriter = commWriter;
+	}
+
+	public String getCommWriter() {
+		return commWriter;
 	}
 
 	public void setCommContent(String commContent) {
@@ -89,7 +99,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [commIdx=" + commIdx + ", postIdx=" + postIdx + ", commContent=" + commContent
+		return "Comment [commIdx=" + commIdx + ", postIdx=" + postIdx + ", commWriter=" + commWriter + ", commContent=" + commContent
 				+ ", commRegDate=" + commRegDate + ", commLike=" + commLike + ", commDislike=" + commDislike
 				+ ", commRep=" + commRep + "]";
 	}

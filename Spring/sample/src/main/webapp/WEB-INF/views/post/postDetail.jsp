@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	// 세션 저장
+	session.setAttribute("nickName", "닉네임");
+	session.setAttribute("Id", "현재 아이디");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +20,8 @@ crossorigin="anonymous">
 </script>
 <script>
     $(document).ready(function(){
+    	
+		commentCount();
     	showCommList();
         // 댓글 하나만 입력하도록 설정
         $('.add-recomments').click(function(){
@@ -60,23 +67,39 @@ crossorigin="anonymous">
             $(this).prev().removeClass("done");
         });
     });
-
-    // 게시글 좋아요 싫어요 누르면 숫자 증가 시키기
-    function count(type){
-            const upresult = document.getElementById('upresult');
-            const downresult = document.getElementById('downresult');
-            
-            // 더하기
-            if(type === 'up') {
-                number = parseInt(upresult.innerText) + 1;
-                upresult.innerText = number;
-            }else if(type === 'down')  {
-                number = parseInt(downresult.innerText) + 1;
-                downresult.innerText = number;
-            }
-        }
-        
-
+    
+ 	// 댓글 갯수 구하기
+	function commentCount(){
+		$.ajax({
+			url : '<c:url value="/comment/countComment"/>',    			
+			type : "post",
+			data : {"postIdx" : ${ postDetail[1].postIdx} },
+			async : false,
+			success : function(data){
+				$('#commCnt').html("댓글 : "+ data);
+			},
+			error : function(){
+				alert("오류발생");
+			}
+		});
+	}
+ 	
+ 	function btn_like(){
+ 		$.ajax({
+ 			url : '<c:url value="/post/addlLike"/>',    			
+			type : "post",
+			data : {"postIdx" : ${ postDetail[1].postIdx} },
+			async : false,
+			success : function(data){
+				alert(data);
+				$('#upresult').html(data);
+			},
+			error : function(){
+				alert("오류발생");
+			} 
+ 		});
+ 	}
+ 	
     //  url 복사 기능
     function copyLink(){
 
@@ -119,7 +142,7 @@ crossorigin="anonymous">
                         </div>
                         <div class="header2">
                             <a href="#" class="imgSelect" data-id="id1">
-                            	<img src="/cobsp/images/user.png"/>${postDetail[1].postRegDate}
+                            	<img src="/cobsp/images/user.png"/>${postDetail[1].postWriter}
                             </a>
                             <div class="nick-box id1 display-none">
                                 <ul>
@@ -130,7 +153,7 @@ crossorigin="anonymous">
                             <div class="contents-header-info">
                                 <span class="commentsCnt">조회수 : ${postDetail[1].views}</span>
                                 <span>좋아요 : ${postDetail[1].postLike}</span>
-                                <span>댓글 : 4</span>	<!-- 댓글 숫자 가져와야함 -->
+                                <span id="commCnt">댓글 : </span>	<!-- 댓글 숫자 가져와야함 -->
                             </div>
                         </div>
                     </div>
@@ -139,7 +162,7 @@ crossorigin="anonymous">
                     </div>
                     <div class="contents-etc">
                         <div class="updown">
-                            <div class="up" onclick='count("up")'>
+                            <div class="up" onclick='btn_like()'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png"/></a>
                                 <strong id="upresult" >${postDetail[1].postLike}</strong>
                             </div>
@@ -162,8 +185,9 @@ crossorigin="anonymous">
                 <a href="<c:url value='/post/postDelete?postIdx=${postDetail[1].postIdx}'/>" class="contents-d" onclick="return confirm('해당게시글을 삭제하시겠습니까?');">삭제</a>
                 <a href="<c:url value='/post/postList'/>" class="contents-r">목록</a>
             </div>
-            <!-- 댓글 만들고 추가 시켜야함 -->
+            <!-- 댓글 영역 -->
             <div class="comments-wrap" id="comments">
+                <!-- 베스트 댓글 -->
                 <div class="comments-best">
                     <div class="commemts-best-title">
                         <span>베스트 댓글</span>
@@ -201,99 +225,16 @@ crossorigin="anonymous">
                     </div>
                 </div>
                 <div class="comments">
-                    <ul>
-                        <li>
-                            <div class="id">
-                                <div class="comments-profile">
-                                    <img src="https://img.icons8.com/ios/50/000000/cat-profile.png" >
-                                </div>
-                                <div class="comments-info">
-                                    <a><img class="rank imgSelect" data-id="id3" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >senei
-                                        <div class="nick-box id3 display-none">
-                                            <ul>
-                                                <li>작성글보기</li>
-                                                <li>회원정보보기</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                    <span class="date">2021.06.30 19:18</span>
-                                    <a class="add-recomments" data-recomments="comments2" class="date">답글쓰기</a>	
-                                    <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                    <button class="btn-like">👎</button>
-                                    <button class="btn-dislike">👍</button>
-                                    <div class="comments-text">
-                                        1111111111111<br>zzz
-                                    </div>
-                                    <div class="recomments comments2 display-none">
-                                        <label class="write">댓글 쓰기</label> 
-                                        <a class="remove-comments">닫기</a>
-                                        <div class="recomments-text">
-                                            <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
-                                            <input type="submit" onclick="submitcomments()" value="등록">
-                                        </div>
-                                    </div>
-                                </div>		
-                            </div>	
-                        </li>
-                        <li>
-                            <div class="id">			
-                                <div class="comments-profile">
-                                    <img src="https://img.icons8.com/ios/50/000000/cat-profile.png">
-                                </div>
-                                <div class="comments-info">
-                                    <a><img class="rank imgSelect" data-id="id4" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >king
-                                        <div class="nick-box id4 display-none">
-                                            <ul>
-                                                <li>작성글보기</li>
-                                                <li>회원정보보기</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                    <span class="date">2021.06.30 11:16</span>
-                                    <a class="add-recomments" data-recomments="comments3" class="date">답글쓰기</a>	
-                                    <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                    <button class="btn-like">👎</button>
-                                    <button class="btn-dislike">👍</button>
-                                    <div class="comments-text">
-                                        222222222222222222<br>댓글 남기고 가여~~
-                                    </div>
-                                    <div class="recomments comments3 display-none">
-                                        <label class="write">댓글 쓰기</label> 
-                                        <a class="remove-comments">닫기</a>
-                                        <div class="recomments-text">
-                                            <textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
-                                            <input type="submit" onclick="submitcomments()" value="등록">
-                                        </div>
-                                    </div>
-                                    <div class="re-recomments">
-                                        <img src="https://img.icons8.com/ios/50/000000/right3.png"/>
-                                        <div class="id">			
-                                            <div class="re-recomments-profile">
-                                                <img src="https://img.icons8.com/ios/50/000000/user-female-circle.png">
-                                            </div>
-                                            <div class="re-recomments-info">
-                                                <a href="#"><img class="rank" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >son</a>
-                                                <span class="date">2021.06.30 10:56</span>
-                                                <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
-                                                <button class="btn-like">👎</button>
-                                                <button class="btn-dislike">👍</button>
-                                                <div class="comments-text">
-                                                 	  ㄱㅅㄱㅅㄱㅅㄱㅅ<br>ㄱㅅㄱㅅㄱㅅㄱㅅ
-                                                </div>
-                                            </div>		
-                                        </div>	
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <!-- 댓글이 들어가는 장소 -->
                 </div>
+                <!-- 댓글 쓰기 -->
                 <div class="comments-write">
                     <label>댓글 쓰기</label>
                     <div>
                     	<form id="commForm">
-	                    	<textarea class="write-comments" name="commContent" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+	                    	<textarea id="commText" class="write-comments" name="commContent" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
 	                        <input id="postIdx" type="hidden" name="postIdx" value="${postDetail[1].postIdx}">
+	                        <input id="commWriter" type="hidden" name="commWriter" value="<c:out value="${sessionScope.nickName}"/>">
 	                        <input id="insert_comment" type="button" form="commForm" value="등록">
                     	</form>
                     </div>
@@ -313,25 +254,32 @@ crossorigin="anonymous">
         </div>
         <div class="control-bar">
             <a href="#top">⬆</a><br>
-            <a href="#comments">💬</a><br>
-            <a href="#bottom">⬇</a>
+            <a href="#bottom">⬇</a><br>
+            <a href="#comments">💬</a>
         </div>
     </div>
-    <div id="commList">
+    <div id="#bottom">
     </div>
     <script>
+    	// 댓글 등록
 		$('#insert_comment').on("click", function(){
 			var params = $('#commForm').serialize();
-			
 			console.log(params);
-			
+
+			if($('#commText').val() == ''){
+				alert('댓글 내용을 입력해주세요');
+				return false;
+			}
 			$.ajax({
 				url : '<c:url value="/comment/regComment"/>',
 				type :"post",
 				data : params,
 				async: false,
 				success : function(){
+					alert('댓글이 등록되었습니다.');
+					commentCount();
 					showCommList();
+					$('#commText').val('');
 				},
 				error : function(){
 					alert("오류 발생!");
@@ -356,13 +304,93 @@ crossorigin="anonymous">
 						htmls = "등록된 댓글이 없습니다.";
 					}else{
 						for(var i=0;i<list.length; i++){
-							htmls += '<p>' + list[i].commContent + '</p><br>';
+							var date = new Date(list[i].commRegDate);
+							var commRegDate = date.getFullYear() + ". " + date.getMonth() + ". " + date.getDate() + ". " + date.getHours() + ":" + date.getMinutes();
+							
+							htmls += '<ul><li><div id="id' + list[i].commIdx + '" class="id">';
+							htmls += '<div class="comments-profile"><img src="https://img.icons8.com/ios/50/000000/cat-profile.png" ></div>';
+							htmls += '<div class="comments-info">';
+							htmls += '<a><img class="rank imgSelect" data-id="id3" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >' + list[i].commWriter;
+					        htmls += '<div class="nick-box id3 display-none"><ul><li>작성글보기</li><li>회원정보보기</li></ul></div></a>';
+					        htmls += '<span class="date">' + commRegDate + '</span>';
+					        htmls += '<a class="add-recomments" data-recomments="comments2" class="date">답글쓰기</a>';
+					        htmls += '<a href="javascript:void(0)" onclick="fn_editComment(' + list[i].commIdx + ', \'' + list[i].commWriter + '\', \'' + list[i].commContent + '\')">수정</a>';
+					        htmls += '<a href="javascript:void(0)" onClick="fn_deleteComment(' + list[i].commIdx + ')">삭제<a>'
+					        htmls += '<a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
+					        htmls += '<button class="btn-like">👎<span>' + list[i].commDislike +'</span></button>';
+					        htmls += '<button class="btn-dislike">👍<span>' + list[i].commLike +'</span></button>';
+					        htmls += '<div class="comments-text">' + list[i].commContent.replaceAll("\r\n", "<br>") + '</div>';
+					        htmls += '<div class="recomments comments2 display-none"><label class="write">댓글 쓰기</label><a class="remove-comments">닫기</a>';
+					        htmls += '<div class="recomments-text"><textarea class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>';
+					        htmls += '<input type="submit" onclick="submitcomments()" value="등록"></div></div></div></div></li></ul>';
 						}
 					}
-					$('#commList').html(htmls);
+					$('.comments').html(htmls);
 				},
 				error : function(){
 					alert("오류 발생!");
+				}
+			});
+		}
+		function fn_deleteComment(commIdx){
+
+			var msg = confirm("정말로 삭제하시겠습니까??");
+
+			if(msg){
+				$.ajax({
+					url : '<c:url value="/comment/deleteComment"/>',
+					type : "post",
+					data : {"commIdx" : commIdx},
+					async: false,
+					success : function(){
+						alert('해당 게시물을 삭제했습니다.');
+						showCommList();
+					},
+					error : function(){
+						alert('삭제중 오류발생');
+					}
+				});
+			}
+			else {
+				return false;
+			}
+		}
+		
+		function fn_editComment(commIdx,commWriter,commContent){
+			var htmls = "";
+			
+			htmls += '<div class="recomments comments1">';
+			htmls += '<label class="write">댓글 쓰기</label>';
+			htmls += '<a href="javascript:void(0)" onclick="fn_updateComment(' + commIdx + ', \'' + commContent + '\')" style="padding-right:5px">저장</a>';
+			htmls += '<a href="javascript:void(0)" onClick="showCommList()">취소<a>';
+			htmls += '<a class="remove-comments">닫기</a>';
+			htmls += '<div class="recomments-text">';
+			htmls += '<br><textarea id="write-comments" class="write-comments" cols="50" rows="4">' + commContent + '</textarea></div></div>'
+			
+			$('#id' + commIdx + '').append(htmls);
+		}
+		
+		function fn_updateComment(commIdx, commContent){
+			var editContent = $('#write-comments').val();
+			
+			if($('#write-comments').val() == ''){
+				alert('댓글 내용을 입력해주세요');
+				return false;
+			}
+			
+			$.ajax({
+				url : '<c:url value="/comment/editComment"/>',
+				type : "post",
+				data : {"commIdx" : commIdx,
+						"commContent" : editContent	
+				},
+				async: false,
+				success : function(){
+					alert('해당 댓글을 수정했습니다.');
+					showCommList();
+				},
+				error : function(){
+					alert('수정 입력 중 오류발생');
 				}
 			});
 		}

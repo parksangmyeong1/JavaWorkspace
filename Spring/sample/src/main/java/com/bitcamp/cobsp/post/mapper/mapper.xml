@@ -25,6 +25,7 @@
 		type="com.bitcamp.cobsp.comment.domain.Comment">
 		<id column="commIdx" property="commIdx"/>
 		<result column="postIdx" property="postIdx"/>
+		<result column="commWriter" property="commWriter"/>
 		<result column="commContent" property="commContent"/>
 		<result column="commRegDate" property="commRegDate"/>
 		<result column="commLike" property="commLike"/>
@@ -79,8 +80,8 @@
 		parameterType="com.bitcamp.cobsp.comment.domain.Comment"
 		useGeneratedKeys="true"
 		keyProperty="commIdx">
-		insert into comment (postIdx, commContent)
-		value (#{postIdx}, #{commContent})
+		insert into comment (postIdx, commWriter, commContent)
+		value (#{postIdx}, #{commWriter}, #{commContent})
 	</insert>	
 	
 	<!-- 댓글 조회 -->
@@ -88,4 +89,30 @@
 		resultMap="commListResult">
 		select * from comment where postIdx = #{postIdx}
 	</select>
+	
+	<delete id="deleteComment">
+		delete from comment where commIdx = #{commIdx}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="editComment"
+		parameterType="com.bitcamp.cobsp.comment.domain.Comment">
+		update comment set commContent = #{param2} where commIdx = #{param1}
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="addViews">
+		update post set views = views + 1 where postIdx = #{postIdx};
+	</update>
+	
+	<!-- 댓글 수 조회 -->
+	<select id="countComment"
+		resultType="int">
+		select count(*) from comment where postIdx = #{postIdx};
+	</select>
+	
+	<!-- 게시글 좋아요 증가 -->
+	<update id="addLike">
+		update post set postLike = postLike + 1  where postIdx = #{postIdx}; 
+	</update>
 </mapper>

@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
+import com.bitcamp.cobsp.post.service.AddLikeService;
 import com.bitcamp.cobsp.post.service.PostDeleteService;
 import com.bitcamp.cobsp.post.service.PostDetailService;
 import com.bitcamp.cobsp.post.service.PostEditService;
@@ -37,6 +39,9 @@ public class PostController {
 	
 	@Autowired
 	private PostEditService editService;
+	
+	@Autowired
+	private AddLikeService addLikeService;
 
 	// 게시글 리스트 조회
 	@RequestMapping("/post/postList")
@@ -149,21 +154,17 @@ public class PostController {
 		return "post/postDetail";
 	}
 		
-//	// 댓글 숫자 조회
-//		@RequestMapping(value = "/post/getLike{postIdx}") 
-//		public String getLike(Model model, @RequestParam("postIdx") int postIdx) {
-//
-//			int resultCnt = 0;
-//
-//			resultCnt = editService.editPost(post);
-//
-//			model.addAttribute("editResult", resultCnt);
-//
-//			if(resultCnt != 0) {
-//				return "redirect:postDetail?postIdx="+postIdx;
-//			}
-//
-//			return "post/postDetail";
-//		}
+	// 게시글 좋아요 증가
+	@RequestMapping(value = "/post/addlLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int addLike(
+			@RequestParam("postIdx") int postIdx) {
+
+		int resultCnt = 0;
+
+		resultCnt = addLikeService.addLike(postIdx);
+
+		return resultCnt;
+	}
 
 }

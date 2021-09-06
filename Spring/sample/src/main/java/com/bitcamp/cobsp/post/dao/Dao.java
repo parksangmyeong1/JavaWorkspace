@@ -19,6 +19,12 @@ public interface Dao {
 	List<Post> selectPostDetail(int postIdx);
 	// 게시글 리스트
 	List<Post> selectAll();
+	// 게시글 좋아요 증가
+	int addLike(int postIdx);
+	// 게시글 조회수 증가
+	void addViews(int postIdx);
+	// 게시글 댓글 수 조회
+	int countComment(int postIdx);
 	
 	
 	
@@ -26,4 +32,13 @@ public interface Dao {
 	int insertComment(Comment comment);
 	// 댓글 조회
 	List<Comment> selectCommList(int postIdx);
+	// 댓글 삭제
+	int deleteComment(int commIdx);
+	// 댓글 수정
+	int editComment(int commIdx, String commContent);
+	
+	
+	
+	
+		
 }

@@ -68,7 +68,7 @@ $(document).ready(function() {
 				<div class="write_contents">
 					<form id="postForm" method="post">
 						<input type="number" name="memIdx" style="width: 20%;" placeholder="멤버 idx" /><br> 
-						<input type="text" name="postWriter" style="width: 20%;" placeholder="작성자" /><br>
+						<input type="text" name="postWriter" style="width: 20%;" placeholder="작성자" value="${ sessionScope.nickName }" /><br>	<!-- 세션값 바꾸기 -->
 						<div class="articlecate">
 							<select name="postSort" placeholder="카테고리" style="width: 100px; height: 30px">
 								<option value="잡담">잡담</option>

@@ -109,7 +109,7 @@
 								<c:forEach items="${postList}" var="post">
 									<tr>
 										<td>${post.postSort}</td>
-										<td><a href="<c:url value='/post/postDetail?postIdx=${post.postIdx}'/>">${post.postTitle}</a></td>
+										<td><span onClick="addViews(${post.postIdx})"><a href="<c:url value='/post/postDetail?postIdx=${post.postIdx}'/>">${post.postTitle}</a><span></td>
 										<%-- <td>${post.postContent}</td> --%>
 										<td>${post.postWriter}</td>
 										<td><fmt:formatDate value="${post.postRegDate}" type="date"
@@ -162,5 +162,23 @@
             </div>
         </div>
     </div>
+    
+    <script>
+	 // 조회수 증가
+	 function addViews(postIdx){
+		 $.ajax({
+				url : '<c:url value="/views/addViews"/>',    			
+				type : "get",
+				data : {"postIdx" : postIdx},
+				async : false,
+				success : function(){
+					alert('성공');
+				},
+				error : function(){
+					alert("오류발생");
+				}
+			});
+	 }
+    </script>
 </body>
 </html> 
