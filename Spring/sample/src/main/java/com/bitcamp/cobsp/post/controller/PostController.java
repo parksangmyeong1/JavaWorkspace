@@ -66,6 +66,13 @@ public class PostController {
 		
 		return "post/postList";
 	}
+	
+	// 게시글 등록
+	@RequestMapping(value = "/post/write", method = RequestMethod.GET)
+	public String regPostForm() {
+
+		return "post/postWrite";
+	}
 
 	@RequestMapping(value = "/post/write", method = RequestMethod.POST)
 	public String regPostView(
