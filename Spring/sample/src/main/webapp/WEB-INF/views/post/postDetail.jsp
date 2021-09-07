@@ -90,9 +90,8 @@ crossorigin="anonymous">
 			type : "post",
 			data : {"postIdx" : ${ postDetail[1].postIdx} },
 			async : false,
-			success : function(data){
-				alert(data);
-				$('#upresult').html(data);
+			success : function(){
+				$('#upresult').html(${postDetail[1].postLike});
 			},
 			error : function(){
 				alert("오류발생");
@@ -295,7 +294,7 @@ crossorigin="anonymous">
 			$.ajax({
 				url : '<c:url value="/comment/commentList"/>',
 				type : "post",
-				data : {"postIdx" : postIdx},
+				data : {postIdx : postIdx},
 				async: false,
 				success : function(list){
 					var htmls = "";
@@ -340,7 +339,7 @@ crossorigin="anonymous">
 				$.ajax({
 					url : '<c:url value="/comment/deleteComment"/>',
 					type : "post",
-					data : {"commIdx" : commIdx},
+					data : {commIdx : commIdx},
 					async: false,
 					success : function(){
 						alert('해당 게시물을 삭제했습니다.');
@@ -381,8 +380,8 @@ crossorigin="anonymous">
 			$.ajax({
 				url : '<c:url value="/comment/editComment"/>',
 				type : "post",
-				data : {"commIdx" : commIdx,
-						"commContent" : editContent	
+				data : {commIdx : commIdx,
+						commContent : editContent	
 				},
 				async: false,
 				success : function(){

@@ -6,22 +6,22 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.dao.Dao;
 import com.bitcamp.cobsp.post.domain.Post;
 
 @Service
-public class PostListService {
-
-	private Dao dao;
+public class PagingPostService {
 
 	@Autowired
 	private SqlSessionTemplate template;
-
-	public List<Post> getPostList(){
-		return template.getMapper(Dao.class).selectAll();
-	}
 	
-	public List<Post> getPostList2(String postSort){
-		return template.getMapper(Dao.class).selectBySort(postSort);
+	private Dao dao;
+	
+	public List<Post> pagingPost(PagingVO vo) {
+		
+		return template.getMapper(Dao.class).pagingPost(vo);
+		
 	}
+
 }

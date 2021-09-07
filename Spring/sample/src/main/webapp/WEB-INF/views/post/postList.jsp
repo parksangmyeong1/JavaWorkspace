@@ -14,9 +14,13 @@
 </c:if>
 <%@ include file="/WEB-INF/views/frame/metaheader.jsp" %>
 </head>
+<script src="https://code.jquery.com/jquery-1.12.4.js" 
+integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
+crossorigin="anonymous">
+</script>
 <body>
 	<%@ include file="/WEB-INF/views/frame/header.jsp" %>
-		<div id="container">
+	<div id="container">
         <div class="Wrapper">
             <!-- sidebar -->
             <div class="sidebar">
@@ -52,29 +56,39 @@
                             <a class="home" href="#">
                                 <img style="vertical-align:middle;" src="https://img.icons8.com/material-outlined/24/000000/home-page.png"/>
                             </a>
-                            <a class="a1" href="#">전체</a>
+                            <a class="a1" href="<c:url value='/post/postList' />">전체</a>
                         </div>
                         <div class="nav_right">
-                            <li><a href="#" style="color:#003f7f">잡담</a></li>
-                            <li><a href="#" style="color:#007fff" >질문</a></li>
-                            <li><a href="#" style="color:#00bf5f" >후기</a></li>
-                            <li><a href="#" style="color:#7f3f00" >드로우/출시</a></li>
-                            <li><a href="#" style="color:#4f007c" >게임TIP</a></li>
-                           	<li><a href="#" style="color:#ff7f00" >정보/세일</a></li>
-                            <li><a href="" style="color:#ffaaaa" >지역</a></li>	
-                            <li><a href="#" style="color:#000000" >기타</a></li>
-                            <li><a href="#" style="color:#ff0000" >공지</a></li>
+                            <li><a href="<c:url value='/post/postList/잡담'/>" style="color:#003f7f" >잡담</a></li>
+                            <li><a href="<c:url value='/post/postList/질문'/>" style="color:#007fff" >질문</a></li>
+                            <li><a href="<c:url value='/post/postList/후기'/>" style="color:#00bf5f" >후기</a></li>
+                            <li><a href="<c:url value='/post/postList/게임TIP'/>" style="color:#4f007c" >게임TIP</a></li>
+                            <li><a href="<c:url value='/post/postList/지역'/>" style="color:#ffaaaa" >지역</a></li>	
+                            <li><a href="<c:url value='/post/postList/기타'/>" style="color:#000000" >기타</a></li>
+                            <li><a href="<c:url value='/post/postList/공지'/>" style="color:#ff0000" >공지</a></li>
                         </div>
+                        
                         <div>
-                            <select class="dataPerPage">
-                                <option value="10">10개씩</option>
-                                <option value="15">15개씩</option>
-                                <option value="20">20개씩</option>
-                                <option value="25">25개씩</option>
-                                <option value="30">30개씩</option>
-                                <option value="35">35개씩</option>
-                            </select>
+                            <select id="cntPerPage" name="sel" onchange="selChange()" class="dataPerPage">
+								<option value="10"
+									<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+								<option value="15"
+									<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+								<option value="20"
+									<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+								<option value="25"
+									<c:if test="${paging.cntPerPage == 25}">selected</c:if>>25줄 보기</option>
+								<option value="30"
+									<c:if test="${paging.cntPerPage == 30}">selected</c:if>>30줄 보기</option>	
+							</select>
                         </div>
+                        <script>
+							function selChange() {
+								var sel = $('#cntPerPage option:selected').val();
+								location.href="http://localhost:8080/cobsp/post/postList?nowPage=${paging.nowPage}&cntPerPage="+sel;
+							}
+						</script>
+                        
                         <div class="check_box">
                             <input type="checkbox" id="notice_hidden">
                             <span class="icon"></span>
@@ -108,7 +122,7 @@
                             <tbody >
 								<c:forEach items="${postList}" var="post">
 									<tr>
-										<td>${post.postSort}</td>
+										<td id="postSort"><a href="<c:url value='/post/postList/${post.postSort}'/>">${post.postSort}</a></td>
 										<td><span onClick="addViews(${post.postIdx})"><a href="<c:url value='/post/postDetail?postIdx=${post.postIdx}'/>">${post.postTitle}</a><span></td>
 										<%-- <td>${post.postContent}</td> --%>
 										<td>${post.postWriter}</td>
@@ -159,9 +173,45 @@
                         <a href="#" class="last"><img src="/cobsp/images/page_nnext.png"></a>
                     </div>
                  </div>
+                 <div id = "test">
+    		<p>nowpage : ${ paging.nowPage}</p>
+    		<p>cntPerPage : ${ paging.cntPerPage}</p>
+    		<p>startPage : ${ paging.startPage }</p>
+    		<p>endPage : ${ paging.endPage }</p>
+    		<p>lastPage : ${ paging.lastPage}</p>
+    		<p>start : ${ paging.start}</p>
+    		<p>end : ${ paging.end}</p>
+    </div>
+    <div>
+    	<c:forEach items="${pagingPost}" var="list">
+    		<p>${ list.postIdx }</p>
+    		<p>${ list.postTitle }</p>
+    		<p>${ list.postContent }</p>
+    		<p>${ list.postSort }</p>
+    	</c:forEach>
+    </div>
+    <div style="display: block; text-align: center;">		
+		<c:if test="${paging.startPage != 1 }">
+			<a href="/postList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+		</c:if>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage }">
+					<b>${p }</b>
+				</c:when>
+				<c:when test="${p != paging.nowPage }">
+					<a href="/postList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${paging.endPage != paging.lastPage}">
+			<a href="/postList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+		</c:if>
+	</div>
             </div>
         </div>
     </div>
+    
     
     <script>
 	 // 조회수 증가
@@ -169,10 +219,9 @@
 		 $.ajax({
 				url : '<c:url value="/views/addViews"/>',    			
 				type : "get",
-				data : {"postIdx" : postIdx},
+				data : {postIdx : postIdx},
 				async : false,
 				success : function(){
-					alert('성공');
 				},
 				error : function(){
 					alert("오류발생");

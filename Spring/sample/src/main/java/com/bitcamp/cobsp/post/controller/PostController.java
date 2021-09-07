@@ -7,15 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
 import com.bitcamp.cobsp.post.service.AddLikeService;
+import com.bitcamp.cobsp.post.service.CountPostService;
+import com.bitcamp.cobsp.post.service.PagingPostService;
 import com.bitcamp.cobsp.post.service.PostDeleteService;
 import com.bitcamp.cobsp.post.service.PostDetailService;
 import com.bitcamp.cobsp.post.service.PostEditService;
@@ -42,7 +47,13 @@ public class PostController {
 	
 	@Autowired
 	private AddLikeService addLikeService;
-
+	
+	@Autowired
+	private CountPostService countPostService;
+	
+	@Autowired
+	private PagingPostService pagingPostService;
+	
 	// 게시글 리스트 조회
 	@RequestMapping("/post/postList")
 	public String getList(Model model) {
@@ -103,7 +114,7 @@ public class PostController {
 	public String postDelete(
 			@RequestParam("postIdx") int postIdx,
 			Model model) {
-
+		System.out.println(postIdx);
 		int resultCnt = 0;
 		
 		resultCnt = deleteService.deletePost(postIdx);
@@ -167,4 +178,49 @@ public class PostController {
 		return resultCnt;
 	}
 
+	@RequestMapping(value = "/post/postList/{postSort}", method = RequestMethod.GET) 
+	public String postListSort(
+			@PathVariable("postSort") String postSort,
+			Model model) {
+
+		List<Post> list = null;
+
+		list = listService.getPostList2(postSort);
+
+		model.addAttribute("postList", list);
+		
+		return "post/postList";
+
+	}
+	
+	@RequestMapping(value = "/post/postList", method = RequestMethod.GET)
+	public String postList(PagingVO vo, Model model,
+			@RequestParam(value="nowPage", required = false)String nowPage,
+			@RequestParam(value="cntPerPage", required = false)String cntPerPage) {
+		System.out.println(nowPage + cntPerPage);
+		
+		List<Post> list = null;
+
+		list = listService.getPostList();
+
+		model.addAttribute("postList", list);
+		
+		int total = countPostService.countPost();
+		System.out.println(total);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "10";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "10";
+		}
+		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", vo);
+		model.addAttribute("pagingPost", pagingPostService.pagingPost(vo));
+		
+		System.out.println(vo);
+		System.out.println(pagingPostService.pagingPost(vo));
+		return "post/postList";
+	}
 }

@@ -3,6 +3,7 @@ package com.bitcamp.cobsp.post.dao;
 import java.util.List;
 
 import com.bitcamp.cobsp.comment.domain.Comment;
+import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.Post;
 
 public interface Dao {
@@ -19,6 +20,8 @@ public interface Dao {
 	List<Post> selectPostDetail(int postIdx);
 	// 게시글 리스트
 	List<Post> selectAll();
+	// 게시글 카테고리로 조회
+	List<Post> selectBySort(String postSort);
 	// 게시글 좋아요 증가
 	int addLike(int postIdx);
 	// 게시글 조회수 증가
@@ -38,7 +41,10 @@ public interface Dao {
 	int editComment(int commIdx, String commContent);
 	
 	
-	
+	// 게시글 총 갯수
+	int countPost();
+	// 페이징 처리 게시글 조회
+	List<Post>pagingPost(PagingVO vo);
 	
 		
 }

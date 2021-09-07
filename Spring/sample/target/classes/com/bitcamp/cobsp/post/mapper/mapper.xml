@@ -115,4 +115,21 @@
 	<update id="addLike">
 		update post set postLike = postLike + 1  where postIdx = #{postIdx}; 
 	</update>
+	
+	<select id="selectBySort"
+		resultMap="postListResult">
+		select * from post where postSort = #{postSort} order by postIdx desc
+	</select>
+	
+	
+	<!-- 게시글의 총 갯수 -->
+	<select id="countPost" resultType="int">
+		select count(*) from post;
+	</select>
+	
+	<!-- 게시글 페이징 -->
+	<select id="pagingPost"
+		resultMap="postListResult">
+		select * from post order by postIdx desc limit #{start}, #{end};
+	</select>
 </mapper>
