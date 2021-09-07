@@ -95,8 +95,7 @@
 	</delete>
 	
 	<!-- 댓글 수정 -->
-	<update id="editComment"
-		parameterType="com.bitcamp.cobsp.comment.domain.Comment">
+	<update id="editComment">
 		update comment set commContent = #{param2} where commIdx = #{param1}
 	</update>
 	
