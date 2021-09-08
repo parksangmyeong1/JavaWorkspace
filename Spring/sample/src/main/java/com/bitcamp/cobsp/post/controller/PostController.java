@@ -178,36 +178,30 @@ public class PostController {
 
 		return resultCnt;
 	}
-
-	@RequestMapping(value = "/post/postList/{postSort}", method = RequestMethod.GET) 
-	public String postListSort(
-			@PathVariable("postSort") String postSort,
-			Model model) {
-
-		List<Post> list = null;
-
-		list = listService.getPostList2(postSort);
-
-		model.addAttribute("postList", list);
-		
-		return "post/postList";
-
-	}
 	
+	// 게시글 리스트 출력
 	@RequestMapping(value = "/post/postList", method = RequestMethod.GET)
 	public String postList(PagingVO vo, Model model,
 			@RequestParam(value="nowPage", required = false)String nowPage,
-			@RequestParam(value="cntPerPage", required = false)String cntPerPage) {
+			@RequestParam(value="cntPerPage", required = false)String cntPerPage,
+			@RequestParam(value="postSort", required = false)String postSort) {
+		
 		System.out.println(nowPage + cntPerPage);
 		
+		// 전체 리스트 출력
 		List<Post> list = null;
-
 		list = listService.getPostList();
-
-		model.addAttribute("postList", list);
 		
+		// 카테고리별로 리스트 출력
+		if(postSort != null) {
+			list = listService.getPostList2(postSort);
+		}
+		
+		// 게시글 페이징하고 리스트 출력
 		int total = countPostService.countPost();
+		
 		System.out.println(total);
+		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "10";
@@ -218,10 +212,13 @@ public class PostController {
 		}
 		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", vo);
-		model.addAttribute("pagingPost", pagingPostService.pagingPost(vo));
+		list = pagingPostService.pagingPost(vo);		
+		
+		model.addAttribute("postList", list);
 		
 		System.out.println(vo);
 		System.out.println(pagingPostService.pagingPost(vo));
+		
 		return "post/postList";
 	}
 }

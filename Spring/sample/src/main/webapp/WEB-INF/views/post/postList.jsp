@@ -59,15 +59,14 @@ crossorigin="anonymous">
                             <a class="a1" href="<c:url value='/post/postList' />">전체</a>
                         </div>
                         <div class="nav_right">
-                            <li><a href="<c:url value='/post/postList/잡담'/>" style="color:#003f7f" >잡담</a></li>
-                            <li><a href="<c:url value='/post/postList/질문'/>" style="color:#007fff" >질문</a></li>
-                            <li><a href="<c:url value='/post/postList/후기'/>" style="color:#00bf5f" >후기</a></li>
-                            <li><a href="<c:url value='/post/postList/게임TIP'/>" style="color:#4f007c" >게임TIP</a></li>
-                            <li><a href="<c:url value='/post/postList/지역'/>" style="color:#ffaaaa" >지역</a></li>	
-                            <li><a href="<c:url value='/post/postList/기타'/>" style="color:#000000" >기타</a></li>
-                            <li><a href="<c:url value='/post/postList/공지'/>" style="color:#ff0000" >공지</a></li>
+                            <li><a onclick="click_save_value(this)" href="<c:url value='/post/postList?postSort=잡담'/>" style="color:#003f7f" >잡담</a></li>
+                            <li><a onclick="click_save_value(this)" href="<c:url value='/post/postList?postSort=질문'/>" style="color:#007fff" >질문</a></li>
+                            <li><a href="<c:url value='/post/postList?postSort=후기'/>" style="color:#00bf5f" >후기</a></li>
+                            <li><a href="<c:url value='/post/postList?postSort=게임TIP'/>" style="color:#4f007c" >게임TIP</a></li>
+                            <li><a href="<c:url value='/post/postList?postSort=지역'/>" style="color:#ffaaaa" >지역</a></li>	
+                            <li><a href="<c:url value='/post/postList?postSort=기타'/>" style="color:#000000" >기타</a></li>
+                            <li><a href="<c:url value='/post/postList?postSort=공지'/>" style="color:#ff0000" >공지</a></li>
                         </div>
-                        
                         <div>
                             <select id="cntPerPage" name="sel" onchange="selChange()" class="dataPerPage">
 								<option value="10"
@@ -83,9 +82,15 @@ crossorigin="anonymous">
 							</select>
                         </div>
                         <script>
+                        	var value = '값 없음';
+                        	function click_save_value(category){
+                        		value = $(category).text();
+                        		alert(value);
+                        	}
 							function selChange() {
-								var sel = $('#cntPerPage option:selected').val();
-								location.href="http://localhost:8080/cobsp/post/postList?nowPage=${paging.nowPage}&cntPerPage="+sel;
+								alert(value);
+								var select = $('#cntPerPage option:selected').val();
+								location.href="/cobsp/post/postList?nowPage=${paging.nowPage}&cntPerPage="+select;
 							}
 						</script>
                         
@@ -172,47 +177,28 @@ crossorigin="anonymous">
                         <a href="#" class="next"><img src="/cobsp/images/page_next.png"></a>
                         <a href="#" class="last"><img src="/cobsp/images/page_nnext.png"></a>
                     </div>
-                 </div>
-                 <div id = "test">
-    		<p>nowpage : ${ paging.nowPage}</p>
-    		<p>cntPerPage : ${ paging.cntPerPage}</p>
-    		<p>startPage : ${ paging.startPage }</p>
-    		<p>endPage : ${ paging.endPage }</p>
-    		<p>lastPage : ${ paging.lastPage}</p>
-    		<p>start : ${ paging.start}</p>
-    		<p>end : ${ paging.end}</p>
-    </div>
-    <div>
-    	<c:forEach items="${pagingPost}" var="list">
-    		<p>${ list.postIdx }</p>
-    		<p>${ list.postTitle }</p>
-    		<p>${ list.postContent }</p>
-    		<p>${ list.postSort }</p>
-    	</c:forEach>
-    </div>
-    <div style="display: block; text-align: center;">		
-		<c:if test="${paging.startPage != 1 }">
-			<a href="/postList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == paging.nowPage }">
-					<b>${p }</b>
-				</c:when>
-				<c:when test="${p != paging.nowPage }">
-					<a href="/postList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="/postList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
-		</c:if>
-	</div>
+                </div>
+			    <div style="display: block; text-align: center;">		
+					<c:if test="${paging.startPage != 1 }">
+						<a href="/postList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+					</c:if>
+					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+						<c:choose>
+							<c:when test="${p == paging.nowPage }">
+								<b>${p }</b>
+							</c:when>
+							<c:when test="${p != paging.nowPage }">
+								<a href="/postList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${paging.endPage != paging.lastPage}">
+						<a href="/postList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+					</c:if>
+				</div>
             </div>
         </div>
     </div>
-    
-    
     <script>
 	 // 조회수 증가
 	 function addViews(postIdx){
@@ -227,7 +213,7 @@ crossorigin="anonymous">
 					alert("오류발생");
 				}
 			});
-	 }
+	 	}
     </script>
 </body>
 </html> 
