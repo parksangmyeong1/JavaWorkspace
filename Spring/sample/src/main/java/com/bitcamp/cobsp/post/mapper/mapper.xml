@@ -115,20 +115,46 @@
 		update post set postLike = postLike + 1  where postIdx = #{postIdx}; 
 	</update>
 	
-	<select id="selectBySort"
-		resultMap="postListResult">
-		select * from post where postSort = #{postSort} order by postIdx desc
-	</select>
-	
-	
 	<!-- 게시글의 총 갯수 -->
 	<select id="countPost" resultType="int">
-		select count(*) from post;
+		<if test="!(postSort!=null and postSort!='')">
+			select count(*) from post;
+		</if>
+		<if test="postSort!=null and postSort!=''">
+			select count(*) from post where postSort = #{postSort};
+		</if>
 	</select>
 	
 	<!-- 게시글 페이징 -->
 	<select id="pagingPost"
 		resultMap="postListResult">
-		select * from post order by postIdx desc limit #{start}, #{end};
+		select * from post order by postIdx desc limit #{start}, #{cntPerPage};
+	</select>
+	
+	<!-- 카테고리 + 페이징 게시글 페이징 -->
+	<select id="selectBySAP"
+		resultMap="postListResult">
+		select * from post where postSort = #{param1} order by postIdx desc limit #{param2.start}, #{param2.cntPerPage};
+	</select>
+	
+	<select id="selectBySearch"
+		parameterType="com.bitcamp.cobsp.post.domain.SearchType"
+		resultType="com.bitcamp.cobsp.post.domain.Post"> 
+		select * from post
+		<where>
+			<if test="searchType=='both'">
+				postWriter like concat('%', #{keyword}, '%') 
+				or postContent like concat('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='title'">
+				postTitle like concat('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType=='content'">
+				postContent like concat('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType=='nickName'">
+				postWriter like concat('%', #{keyword}, '%') 
+			</if>
+		</where>
 	</select>
 </mapper>

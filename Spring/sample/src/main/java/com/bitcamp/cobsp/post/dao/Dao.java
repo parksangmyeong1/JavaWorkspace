@@ -5,6 +5,7 @@ import java.util.List;
 import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.Post;
+import com.bitcamp.cobsp.post.domain.SearchType;
 
 public interface Dao {
 	
@@ -42,9 +43,13 @@ public interface Dao {
 	
 	
 	// 게시글 총 갯수
-	int countPost();
+	int countPost(String postSort);
 	// 페이징 처리 게시글 조회
 	List<Post>pagingPost(PagingVO vo);
+	// 카테고리와 페이징하고 게시글 조회
+	List<Post> selectBySAP(String postSrot, PagingVO vo);
+	// 검색으로 리스트 조회
+	List<Post> selectBySearch(SearchType searchType);
 	
 		
 }

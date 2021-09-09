@@ -14,8 +14,8 @@ public class CountPostService {
 	
 	private Dao dao;
 	
-	public int countPost() {
-		return template.getMapper(Dao.class).countPost();
+	public int countPost(String postSort) {
+		return template.getMapper(Dao.class).countPost(postSort);
 	}
-
+	
 }

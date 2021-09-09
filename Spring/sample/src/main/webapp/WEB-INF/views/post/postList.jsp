@@ -49,7 +49,7 @@ crossorigin="anonymous">
                 <!-- contents -->
                 <div class="contents">
                     <div class="board_header">
-                        <h2><a href="#">COB 게시판</a></h2>
+                        <h2><a href="<c:url value='/post/postList' />">COB 게시판</a></h2>
                     </div>
                     <div class="board_nav">
                         <div class="nav_left">
@@ -59,8 +59,8 @@ crossorigin="anonymous">
                             <a class="a1" href="<c:url value='/post/postList' />">전체</a>
                         </div>
                         <div class="nav_right">
-                            <li><a onclick="click_save_value(this)" href="<c:url value='/post/postList?postSort=잡담'/>" style="color:#003f7f" >잡담</a></li>
-                            <li><a onclick="click_save_value(this)" href="<c:url value='/post/postList?postSort=질문'/>" style="color:#007fff" >질문</a></li>
+                            <li><a href="<c:url value='/post/postList?postSort=잡담'/>" style="color:#003f7f" >잡담</a></li>
+                            <li><a href="<c:url value='/post/postList?postSort=질문'/>" style="color:#007fff" >질문</a></li>
                             <li><a href="<c:url value='/post/postList?postSort=후기'/>" style="color:#00bf5f" >후기</a></li>
                             <li><a href="<c:url value='/post/postList?postSort=게임TIP'/>" style="color:#4f007c" >게임TIP</a></li>
                             <li><a href="<c:url value='/post/postList?postSort=지역'/>" style="color:#ffaaaa" >지역</a></li>	
@@ -81,16 +81,16 @@ crossorigin="anonymous">
 									<c:if test="${paging.cntPerPage == 30}">selected</c:if>>30줄 보기</option>	
 							</select>
                         </div>
+                        
                         <script>
-                        	var value = '값 없음';
-                        	function click_save_value(category){
-                        		value = $(category).text();
-                        		alert(value);
-                        	}
 							function selChange() {
-								alert(value);
+								var value = '${postSort}';
 								var select = $('#cntPerPage option:selected').val();
-								location.href="/cobsp/post/postList?nowPage=${paging.nowPage}&cntPerPage="+select;
+								if(value == ''){
+									location.href="/cobsp/post/postList?nowPage=${paging.nowPage}&cntPerPage="+select;
+								} else{
+									location.href="/cobsp/post/postList?postSort=" + value + "&nowPage=${paging.nowPage}&cntPerPage="+select;
+								}
 							}
 						</script>
                         
@@ -128,11 +128,9 @@ crossorigin="anonymous">
 								<c:forEach items="${postList}" var="post">
 									<tr>
 										<td id="postSort"><a href="<c:url value='/post/postList/${post.postSort}'/>">${post.postSort}</a></td>
-										<td><span onClick="addViews(${post.postIdx})"><a href="<c:url value='/post/postDetail?postIdx=${post.postIdx}'/>">${post.postTitle}</a><span></td>
-										<%-- <td>${post.postContent}</td> --%>
+										<td><a onClick="addViews(${post.postIdx})" href="<c:url value='/post/postDetail?postIdx=${post.postIdx}'/>">${post.postTitle}</a></td>
 										<td>${post.postWriter}</td>
-										<td><fmt:formatDate value="${post.postRegDate}" type="date"
-												pattern="yyyy.MM.dd" /></td>
+										<td><fmt:formatDate value="${post.postRegDate}" type="date" pattern="yyyy.MM.dd" /></td>
 										<td>${post.views}</td>
 										<td>${post.postLike}</td>
 									</tr>
@@ -144,23 +142,69 @@ crossorigin="anonymous">
                 <!-- search_bar -->
                 <div class="search_wrap">
                     <div class="search_bar">
-                        <input type="text" placeholder="검색어 입력">
-                        <button class="search_btn">검색</button>
+                        <input id="keyword" name="keyword" type="text" placeholder="검색어 입력">
+                        <button onclick="btn_search()" class="search_btn">검색</button>
                     </div>
                     <div class="search_categori">
                         <span>	
-                            <select>
-                                <option value="title_content">제목+내용</option>
+                            <select id="searchType" name="searchType"> 
+                                <option value="both">제목+내용</option>
                                 <option value="title">제목</option>
-                                <option value="nick_name">닉네임</option>		
+                                <option value="content">내용</option>
+                                <option value="nickName">닉네임</option>		
                             </select>
                         </span>
                     </div>
+                    <script>
+                    	function btn_search(){
+                    		location.href="/cobsp/post/postList1?searchType="+ $('#searchType').val() +"&keyword=" + $('#keyword').val();
+                    	}
+                    </script>
                     <!-- 글쓰기 페이지로 보내기 -->
                     <a href="<c:url value='/post/write'/>" class="btn_write">글쓰기</a>
                 </div>
+                <c:if test="${empty postSort}">
+                	<div style="display: block; text-align: center;">		
+						<c:if test="${paging.startPage != 1 }">
+							<a href="<c:url value='/post/postList?&nowPage=${p }&cntPerPage=${paging.cntPerPage}'/>">&lt;</a>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<a href="<c:url value='/post/postList?&nowPage=${p }&cntPerPage=${paging.cntPerPage}'/>">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<a href="<c:url value='/post/postList?&nowPage=${p }&cntPerPage=${paging.cntPerPage}'/>">&gt;</a>
+						</c:if>
+					</div>
+                </c:if>
+                <c:if test="${ !empty postSort}">
+                	<div style="display: block; text-align: center;">		
+						<c:if test="${paging.startPage != 1 }">
+							<a href="<c:url value='/post/postList?postSort=${ postSort }&nowPage=${p }&cntPerPage=${paging.cntPerPage}'/>">&lt;</a>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<a href="<c:url value='/post/postList?postSort=${ postSort }&nowPage=${p }&cntPerPage=${paging.cntPerPage}'/>">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<a href="<c:url value='/post/postList?postSort=${ postSort }&nowPage=${p }&cntPerPage=${paging.cntPerPage}'/>">&gt;</a>
+						</c:if>
+					</div>
+                </c:if>
                 <!-- paging_bar -->
-                <div class="page_wrap">
+                <!-- <div class="page_wrap">
                     <div class="page_nation">
                         <a href="#" class="first"><img src="/cobsp/images/page_pprev.png"></a>
                         <a href="#" class="prev"><img src="/cobsp/images/page_prev.png"></a>
@@ -177,25 +221,7 @@ crossorigin="anonymous">
                         <a href="#" class="next"><img src="/cobsp/images/page_next.png"></a>
                         <a href="#" class="last"><img src="/cobsp/images/page_nnext.png"></a>
                     </div>
-                </div>
-			    <div style="display: block; text-align: center;">		
-					<c:if test="${paging.startPage != 1 }">
-						<a href="/postList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
-					</c:if>
-					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-						<c:choose>
-							<c:when test="${p == paging.nowPage }">
-								<b>${p }</b>
-							</c:when>
-							<c:when test="${p != paging.nowPage }">
-								<a href="/postList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${paging.endPage != paging.lastPage}">
-						<a href="/postList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
-					</c:if>
-				</div>
+                </div> -->
             </div>
         </div>
     </div>

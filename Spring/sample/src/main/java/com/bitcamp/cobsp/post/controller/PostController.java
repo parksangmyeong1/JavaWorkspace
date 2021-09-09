@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
+import com.bitcamp.cobsp.post.domain.SearchType;
 import com.bitcamp.cobsp.post.service.AddLikeService;
 import com.bitcamp.cobsp.post.service.CountPostService;
-import com.bitcamp.cobsp.post.service.PagingPostService;
 import com.bitcamp.cobsp.post.service.PostDeleteService;
 import com.bitcamp.cobsp.post.service.PostDetailService;
 import com.bitcamp.cobsp.post.service.PostEditService;
@@ -50,22 +48,6 @@ public class PostController {
 	
 	@Autowired
 	private CountPostService countPostService;
-	
-	@Autowired
-	private PagingPostService pagingPostService;
-	
-	// 게시글 리스트 조회
-	@RequestMapping("/post/postList")
-	public String getList(Model model) {
-
-		List<Post> list = null;
-
-		list = listService.getPostList();
-
-		model.addAttribute("postList", list);
-		
-		return "post/postList";
-	}
 	
 	// 게시글 등록
 	@RequestMapping(value = "/post/write", method = RequestMethod.GET)
@@ -182,26 +164,20 @@ public class PostController {
 	// 게시글 리스트 출력
 	@RequestMapping(value = "/post/postList", method = RequestMethod.GET)
 	public String postList(PagingVO vo, Model model,
+			@RequestParam(value="postSort", required = false)String postSort,
 			@RequestParam(value="nowPage", required = false)String nowPage,
-			@RequestParam(value="cntPerPage", required = false)String cntPerPage,
-			@RequestParam(value="postSort", required = false)String postSort) {
+			@RequestParam(value="cntPerPage", required = false)String cntPerPage) {
 		
-		System.out.println(nowPage + cntPerPage);
-		
+		System.out.println("postSort : " + postSort + " nowPage : " + nowPage + " cntPerPage : " + cntPerPage);
+
 		// 전체 리스트 출력
 		List<Post> list = null;
 		list = listService.getPostList();
 		
-		// 카테고리별로 리스트 출력
-		if(postSort != null) {
-			list = listService.getPostList2(postSort);
-		}
-		
 		// 게시글 페이징하고 리스트 출력
-		int total = countPostService.countPost();
-		
+		int total = countPostService.countPost(postSort);
 		System.out.println(total);
-		
+
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "10";
@@ -210,14 +186,39 @@ public class PostController {
 		} else if (cntPerPage == null) { 
 			cntPerPage = "10";
 		}
+		
 		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", vo);
-		list = pagingPostService.pagingPost(vo);		
+		
+		// 카테고리별로 리스트 출력
+		if(postSort != null) {
+			list = listService.getPostList(postSort, vo);
+		}else if(postSort == null || postSort.equals("")) {
+			list = listService.getPostList(vo);
+		}
 		
 		model.addAttribute("postList", list);
+		model.addAttribute("postSort", postSort);
 		
-		System.out.println(vo);
-		System.out.println(pagingPostService.pagingPost(vo));
+		System.out.println("vo : " + vo);
+		System.out.println(listService.getPostList(vo));
+		
+		return "post/postList";
+	}
+	
+	@RequestMapping(value = "/post/postList1", method = RequestMethod.GET)
+	public String search(
+			SearchType searchType,
+			Model model) {
+		
+		System.out.println(searchType);
+		
+		List<Post> list = null;
+		
+		list = listService.getPostList(searchType);
+		model.addAttribute("postList", list);
+		
+		System.out.println(list);
 		
 		return "post/postList";
 	}
