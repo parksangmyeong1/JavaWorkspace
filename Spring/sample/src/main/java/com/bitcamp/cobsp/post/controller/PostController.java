@@ -166,10 +166,11 @@ public class PostController {
 	public String postList(PagingVO vo, Model model,
 			@RequestParam(value="postSort", required = false)String postSort,
 			@RequestParam(value="nowPage", required = false)String nowPage,
-			@RequestParam(value="cntPerPage", required = false)String cntPerPage) {
+			@RequestParam(value="cntPerPage", required = false)String cntPerPage,
+			SearchType searchType) {
 		
 		System.out.println("postSort : " + postSort + " nowPage : " + nowPage + " cntPerPage : " + cntPerPage);
-
+		
 		// 전체 리스트 출력
 		List<Post> list = null;
 		list = listService.getPostList();
@@ -183,7 +184,7 @@ public class PostController {
 			cntPerPage = "10";
 		} else if (nowPage == null) {
 			nowPage = "1";
-		} else if (cntPerPage == null) { 
+		} else if (cntPerPage == null) {
 			cntPerPage = "10";
 		}
 		

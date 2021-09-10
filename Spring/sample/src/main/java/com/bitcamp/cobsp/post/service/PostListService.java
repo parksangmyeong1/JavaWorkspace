@@ -28,6 +28,11 @@ public class PostListService {
 		return template.getMapper(Dao.class).selectBySearch(searchType);
 	}
 	
+	public List<Post> getPostList(SearchType searchType, PagingVO vo) {
+		System.out.println("검색 + 페이징 서비스");
+		return template.getMapper(Dao.class).selectBySearch1(searchType, vo);
+	}
+	
 	public List<Post> getPostList(PagingVO vo) {
 		System.out.println("페이징 서비스");
 		return template.getMapper(Dao.class).pagingPost(vo);

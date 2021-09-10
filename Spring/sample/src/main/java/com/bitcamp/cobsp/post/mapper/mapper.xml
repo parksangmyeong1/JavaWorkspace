@@ -157,4 +157,26 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="selectBySearch1"
+		parameterType="com.bitcamp.cobsp.post.domain.SearchType"
+		resultMap="postListResult"> 
+		select * from post where postWriter like concat('%', #{param1.keyword}, '%')
+		order by postIdx desc limit #{param2.start}, #{param2.cntPerPage}
+		<!-- <where>
+			<if test="searchType=='both'">
+				postWriter like concat('%', #{keyword}, '%') 
+				or postContent like concat('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='title'">
+				postTitle like concat('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType=='content'">
+				postContent like concat('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType=='nickName'">
+				postWriter like concat('%', #{keyword}, '%') 
+			</if>
+		</where> -->
+	</select>
 </mapper>

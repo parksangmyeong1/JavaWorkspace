@@ -50,6 +50,7 @@ public interface Dao {
 	List<Post> selectBySAP(String postSrot, PagingVO vo);
 	// 검색으로 리스트 조회
 	List<Post> selectBySearch(SearchType searchType);
-	
+	// 검색으로 리스트 조회
+	List<Post> selectBySearch1(SearchType searchType, PagingVO vo);
 		
 }
