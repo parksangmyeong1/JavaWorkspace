@@ -17,6 +17,7 @@ import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
 import com.bitcamp.cobsp.post.domain.SearchType;
+import com.bitcamp.cobsp.post.domain.request;
 import com.bitcamp.cobsp.post.service.AddLikeService;
 import com.bitcamp.cobsp.post.service.CountPostService;
 import com.bitcamp.cobsp.post.service.PostDeleteService;
@@ -207,20 +208,49 @@ public class PostController {
 		return "post/postList";
 	}
 	
-	@RequestMapping(value = "/post/postList1", method = RequestMethod.GET)
-	public String search(
-			SearchType searchType,
-			Model model) {
-		
-		System.out.println(searchType);
-		
-		List<Post> list = null;
-		
-		list = listService.getPostList(searchType);
-		model.addAttribute("postList", list);
-		
-		System.out.println(list);
-		
-		return "post/postList";
-	}
+	// 게시글 리스트 출력
+		@RequestMapping(value = "/post/searchList", method = RequestMethod.GET)
+		public String postList1(PagingVO vo, Model model,
+				@RequestParam(value="postSort", required = false)String postSort,
+				@RequestParam(value="nowPage", required = false)String nowPage,
+				@RequestParam(value="cntPerPage", required = false)String cntPerPage,
+				SearchType searchType) {
+			
+			System.out.println("postSort : " + postSort + " nowPage : " + nowPage + " cntPerPage : " + cntPerPage);
+			
+			// 전체 리스트 출력
+			List<Post> list = null;
+			list = listService.getPostList();
+			
+			// 게시글 페이징하고 리스트 출력
+			int total = countPostService.countPost(postSort);
+			System.out.println(total);
+
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) {
+				cntPerPage = "10";
+			}
+			
+			vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			model.addAttribute("paging", vo);
+			
+			// 카테고리별로 리스트 출력
+			if(postSort != null) {
+				list = listService.getPostList(postSort, vo);
+			}else if(postSort == null || postSort.equals("")) {
+				list = listService.getPostList(vo);
+			}
+			
+			model.addAttribute("postList", list);
+			model.addAttribute("postSort", postSort);
+			
+			System.out.println("vo : " + vo);
+			System.out.println(listService.getPostList(vo));
+			
+			return "post/postList";
+		}
 }

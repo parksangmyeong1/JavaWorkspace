@@ -12,8 +12,6 @@ public class CountPostService {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	private Dao dao;
-	
 	public int countPost(String postSort) {
 		return template.getMapper(Dao.class).countPost(postSort);
 	}
