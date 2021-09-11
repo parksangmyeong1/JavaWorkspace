@@ -1,6 +1,8 @@
 package com.bitcamp.cobsp.post.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.common.utils.PagingVO;
@@ -52,5 +54,7 @@ public interface Dao {
 	List<Post> selectBySearch(SearchType searchType);
 	// 검색으로 리스트 조회
 	List<Post> selectBySearch1(SearchType searchType, PagingVO vo);
+	// 검색으로 리스트 조회
+	List<Post> selectBySearch2(Map<String, Object> map);
 		
 }

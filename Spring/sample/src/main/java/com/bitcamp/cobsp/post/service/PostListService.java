@@ -1,6 +1,8 @@
 package com.bitcamp.cobsp.post.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,11 @@ public class PostListService {
 	public List<Post> getPostList(SearchType searchType, PagingVO vo) {
 		System.out.println("검색 + 페이징 서비스");
 		return template.getMapper(Dao.class).selectBySearch1(searchType, vo);
+	}
+	
+	public List<Post> getPostList(Map<String, Object> map) {
+		System.out.println("검색 + 페이징 서비스2");
+		return template.getMapper(Dao.class).selectBySearch2(map);
 	}
 	
 	public List<Post> getPostList(PagingVO vo) {

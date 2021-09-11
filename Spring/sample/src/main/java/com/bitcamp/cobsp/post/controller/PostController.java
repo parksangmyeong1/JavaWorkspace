@@ -1,6 +1,8 @@
 package com.bitcamp.cobsp.post.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -244,7 +246,13 @@ public class PostController {
 			}else if(postSort == null || postSort.equals("")) {
 				list = listService.getPostList(vo);
 			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("item1", searchType);
+			map.put("item2", vo);
+			map.put("postSort", postSort);
 			
+			list = listService.getPostList(map);
+
 			model.addAttribute("postList", list);
 			model.addAttribute("postSort", postSort);
 			

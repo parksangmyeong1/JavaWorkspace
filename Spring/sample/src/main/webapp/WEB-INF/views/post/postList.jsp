@@ -157,7 +157,7 @@ crossorigin="anonymous">
                     </div>
                     <script>
                     	function btn_search(){
-                    		location.href="/cobsp/post/searchList?postSort=" + ${postSort} +"&searchType="+ $('#searchType').val() +"&keyword=" + $('#keyword').val();
+                    		location.href="/cobsp/post/searchList?postSort=${postSort}&searchType="+ $('#searchType').val() +"&keyword=" + $('#keyword').val();
                     	}
                     </script>
                     <!-- 글쓰기 페이지로 보내기 -->

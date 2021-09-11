@@ -8,7 +8,7 @@ public class SearchType {
 	public SearchType() {
 	}
 	
-	public SearchType(int p, String searchType, String keyword) {
+	public SearchType(String searchType, String keyword) {
 		this.searchType=searchType;
 		this.keyword=keyword;
 	}
