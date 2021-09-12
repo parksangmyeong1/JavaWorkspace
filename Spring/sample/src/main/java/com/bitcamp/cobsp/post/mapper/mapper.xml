@@ -188,8 +188,8 @@
 		select * from post 
 		<where>
 			<if test="item1.searchType=='both'">
-				postSort = #{postSort} and postWriter like concat('%', #{item1.keyword}, '%') 
-				or postContent like concat('%', #{param1.keyword}, '%')
+				postSort = #{postSort} and (postTitle like concat('%', #{item1.keyword}, '%') 
+				or postContent like concat('%', #{item1.keyword}, '%'))
 				order by postIdx desc limit #{item2.start}, #{item2.cntPerPage}
 			</if>
 			<if test="item1.searchType=='title'">
