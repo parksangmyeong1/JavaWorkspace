@@ -33,6 +33,18 @@
 		<result column="commRep" property="commRep"/>
 	</resultMap>
 	
+	<resultMap id="recommListResult" 
+		type="com.bitcamp.cobsp.recomment.domain.Recomment">
+		<id column="recommIdx" property="recommIdx"/>
+		<result column="commIdx" property="commIdx"/>
+		<result column="recommWriter" property="recommWriter"/>
+		<result column="recommContent" property="recommContent"/>
+		<result column="recommRegDate" property="recommRegDate"/>
+		<result column="recommLike" property="recommLike"/>
+		<result column="recommDislike" property="recommDislike"/>
+		<result column="recommRep" property="recommRep"/>
+	</resultMap>
+	
 	<!-- 게시글 등록 -->
 	<insert id="insertPost"
 		parameterType="com.bitcamp.cobsp.post.domain.Post"
@@ -159,30 +171,31 @@
 	</select>
 	
 	<select id="selectBySearch1"
+		parameterType="java.util.HashMap"
 		resultMap="postListResult"> 
 		select * from post 
 		<where>
-			<if test="searchType=='both'">
-				postWriter like concat('%', #{keyword}, '%') 
-				or postContent like concat('%', #{param1.keyword}, '%')
-				order by postIdx desc limit #{param2.start}, #{param2.cntPerPage}
+			<if test="item1.searchType=='both'">
+				postTitle like concat('%', #{item1.keyword}, '%') 
+				or postContent like concat('%', #{item1.keyword}, '%')
+				order by postIdx desc limit #{item2.start}, #{item2.cntPerPage}
 			</if>
-			<if test="searchType=='title'">
-				postTitle like concat('%', #{param1.keyword}, '%') 
-				order by postIdx desc limit #{param2.start}, #{param2.cntPerPage}
+			<if test="item1.searchType=='title'">
+				postTitle like concat('%', #{item1.keyword}, '%') 
+				order by postIdx desc limit #{item2.start}, #{item2.cntPerPage}
 			</if>
-			<if test="searchType=='content'">
-				postContent like concat('%', #{param1.keyword}, '%') 
-				order by postIdx desc limit #{param2.start}, #{param2.cntPerPage}
+			<if test="item1.searchType=='content'">
+				postContent like concat('%', #{item1.keyword}, '%') 
+				order by postIdx desc limit #{item2.start}, #{item2.cntPerPage}
 			</if>
-			<if test="searchType=='nickName'">
-				postWriter like concat('%', #{param1.keyword}, '%') 
-				order by postIdx desc limit #{param2.start}, #{param2.cntPerPage}
+			<if test="item1.searchType=='nickName'">
+				postWriter like concat('%', #{item1.keyword}, '%') 
+				order by postIdx desc limit #{item2.start}, #{item2.cntPerPage}
 			</if>
 		</where>
 	</select>
 	
-	<select id="selectBySearch2"
+	<select id="selectBySearchAndPaging"
 		parameterType="java.util.HashMap"
 		resultMap="postListResult"> 
 		select * from post 
@@ -205,5 +218,46 @@
 				order by postIdx desc limit #{item2.start}, #{item2.cntPerPage}
 			</if>
 		</where>
+	</select>
+	
+	<update id="addcommLike"
+		parameterType="int">
+		update comment set commLike = commLike + 1 where commIdx = #{commIdx}
+	</update>
+	
+	<select id="selectLike"
+		parameterType="int"
+		resultType="int">
+		select commLike from comment where commIdx = #{commIdx}
+	</select>
+	
+	<update id="addcommDislike"
+		parameterType="int">
+		update comment set commDislike = commDislike + 1 where commIdx = #{commIdx}
+	</update>
+	
+	<select id="selectDislike"
+		parameterType="int"
+		resultType="int">
+		select commDislike from comment where commIdx = #{commIdx}
+	</select>
+	
+	
+	<insert id="insertRecomment"
+		parameterType="com.bitcamp.cobsp.recomment.domain.Recomment"
+		useGeneratedKeys="true"
+		keyProperty="recommIdx">
+		insert into recomment (commIdx, recommWriter, recommContent)
+		value (#{commIdx}, #{recommWriter}, #{recommContent})
+	</insert>
+	
+	<select id="selectRecommList"
+		resultMap="recommListResult">
+		select * from recomment where commIdx = #{commIdx} order by recommIdx desc
+	</select>
+	
+	<select id="selectBestComment"
+		resultMap="commListResult">
+		select * from comment where postIdx = #{postIdx} order by commLike desc limit 1
 	</select>
 </mapper>

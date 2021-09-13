@@ -185,6 +185,7 @@
     /* 베스트 댓글 */
     .comments-best{
         border:5px solid rgb(243, 123, 123);
+        height: 110px;
         border-radius: 8px;
         margin-bottom: 10px;
     }
@@ -350,7 +351,7 @@
     /* btn-like */
     .btn-like, .btn-dislike {
         float: right;
-        width: 25px;
+        width: 70px;
         height: 25px;
         margin-right: 10px;
         color: transparent;
@@ -358,14 +359,6 @@
     }
     .btn-like:hover, .btn-dislike:hover {
         text-shadow: 0 0 0 #ea0;
-    }
-    .btn-like.done, .btn-dislike.done {
-        color: inherit;
-        text-shadow: 0;
-    }
-    .btn-like.done:hover, .btn-dislike.done:hover {
-        color: transparent;
-        text-shadow: 0 0 0 #777;
     }
     /* btn-like */
 

@@ -19,7 +19,6 @@ import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
 import com.bitcamp.cobsp.post.domain.SearchType;
-import com.bitcamp.cobsp.post.domain.request;
 import com.bitcamp.cobsp.post.service.AddLikeService;
 import com.bitcamp.cobsp.post.service.CountPostService;
 import com.bitcamp.cobsp.post.service.PostDeleteService;
@@ -152,7 +151,7 @@ public class PostController {
 	}
 		
 	// 게시글 좋아요 증가
-	@RequestMapping(value = "/post/addlLike", method = RequestMethod.POST)
+	@RequestMapping(value = "/post/addLike", method = RequestMethod.POST)
 	@ResponseBody
 	public int addLike(
 			@RequestParam("postIdx") int postIdx) {
@@ -160,7 +159,7 @@ public class PostController {
 		int resultCnt = 0;
 
 		resultCnt = addLikeService.addLike(postIdx);
-
+		
 		return resultCnt;
 	}
 	
@@ -241,23 +240,36 @@ public class PostController {
 			model.addAttribute("paging", vo);
 			
 			// 카테고리별로 리스트 출력
-			if(postSort != null) {
+			if(postSort != null && !postSort.equals("")) {
+				System.out.println("카테고리 있을 경우");
 				list = listService.getPostList(postSort, vo);
+				if(searchType != null) {
+					System.out.println("카테고리 있고 검색");
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("item1", searchType);
+					map.put("item2", vo);
+					map.put("postSort", postSort);
+					
+					list = listService.getPostList(map);
+				}
 			}else if(postSort == null || postSort.equals("")) {
+				System.out.println("카테고리 없을 경우");
 				list = listService.getPostList(vo);
+				if(searchType != null) {
+					System.out.println("카테고리 없고 검색");
+					System.out.println(searchType.getKeyword());
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("item1", searchType);
+					map.put("item2", vo);
+					list = listService.getPostListSearchType(map);
+				}
 			}
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("item1", searchType);
-			map.put("item2", vo);
-			map.put("postSort", postSort);
-			
-			list = listService.getPostList(map);
 
 			model.addAttribute("postList", list);
 			model.addAttribute("postSort", postSort);
 			
 			System.out.println("vo : " + vo);
-			System.out.println(listService.getPostList(vo));
+			//System.out.println(listService.getPostList(vo));
 			
 			return "post/postList";
 		}

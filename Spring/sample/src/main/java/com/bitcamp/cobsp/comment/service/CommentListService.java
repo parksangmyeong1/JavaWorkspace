@@ -20,4 +20,8 @@ public class CommentListService {
 	public List<Comment> getCommentList(int postIdx){
 		return template.getMapper(Dao.class).selectCommList(postIdx);
 	}
+	
+	public Comment getBestComment(int postIdx){
+		return template.getMapper(Dao.class).selectBestComment(postIdx);
+	}
 }

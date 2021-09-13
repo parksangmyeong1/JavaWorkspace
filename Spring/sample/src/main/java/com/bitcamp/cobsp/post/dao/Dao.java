@@ -1,6 +1,5 @@
 package com.bitcamp.cobsp.post.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.SearchType;
+import com.bitcamp.cobsp.recomment.domain.Recomment;
 
 public interface Dao {
 	
@@ -42,7 +42,14 @@ public interface Dao {
 	int deleteComment(int commIdx);
 	// 댓글 수정
 	int editComment(int commIdx, String commContent);
-	
+	// 댓글 좋아요 1 증가
+	int addcommLike(int commIdx);
+	// 댓글 좋아요 조회
+	int selectLike(int commIdx);
+	// 댓글 좋아요 1 증가
+	int addcommDislike(int commIdx);
+	// 댓글 좋아요 조회
+	int selectDislike(int commIdx);
 	
 	// 게시글 총 갯수
 	int countPost(String postSort);
@@ -51,10 +58,18 @@ public interface Dao {
 	// 카테고리와 페이징하고 게시글 조회
 	List<Post> selectBySAP(String postSrot, PagingVO vo);
 	// 검색으로 리스트 조회
-	List<Post> selectBySearch(SearchType searchType);
+	List<Post> selectBySearch1(Map<String, Object> map);
 	// 검색으로 리스트 조회
-	List<Post> selectBySearch1(SearchType searchType, PagingVO vo);
-	// 검색으로 리스트 조회
-	List<Post> selectBySearch2(Map<String, Object> map);
+	List<Post> selectBySearchAndPaging(Map<String, Object> map);
+	
+	
+	
+	// 대댓글 등록
+	int insertRecomment(Recomment recomment);
+	// 대댓글 리스트 출력
+	List<Recomment> selectRecommList(int commIdx);
+	// 베스트 댓글 조회
+	Comment selectBestComment(int postIdx);
+	
 		
 }

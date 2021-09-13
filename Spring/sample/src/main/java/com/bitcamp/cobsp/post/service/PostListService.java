@@ -1,6 +1,5 @@
 package com.bitcamp.cobsp.post.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +15,6 @@ import com.bitcamp.cobsp.post.domain.SearchType;
 @Service
 public class PostListService {
 
-	private Dao dao;
-
 	@Autowired
 	private SqlSessionTemplate template;
 
@@ -25,19 +22,14 @@ public class PostListService {
 		return template.getMapper(Dao.class).selectAll();
 	}
 	
-	public List<Post> getPostList(SearchType searchType) {
-		System.out.println("검색 서비스");
-		return template.getMapper(Dao.class).selectBySearch(searchType);
-	}
-	
-	public List<Post> getPostList(SearchType searchType, PagingVO vo) {
+	public List<Post> getPostListSearchType(Map<String, Object> map) {
 		System.out.println("검색 + 페이징 서비스");
-		return template.getMapper(Dao.class).selectBySearch1(searchType, vo);
+		return template.getMapper(Dao.class).selectBySearch1(map);
 	}
 	
 	public List<Post> getPostList(Map<String, Object> map) {
 		System.out.println("검색 + 페이징 서비스2");
-		return template.getMapper(Dao.class).selectBySearch2(map);
+		return template.getMapper(Dao.class).selectBySearchAndPaging(map);
 	}
 	
 	public List<Post> getPostList(PagingVO vo) {

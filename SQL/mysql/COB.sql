@@ -118,6 +118,7 @@ delete from comment where commIdx=4;	-- 해당 commIdx로 삭제
 create table recomment(
 recommIdx int auto_increment primary key,
 commIdx int not null,
+recommWriter varchar(20) not null,
 recommContent text not null,
 recommRegDate timestamp not null default current_timestamp,
 recommLike int not null default 0,
@@ -130,7 +131,7 @@ drop table recomment;
 
 -- 대댓글 작성
 insert into recomment(commIdx, recommContent)
-values(10, '해당 댓글에 대댓글 작성');
+values(6, '해당 댓글에 대댓글 작성');
 -- test
 insert into recomment(commIdx, recommContent, recommLike, recommDislike, recommRep)
 values(1, '첫번째 대댓글', 10, 5, 2);

@@ -203,25 +203,6 @@ crossorigin="anonymous">
 						</c:if>
 					</div>
                 </c:if>
-                <!-- paging_bar -->
-                <!-- <div class="page_wrap">
-                    <div class="page_nation">
-                        <a href="#" class="first"><img src="/cobsp/images/page_pprev.png"></a>
-                        <a href="#" class="prev"><img src="/cobsp/images/page_prev.png"></a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">7</a>
-                        <a href="#">8</a>
-                        <a href="#">9</a>
-                        <a href="#">10</a>
-                        <a href="#" class="next"><img src="/cobsp/images/page_next.png"></a>
-                        <a href="#" class="last"><img src="/cobsp/images/page_nnext.png"></a>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
