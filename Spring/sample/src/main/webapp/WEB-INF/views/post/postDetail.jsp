@@ -172,11 +172,25 @@ crossorigin="anonymous">
 
         alert('주소를 복사하였습니다.');
     }
-
+    function shareFacebook(){
+    	window.open('http://www.facebook.com/sharer.php?u=https://dc2348.tistory.com/')
+    }
+    function shareTwitter() {
+        var sendText = "트위터 공유 테스트"; // 전달할 텍스트
+        var sendUrl = "https://devpad.tistory.com/53"; // 전달할 URL
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    }
 </script>
 <body>
 	<%@ include file="/WEB-INF/views/frame/header.jsp" %>
+	
+	<!-- 카카오 공유 -->
 	<a id="btnKakao" class="btn px-1"><img src="https://img.icons8.com/wired/64/000000/kakaotalk.png"></a>
+	<!-- facebook 공유 -->
+	<a onclick="shareFacebook()">페이스북 공유하기</a>
+	<!-- 트위터 공유 -->
+	<a onclick="shareTwitter()">트위터 공유하기</a>
+	
 	<div class="Wrapper">
         <div class="WritingWrap">
             <div class="contents">
