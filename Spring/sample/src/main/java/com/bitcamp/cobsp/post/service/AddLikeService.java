@@ -12,12 +12,12 @@ public class AddLikeService {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	private Dao dao;
-	
 	public int addLike(int postIdx) {
-		
 		return template.getMapper(Dao.class).addLike(postIdx);
-		
+	}
+	
+	public int addDislike(int postIdx) {
+		return template.getMapper(Dao.class).addDislike(postIdx);
 	}
 
 }

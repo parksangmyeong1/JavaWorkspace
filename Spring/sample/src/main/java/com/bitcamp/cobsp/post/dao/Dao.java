@@ -25,14 +25,15 @@ public interface Dao {
 	List<Post> selectAll();
 	// 게시글 카테고리로 조회
 	List<Post> selectBySort(String postSort);
+	
 	// 게시글 좋아요 증가
 	int addLike(int postIdx);
+	// 게시글 좋아요 증가
+	int addDislike(int postIdx);
 	// 게시글 조회수 증가
 	void addViews(int postIdx);
 	// 게시글 댓글 수 조회
 	int countComment(int postIdx);
-	
-	
 	
 	// 댓글 등록
 	int insertComment(Comment comment);
@@ -67,9 +68,19 @@ public interface Dao {
 	// 대댓글 등록
 	int insertRecomment(Recomment recomment);
 	// 대댓글 리스트 출력
-	List<Recomment> selectRecommList(int commIdx);
+	List<Recomment> selectRecommList(int postIdx);
 	// 베스트 댓글 조회
 	Comment selectBestComment(int postIdx);
+	// 대댓글 삭제
+	int deleteRecomment(int recommIdx);
+	// 대댓글 수정
+	int editRecomment(int recommIdx, String recommContent);
+	// 대댓글 좋아요
+	int addRecommLike(int recommIdx);
+	// 대댓글 싫어요
+	int addRecommDislike(int recommIdx);
+	// 대댓글 신고
+	int addRecommRep(int recommIdx);
 	
 		
 }

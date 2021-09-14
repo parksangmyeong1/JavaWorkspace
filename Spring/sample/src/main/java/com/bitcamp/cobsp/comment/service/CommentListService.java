@@ -12,8 +12,6 @@ import com.bitcamp.cobsp.post.dao.Dao;
 @Service
 public class CommentListService {
 
-	private Dao dao;
-
 	@Autowired
 	private SqlSessionTemplate template;
 

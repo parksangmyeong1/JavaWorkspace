@@ -81,6 +81,7 @@ public class CommentController {
 		List<Comment> list = null;
 		
 		list = listService.getCommentList(postIdx);
+		model.addAttribute("commList", list);
 		System.out.println(list);
 		return list;
 	}

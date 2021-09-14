@@ -21,6 +21,7 @@ crossorigin="anonymous">
 <script>
     $(document).ready(function(){
     	
+    	
 		commentCount();
 		showBestComm();
     	showCommList();
@@ -85,19 +86,50 @@ crossorigin="anonymous">
 		});
 	}
  	
- 	function btn_like(){
- 		$.ajax({
- 			url : '<c:url value="/post/addLike"/>',    			
-			type : "post",
-			data : {"postIdx" : ${ postDetail[1].postIdx} },
-			async : false,
-			success : function(){
-				$('#upresult').html(${postDetail[1].postLike});
-			},
-			error : function(){
-				alert("오류발생");
-			} 
- 		});
+ 	function btn_Like(){
+ 		var alreadylike = false;
+ 		if(!alreadylike){
+ 			$.ajax({
+ 	 			url : '<c:url value="/post/addLike"/>',    			
+ 				type : "post",
+ 				data : { postIdx : ${ postDetail[1].postIdx} },
+ 				async : false,
+ 				success : function(){
+ 					$('#upresult').html(${postDetail[1].postLike});
+ 				},
+ 				complete : function(){
+ 					alreadylike = true;
+ 				},
+ 				error : function(){
+ 					alert("좋아요 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}else{
+ 			alert("좋아요를 이미 하셨습니다!!");
+ 		}
+ 	}
+ 	
+ 	function btn_Dislike(){
+ 		var alreadylike = false;
+ 		if(!alreadylike){
+ 			$.ajax({
+ 	 			url : '<c:url value="/post/addDislike"/>',
+ 				type : "post",
+ 				data : { postIdx : ${ postDetail[1].postIdx} },
+ 				async : false,
+ 				success : function(){
+ 					$('#downresult').html(${postDetail[1].postDislike});
+ 				},
+ 				complete : function(){
+ 					alreadylike = true;
+ 				},
+ 				error : function(){
+ 					alert("싫어요 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}else{
+ 			alert("싫어요를 이미 하셨습니다!!");
+ 		}
  	}
     //  url 복사 기능
     function copyLink(){
@@ -161,11 +193,11 @@ crossorigin="anonymous">
                     </div>
                     <div class="contents-etc">
                         <div class="updown">
-                            <div class="up" onclick='btn_like()'>
+                            <div class="up" onclick='btn_Like()'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png"/></a>
                                 <strong id="upresult" >${postDetail[1].postLike}</strong>
                             </div>
-                            <div class="down" onclick='count("down")'>
+                            <div class="down" onclick='btn_Dislike()'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/fa314a/thumbs-down.png"/></a>
                                 <strong id="downresult">${postDetail[1].postDislike}</strong>
                             </div>
@@ -197,7 +229,7 @@ crossorigin="anonymous">
                     <label>댓글 쓰기</label>
                     <div>
                     	<form id="commForm">
-	                    	<textarea id="commText" class="write-comments" name="commContent" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>
+	                    	<textarea id="commText" class="write-comments" name="commContent" cols="100" rows="4" style="resize: none;" placeholder="댓글을 입력해주세요."></textarea>
 	                        <input id="postIdx" type="hidden" name="postIdx" value="${postDetail[1].postIdx}">
 	                        <input id="commWriter" type="hidden" name="commWriter" value="<c:out value="${sessionScope.nickName}"/>">
 	                        <input id="insert_comment" type="button" form="commForm" value="등록">
@@ -214,6 +246,9 @@ crossorigin="anonymous">
                     <a href="#">6</a>
                     <a href="#">7</a>					
                     <a href="#"><span>끝 페이지</span></a>
+                    <c:forEach items="${commList}" var="post">
+									${post.commIdx}
+					</c:forEach>
                 </div>
             </div>
         </div>
@@ -225,7 +260,7 @@ crossorigin="anonymous">
     </div>
     <div id="#bottom">
     </div>
-    <div id="text"></div>
+    <div id="test"></div>
     <script>
     	// 댓글 등록
 		$('#insert_comment').on("click", function(){
@@ -253,7 +288,7 @@ crossorigin="anonymous">
 			});
 			
 		});
-		
+		// 댓글 리스트 조회
 		function showCommList(){
 			var postIdx = $('#postIdx').val();
 			console.log(postIdx);
@@ -277,8 +312,8 @@ crossorigin="anonymous">
 							htmls += '<ul><li><div id="id' + list[i].commIdx + '" class="id">';
 							htmls += '<div class="comments-profile"><img src="https://img.icons8.com/ios/50/000000/cat-profile.png" ></div>';
 							htmls += '<div class="comments-info">';
-							htmls += '<a><img class="rank imgSelect" data-id="id3" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >' + list[i].commWriter;
-					        htmls += '<div class="nick-box id3 display-none"><ul><li>작성글보기</li><li>회원정보보기</li></ul></div></a>';
+							htmls += '<a><img class="rank imgSelect" data-id="id' + list[i].commIdx + '" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >' + list[i].commWriter;
+					        htmls += '<div class="nick-box id' + list[i].commIdx + ' display-none"><ul><li>작성글보기</li><li>회원정보보기</li></ul></div></a>';
 					        htmls += '<span class="date"> ' + commRegDate + ' </span>';
 					        htmls += '<a class="add-recomments" data-recomments="comments2" onclick="btn_Recomment('+list[i].commIdx+')">답글쓰기</a>';
 					        htmls += '<a href="javascript:void(0)" onclick="fn_editComment(' + list[i].commIdx + ', \'' + list[i].commWriter + '\', \'' + list[i].commContent + '\')"> 수정</a>';
@@ -286,20 +321,20 @@ crossorigin="anonymous">
 					        htmls += '<a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
 					        htmls += '<button onclick="btn_commDislike(' + list[i].commIdx + ')" class="btn-dislike">비추천 : ' + list[i].commDislike +'</span></button>';
 					        htmls += '<button onclick="btn_commLike(' + list[i].commIdx + ')" class="btn-like">추천 : ' + list[i].commLike +'</span></button>';
-					        htmls += '<div class="comments-text">' + list[i].commContent.replaceAll("\r\n", "<br>") + '</div></div></div></li></ul>';
-					        showRecomment(list[i].commIdx);
+					        htmls += '<div class="comments-text">' + list[i].commContent.replaceAll("\r\n", "<br>") + '<div class="recommentdiv"></div></div></div></div></li></ul>';
 						}
 					}
 					$('.comments').html(htmls);
+					showRecomment();
 				},
 				error : function(){
 					alert("오류 발생!");
 				}
 			});
 		}
+		// 베스트 댓글 조회
 		function showBestComm(){
 			var postIdx = $('#postIdx').val();
-			console.log(postIdx);
 			
 			$.ajax({
 				url : '<c:url value="/comment/bestComment"/>',
@@ -316,8 +351,8 @@ crossorigin="anonymous">
 						htmls += '<div class="commemts-best-title"><span>베스트 댓글</span></div>';
 						htmls += '<div><div class="comments-profile"><img src="https://img.icons8.com/ios/50/000000/nerd--v1.png" ></div>';
 						htmls += '<div class="comments-info">';	
-						htmls += '<a><img class="rank imgSelect" data-id="id2" src="https://img.icons8.com/ios/50/fa314a/diamond.png">'+list.commWriter;
-						htmls += '<div class="nick-box id2 display-none"><ul><li>작성글보기</li><li>회원정보보기</li></ul></div></a>';
+						htmls += '<a><img class="rank imgSelect" data-id="id' + list.commIdx + '" src="https://img.icons8.com/ios/50/fa314a/diamond.png">'+list.commWriter;
+						htmls += '<div class="nick-box id display-none"><ul><li>작성글보기</li><li>회원정보보기</li></ul></div></a>';
 						htmls += '<span class="date"> '+ commRegDate + '</span>';  
 						htmls += '<a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
 						htmls += '<button class="btn-dislike">비추천 : ' + list.commDislike +'</button>';
@@ -335,6 +370,7 @@ crossorigin="anonymous">
 				}
 			});
 		}
+		// 댓글 삭제
 		function fn_deleteComment(commIdx){
 
 			var msg = confirm("정말로 삭제하시겠습니까??");
@@ -358,13 +394,13 @@ crossorigin="anonymous">
 				return false;
 			}
 		}
-		
+		// 댓글 수정 폼
 		function fn_editComment(commIdx,commWriter,commContent){
 			var htmls = "";
 			
 			htmls += '<div class="recomments comments1">';
 			htmls += '<label class="write">댓글 쓰기</label>';
-			htmls += '<a href="javascript:void(0)" onclick="fn_updateComment(' + commIdx + ', \'' + commContent + '\')" style="padding-right:5px">저장</a>';
+			htmls += '<a href="javascript:void(0)" onclick="fn_updateComment(' + commIdx + ', \'' + commContent + '\')" style="padding-right:5px"> 저장</a>';
 			htmls += '<a href="javascript:void(0)" onClick="showCommList()">취소<a>';
 			htmls += '<div class="recomments-text">';
 			htmls += '<br><textarea id="write-comments" class="write-comments" cols="50" rows="4">' + commContent + '</textarea></div></div>'
@@ -372,6 +408,7 @@ crossorigin="anonymous">
 			$('#id' + commIdx + '').append(htmls);
 		}
 		
+		// 댓글 수정
 		function fn_updateComment(commIdx, commContent){
 			var editContent = $('#write-comments').val();
 			
@@ -395,6 +432,7 @@ crossorigin="anonymous">
 				}
 			});
 		}
+		// 댓글 좋아요 버튼
 		function btn_commLike(commIdx){
 	 		$.ajax({
 	 			url : '<c:url value="/comment/addCommLike"/>',    			
@@ -409,6 +447,7 @@ crossorigin="anonymous">
 				} 
 	 		});
 	 	}
+		// 댓글 싫어요 버튼
 		function btn_commDislike(commIdx){
 	 		$.ajax({
 	 			url : '<c:url value="/comment/addCommDislike"/>',    			
@@ -423,6 +462,7 @@ crossorigin="anonymous">
 				} 
 	 		});
 	 	}
+		// 대댓글 등록 폼
 		function btn_Recomment(commIdx){
 			htmls = '';
 			htmls += '<div class="recomments comments2"><label class="write">댓글 쓰기</label><a class="remove-comments" onClick="showCommList()">닫기</a>';
@@ -430,15 +470,20 @@ crossorigin="anonymous">
 	        htmls += '<input type="submit" onclick="btn_regRecomment('+commIdx+')" value="등록"></div></div>';
 	        $('#id' + commIdx + '').append(htmls);
 	        
+		}
+		// 대댓글 등록
+		function btn_regRecomment(commIdx){
 			$.ajax({
-				url : '<c:url value="/comment/editComment"/>',
+				url : '<c:url value="/recomment/regComment"/>',
 				type : "post",
-				data : {commIdx : commIdx,
-						commContent : editContent	
+				data : { postIdx : ${postDetail[1].postIdx},
+					commIdx : commIdx,
+					recommContent : $('#recomments'+commIdx).val(),
+					recommWriter : '${sessionScope.nickName}'
 				},
 				async: false,
 				success : function(){
-					alert('해당 댓글을 수정했습니다.');
+					alert('해당 대댓글을 작성했습니다.');
 					showCommList();
 				},
 				error : function(){
@@ -446,62 +491,146 @@ crossorigin="anonymous">
 				}
 			});
 		}
-		function btn_regRecomment(commIdx){
-			$.ajax({
-				url : '<c:url value="/recomment/regComment"/>',
-				type : "post",
-				data : {commIdx : commIdx,
-					recommContent : $('#recomments'+commIdx).val(),
-					recommWriter : '${sessionScope.nickName}'
-				},
-				async: false,
-				success : function(){
-					alert('해당 대댓글을 작성했습니다.');
-					htmls = '';
-					htmls += '<div class="recomments"><a class="remove-comments" onClick="showCommList()">닫기</a>';
-			        htmls += '<div class="recomments-text"><textarea id="recomments'+commIdx+'" class="write-comments" cols="50" rows="4" placeholder="댓글을 입력해주세요."></textarea>';
-			        htmls += '<input type="submit" onclick="btn_regRecomment('+commIdx+')" value="등록"></div></div>';
-			        $('#id' + commIdx + '').append(htmls);
-				},
-				error : function(){
-					alert('대댓글 등록 중 오류발생');
-				}
-			});
-		}
-		function showRecomment(commIdx){
+		// 대댓글 리스트 
+		function showRecomment(){
 			$.ajax({
 				url : '<c:url value="/recomment/recommList"/>',
 				type : "post",
-				data : {commIdx : commIdx},
+				data : {postIdx : ${ postDetail[1].postIdx } },
 				async: false,
 				success : function(list){
 					for(var i=0;i<list.length; i++){
 						var date = new Date(list[i].recommRegDate);
 						var recommRegDate = date.getFullYear() + ". " + date.getMonth() + ". " + date.getDate() + ". " + date.getHours() + ":" + date.getMinutes();
 						var htmls = "";
-						htmls += '<div id="id-re' + list[i].recommIdx + '" class="id">';
-						htmls += '<div class="comments-profile"><img src="https://img.icons8.com/ios/50/000000/cat-profile.png" ></div>';
-						htmls += '<div class="comments-info">';
-						htmls += '<a><img class="rank imgSelect" data-id="id3" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >' + list[i].recommWriter;
-				        htmls += '<div class="nick-box id3 display-none"><ul><li>작성글보기</li><li>회원정보보기</li></ul></div></a>';
-				        htmls += '<span class="date">' + recommRegDate + '</span>';
-				        htmls += '<a href="javascript:void(0)" onclick="fn_editComment(' + list[i].recommIdx + ', \'' + list[i].recommWriter + '\', \'' + list[i].recommContent + '\')">수정</a>';
-				        htmls += '<a href="javascript:void(0)" onClick="fn_deleteComment(' + list[i].recommIdx + ')">삭제<a>'
-				        htmls += '<a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
-				        htmls += '<button onclick="btn_commDislike(' + list[i].recommIdx + ')" class="btn-dislike">비추천 : ' + list[i].recommDislike +'</span></button>';
-				        htmls += '<button onclick="btn_commLike(' + list[i].recommIdx + ')" class="btn-like">추천 : ' + list[i].recommLike +'</span></button>';
+						
+						htmls += '<div id="id-re' + list[i].recommIdx + '" class="re-recomments"' + list[i].recommIdx + '>';
+						htmls += '<img src="https://img.icons8.com/ios/50/000000/right3.png"/><div class="re-recomments-profile"><img src="https://img.icons8.com/ios/50/000000/cat-profile.png" ></div>';
+						htmls += '<div class="re-comments-info">';
+						htmls += '<a><img class="rank imgSelect" data-id="id' + list[i].recommIdx + '" src="https://img.icons8.com/ios/50/fa314a/diamond.png" >' + list[i].recommWriter;
+				        htmls += '<div class="nick-box id' + list[i].recommIdx + ' display-none"><ul><li>작성글보기</li><li>회원정보보기</li></ul></div></a>';
+				        htmls += '<span class="date"> ' + recommRegDate + '</span>';
+				        htmls += '<a href="javascript:void(0)" onclick="fn_editRecomment(' + list[i].recommIdx + ', \'' + list[i].recommWriter + '\', \'' + list[i].recommContent + '\')"> 수정</a>';
+				        htmls += '<a href="javascript:void(0)" onClick="fn_deleteRecomment(' + list[i].recommIdx + ')"> 삭제<a>'
+				        htmls += '<a onclick="btn_recommRep(' + list[i].recommIdx + ')"><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
+				        htmls += '<button onclick="btn_recommDislike(' + list[i].recommIdx + ')" class="btn-dislike">비추천 : ' + list[i].recommDislike +'</span></button>';
+				        htmls += '<button onclick="btn_recommLike(' + list[i].recommIdx + ')" class="btn-like">추천 : ' + list[i].recommLike +'</span></button>';
 				        htmls += '<div class="comments-text">' + list[i].recommContent.replaceAll("\r\n", "<br>") + '</div></div></div>';
-						$('#text').append(htmls);
-				        $('#id' + commIdx + '').append(htmls);
+						$('#id' + list[i].commIdx + ' .recommentdiv').append(htmls);
 					}
 					
 				},
 				error : function(){
-					alert('대댓글 등록 중 오류발생');
+					alert('대댓글 리스트 출력 중 오류발생');
 				}
 			});
 		}
+		// 대댓글 삭제
+		function fn_deleteRecomment(recommIdx){
+
+			var msg = confirm("정말로 삭제하시겠습니까??");
+
+			if(msg){
+				$.ajax({
+					url : '<c:url value="/recomment/deleteRecomment"/>',
+					type : "post",
+					data : {recommIdx : recommIdx},
+					async: false,
+					success : function(){
+						alert('해당 게시물을 삭제했습니다.');
+						showCommList();
+					},
+					error : function(){
+						alert('삭제중 오류발생');
+					}
+				});
+			}
+			else {
+				return false;
+			}
+		}
+		// 대댓글 수정 폼
+		function fn_editRecomment(recommIdx,recommWriter,recommContent){
+			var htmls = "";
+			
+			htmls += '<div class="recomments comments1">';
+			htmls += '<label class="write">댓글 쓰기</label>';
+			htmls += '<a href="javascript:void(0)" onclick="fn_updateRecomment(' + recommIdx + ', \'' + recommContent + '\')" style="padding-right:5px"> 저장</a>';
+			htmls += '<a href="javascript:void(0)" onClick="showCommList()">취소<a>';
+			htmls += '<div class="recomments-text">';
+			htmls += '<br><textarea id="write-recomments" class="write-comments" cols="50" rows="4">' + recommContent + '</textarea></div></div>'
+			
+			$('#id-re' + recommIdx + '').append(htmls);
+		}
+		// 대댓글 수정
+		function fn_updateRecomment(recommIdx, recommContent){
+			var editContent = $('#write-recomments').val();
+			
+			if($('#write-comments').val() == ''){
+				alert('댓글 내용을 입력해주세요');
+				return false;
+			}
+			
+			$.ajax({
+				url : '<c:url value="/recomment/editRecomment"/>',
+				type : "post",
+				data : {recommIdx : recommIdx,
+						recommContent : editContent},
+				async: false,
+				success : function(){
+					alert('해당 댓글을 수정했습니다.');
+					showCommList();
+				},
+				error : function(){
+					alert('수정 입력 중 오류발생');
+				}
+			});
+		}
+		// 대댓글 좋아요 버튼
+		function btn_recommLike(recommIdx){
+	 		$.ajax({
+	 			url : '<c:url value="/recomment/addLike"/>',    			
+				type : "post",
+				data : {recommIdx : recommIdx },
+				async : false,
+				success : function(data){
+					$('.btn-like').html("추천 : " + data);
+				},
+				error : function(){
+					alert("추천 버튼 오류발생");
+				} 
+	 		});
+	 	}
+		// 대댓글 싫어요 버튼
+		function btn_recommDislike(recommIdx){
+	 		$.ajax({
+	 			url : '<c:url value="/recomment/addDislike"/>',    			
+				type : "post",
+				data : { recommIdx : recommIdx },
+				async : false,
+				success : function(data){
+					$('.btn-dislike').html("비추천 : " + data);
+				},
+				error : function(){
+					alert("대댓글 비추천 버튼 오류발생");
+				} 
+	 		});
+	 	}
+		// 대댓글 신고 버튼
+		function btn_recommRep(recommIdx){
+	 		$.ajax({
+	 			url : '<c:url value="/recomment/addRep"/>',    			
+				type : "post",
+				data : { recommIdx : recommIdx },
+				async : false,
+				success : function(data){
+					alert("해당 댓글을 신고하였습니다.");
+				},
+				error : function(){
+					alert("대댓글 신고 버튼 오류발생");
+				} 
+	 		});
+	 	}
     </script>
-    
 </body>
 </html> 

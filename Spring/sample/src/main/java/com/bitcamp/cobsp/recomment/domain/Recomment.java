@@ -6,6 +6,7 @@ import java.util.Date;
 public class Recomment {
 
 	private int recommIdx;
+	private int postIdx;
 	private int commIdx;
 	private String recommWriter;
 	private String recommContent;
@@ -17,9 +18,10 @@ public class Recomment {
 	public Recomment() {}
 	
 	
-	public Recomment(int recommIdx, int commIdx, String recommWriter, String recommContent, Timestamp recommRegDate,
+	public Recomment(int recommIdx, int postIdx, int commIdx, String recommWriter, String recommContent, Timestamp recommRegDate,
 			int recommLike, int recommDislike, int recommRep) {
 		this.recommIdx = recommIdx;
+		this.postIdx = postIdx;
 		this.commIdx = commIdx;
 		this.recommWriter = recommWriter;
 		this.recommContent = recommContent;
@@ -37,6 +39,16 @@ public class Recomment {
 
 	public void setRecommIdx(int recommIdx) {
 		this.recommIdx = recommIdx;
+	}
+
+
+	public int getPostIdx() {
+		return postIdx;
+	}
+
+
+	public void setPostIdx(int postIdx) {
+		this.postIdx = postIdx;
 	}
 
 
@@ -114,11 +126,12 @@ public class Recomment {
 		return new Date(getRecommRegDate().getTime());
 	}
 
+
 	@Override
 	public String toString() {
-		return "Recomment [recommIdx=" + recommIdx + ", commIdx=" + commIdx + ", recommWriter=" + recommWriter
-				+ ", recommContent=" + recommContent + ", recommRegDate=" + recommRegDate + ", recommLike=" + recommLike
-				+ ", recommDislike=" + recommDislike + ", recommRep=" + recommRep + "]";
+		return "Recomment [recommIdx=" + recommIdx + ", postIdx=" + postIdx + ", commIdx=" + commIdx + ", recommWriter="
+				+ recommWriter + ", recommContent=" + recommContent + ", recommRegDate=" + recommRegDate
+				+ ", recommLike=" + recommLike + ", recommDislike=" + recommDislike + ", recommRep=" + recommRep + "]";
 	}
-	
+
 }

@@ -1,6 +1,8 @@
 package com.bitcamp.cobsp.recomment.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,12 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.comment.service.CommentListService;
 import com.bitcamp.cobsp.recomment.domain.Recomment;
 import com.bitcamp.cobsp.recomment.domain.RecommentRegRequest;
+import com.bitcamp.cobsp.recomment.service.AddService;
+import com.bitcamp.cobsp.recomment.service.RecommentDeleteService;
+import com.bitcamp.cobsp.recomment.service.RecommentEditService;
 import com.bitcamp.cobsp.recomment.service.RecommentListService;
 import com.bitcamp.cobsp.recomment.service.RecommentRegService;
 
@@ -27,6 +33,15 @@ public class recommentController {
 	
 	@Autowired
 	private RecommentListService listService;
+	
+	@Autowired
+	private RecommentDeleteService deleteService;
+	
+	@Autowired
+	private RecommentEditService editService;
+	
+	@Autowired
+	private AddService addService;
 	
 	// 대댓글 등록
 	@RequestMapping(value = "/recomment/regComment", method = RequestMethod.POST) 
@@ -43,18 +58,96 @@ public class recommentController {
 		model.addAttribute("resultCommReg", resultCnt);
 	}
 	
-	// 댓글 조회
+	// 대댓글 조회
 	@RequestMapping(value = "/recomment/recommList", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Recomment> regRecommView( 
-			@ModelAttribute("commIdx") int commIdx, 
+			@ModelAttribute("postIdx") int postIdx, 
 			Model model) {
 
 		List<Recomment> list = null;
 
-		list = listService.getRecommentList(commIdx);
+		list = listService.getRecommentList(postIdx);
 		System.out.println(list);
 		return list;
 	}
+	
+	// 대댓글 삭제
+	@RequestMapping(value="/recomment/deleteRecomment", method=RequestMethod.POST) 
+	@ResponseBody
+	public Map<String, Object> deleteRecomment(
+			@ModelAttribute("recommIdx") int recommIdx) throws Exception {
 
+		int resultCnt = 0;
+		Map<String, Object> result = new HashMap<>();
+		try {
+
+			resultCnt = deleteService.deleteRecomment(recommIdx);
+			result.put("status", "OK");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("status", "False");
+		}
+		return result;
+	}
+	
+	// 대댓글 수정
+	@RequestMapping(value = "/recomment/editRecomment", method = RequestMethod.POST) 
+	@ResponseBody
+	public Map<String, Object> recommEditView(
+			@ModelAttribute("recommIdx") int recommIdx,
+			@ModelAttribute("recommContent") String recommContent) {
+
+		int resultCnt = 0;
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+
+			resultCnt = editService.editRecomment(recommIdx, recommContent);
+			result.put("status", "OK");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("status", "False");
+		}
+		return result;
+	}
+
+	// 대댓글 좋아요 증가
+	@RequestMapping(value = "/recomment/addLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int addLike(
+			@RequestParam("recommIdx") int recommIdx) {
+
+		int resultCnt = 0;
+
+		resultCnt = addService.addRecommLike(recommIdx);
+
+		return resultCnt;
+	}
+	// 대댓글 싫어요 증가
+	@RequestMapping(value = "/recomment/addDislike", method = RequestMethod.POST)
+	@ResponseBody
+	public int addDislike(
+			@RequestParam("recommIdx") int recommIdx) {
+
+		int resultCnt = 0;
+
+		resultCnt = addService.addRecommDislike(recommIdx);
+
+		return resultCnt;
+	}
+	// 신고 증가
+	@RequestMapping(value = "/recomment/addRep", method = RequestMethod.POST)
+	@ResponseBody
+	public int addRep(
+			@RequestParam("recommIdx") int recommIdx) {
+
+		int resultCnt = 0;
+
+		resultCnt = addService.addRecommRep(recommIdx);
+
+		return resultCnt;
+	}
 }

@@ -85,9 +85,13 @@
     .comments-text{
         margin-bottom: 10px;
         overflow: hidden;
+        width:90%;
+        float:right;
     }
     /* comments-text end */
-    
+    .recommentdiv{
+    overflow:hidden;
+    }
     /* contents-etc start */
     .contents-etc{
         overflow: hidden;
@@ -231,6 +235,8 @@
     /* recomments start */
     .recomments{
         overflow: hidden;
+        float:right;
+        width:90%;
         background-color: rgb(198, 224, 248);
         border: 5px solid rgb(125, 106, 235);
         border-radius: 8px;

@@ -127,6 +127,11 @@
 		update post set postLike = postLike + 1  where postIdx = #{postIdx}; 
 	</update>
 	
+	<!-- 게시글 좋아요 증가 -->
+	<update id="addDislike">
+		update post set postDislike = postDislike + 1  where postIdx = #{postIdx}; 
+	</update>
+	
 	<!-- 게시글의 총 갯수 -->
 	<select id="countPost" resultType="int">
 		<if test="!(postSort!=null and postSort!='')">
@@ -247,17 +252,41 @@
 		parameterType="com.bitcamp.cobsp.recomment.domain.Recomment"
 		useGeneratedKeys="true"
 		keyProperty="recommIdx">
-		insert into recomment (commIdx, recommWriter, recommContent)
-		value (#{commIdx}, #{recommWriter}, #{recommContent})
+		insert into recomment (postIdx, commIdx, recommWriter, recommContent)
+		value (#{postIdx}, #{commIdx}, #{recommWriter}, #{recommContent})
 	</insert>
 	
 	<select id="selectRecommList"
 		resultMap="recommListResult">
-		select * from recomment where commIdx = #{commIdx} order by recommIdx desc
+		select * from recomment where postIdx = #{postIdx} order by recommIdx desc
 	</select>
 	
 	<select id="selectBestComment"
 		resultMap="commListResult">
 		select * from comment where postIdx = #{postIdx} order by commLike desc limit 1
 	</select>
+	
+	<delete id="deleteRecomment">
+		delete from recomment where recommIdx = #{recommIdx}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="editRecomment">
+		update recomment set recommContent = #{param2} where recommIdx = #{param1}
+	</update>
+	
+	<!-- 대댓글 좋아요 증가 -->
+	<update id="addRecommLike">
+		update recomment set recommLike = recommLike + 1  where recommIdx = #{recommIdx}; 
+	</update>
+	
+	<!-- 대댓글 싫어요 증가 -->
+	<update id="addRecommDislike">
+		update recomment set recommDislike = recommDislike + 1  where recommIdx = #{recommIdx}; 
+	</update>
+	
+	<!-- 대댓글  신고 증가 -->
+	<update id="addRecommRep">
+		update recomment set recommRep = recommRep + 1  where recommIdx = #{recommIdx}; 
+	</update>
 </mapper>

@@ -5,16 +5,26 @@ public class RecommentRegRequest {
 	// 사용자의 입력을 저장하는 용도의 클래스
 	// regForm의 name과 일치시켜야 알아서 저장해준다.
 	// 알아서 넣어주기 때문에 생성자 필요가 없다.
+	private int postIdx;
 	private int commIdx;
 	private String recommWriter;
 	private String recommContent;
 
 	public RecommentRegRequest() {}
 	
-	public RecommentRegRequest(int commIdx, String recommWriter, String recommContent) {
+	public RecommentRegRequest(int postIdx, int commIdx, String recommWriter, String recommContent) {
+		this.postIdx = postIdx;
 		this.commIdx = commIdx;
 		this.recommWriter = recommWriter;
 		this.recommContent = recommContent;
+	}
+
+	public int getPostIdx() {
+		return postIdx;
+	}
+
+	public void setPostIdx(int postIdx) {
+		this.postIdx = postIdx;
 	}
 
 	public int getCommIdx() {
@@ -44,7 +54,7 @@ public class RecommentRegRequest {
 	// MemberRegRequest -> Member 
 	// 사용자에게 받는 건 MemberRegRequest지만 DB저장은 Member라서 바꿔줘야한다.
 	public Recomment toRecomment() {
-		return new Recomment(0, commIdx, recommWriter, recommContent, null, 0, 0, 0);
+		return new Recomment(0, postIdx, commIdx, recommWriter, recommContent, null, 0, 0, 0);
 	}
 
 	

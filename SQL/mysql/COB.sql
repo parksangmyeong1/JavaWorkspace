@@ -118,12 +118,14 @@ delete from comment where commIdx=4;	-- 해당 commIdx로 삭제
 create table recomment(
 recommIdx int auto_increment primary key,
 commIdx int not null,
+postIdx int not null,
 recommWriter varchar(20) not null,
 recommContent text not null,
 recommRegDate timestamp not null default current_timestamp,
 recommLike int not null default 0,
 recommDislike int not null default 0,
 recommRep int not null default 0,
+foreign key(commIdx) references comment(commIdx),
 foreign key(commIdx) references comment(commIdx)
 );
 

@@ -75,7 +75,7 @@ public class PostController {
 		return view;
 	}
 
-	// 게시글 들어가기
+	// 상세 게시글 조회
 	@RequestMapping("/post/postDetail{postIdx}") 
 	public String openPostDetail(
 			@RequestParam("postIdx") int postIdx, 
@@ -160,6 +160,19 @@ public class PostController {
 
 		resultCnt = addLikeService.addLike(postIdx);
 		
+		return resultCnt;
+	}
+	
+	// 게시글 싫어요 증가
+	@RequestMapping(value = "/post/addDislike", method = RequestMethod.POST)
+	@ResponseBody
+	public int addDislike(
+			@RequestParam("postIdx") int postIdx) {
+
+		int resultCnt = 0;
+
+		resultCnt = addLikeService.addDislike(postIdx);
+
 		return resultCnt;
 	}
 	
