@@ -20,7 +20,7 @@ import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
 import com.bitcamp.cobsp.post.domain.SearchType;
 import com.bitcamp.cobsp.post.service.AddLikeService;
-import com.bitcamp.cobsp.post.service.CountPostService;
+import com.bitcamp.cobsp.post.service.CountService;
 import com.bitcamp.cobsp.post.service.PostDeleteService;
 import com.bitcamp.cobsp.post.service.PostDetailService;
 import com.bitcamp.cobsp.post.service.PostEditService;
@@ -49,7 +49,7 @@ public class PostController {
 	private AddLikeService addLikeService;
 	
 	@Autowired
-	private CountPostService countPostService;
+	private CountService countService;
 	
 	// 게시글 등록
 	@RequestMapping(value = "/post/write", method = RequestMethod.GET)
@@ -67,7 +67,6 @@ public class PostController {
 		int resultCnt = 0;
 
 		resultCnt = regService.regPost(postRegRequest, request);
-		
 		model.addAttribute("resultReg", resultCnt);
 
 		String view = "redirect:postList";
@@ -84,9 +83,9 @@ public class PostController {
 		List<Post> list = null;
 		
 		list = detailService.selectpostDetail(postIdx);
-		
+		int count = countService.countcomment(postIdx);
 		model.addAttribute("postDetail", list);
-		
+		model.addAttribute("countComment", count);// kakao용
 		if(list != null) {
 			return "post/postDetail";
 		}
@@ -191,7 +190,7 @@ public class PostController {
 		list = listService.getPostList();
 		
 		// 게시글 페이징하고 리스트 출력
-		int total = countPostService.countPost(postSort);
+		int total = countService.countPost(postSort);
 		System.out.println(total);
 
 		if (nowPage == null && cntPerPage == null) {
@@ -237,7 +236,7 @@ public class PostController {
 			list = listService.getPostList();
 			
 			// 게시글 페이징하고 리스트 출력
-			int total = countPostService.countPost(postSort);
+			int total = countService.countPost(postSort);
 			System.out.println(total);
 
 			if (nowPage == null && cntPerPage == null) {

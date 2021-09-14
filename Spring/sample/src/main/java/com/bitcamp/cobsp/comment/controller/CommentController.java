@@ -67,8 +67,6 @@ public class CommentController {
 		int resultCnt = 0;
 				
 		resultCnt = regService.regComment(commRegRequest, request);
-		model.addAttribute("resultCommReg", resultCnt);
-
 	}
 	
 	// 댓글 조회
@@ -132,11 +130,12 @@ public class CommentController {
 	// 댓글 수 조회
 	@RequestMapping(value = "/comment/countComment", method = RequestMethod.POST) 
 	@ResponseBody
-	public int addViews(
+	public int addViews(Model model,
 			@ModelAttribute("postIdx") int postIdx) {
 		int result = 0;
 		result = countService.countComment(postIdx);
-		
+		model.addAttribute("commCount", result);
+		System.out.println(result);
 		return result;
 	}
 

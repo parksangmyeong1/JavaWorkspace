@@ -9,8 +9,6 @@ import com.bitcamp.cobsp.post.dao.Dao;
 @Service
 public class CommentCountService {
 	
-	private Dao dao;
-
 	@Autowired
 	private SqlSessionTemplate template;
 	

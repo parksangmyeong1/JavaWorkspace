@@ -18,13 +18,15 @@
 integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
 crossorigin="anonymous">
 </script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
     $(document).ready(function(){
-    	
-    	
 		commentCount();
 		showBestComm();
     	showCommList();
+    	
+    	shareKakao();	// 카카오 초기 호출
+    	
         // 댓글 하나만 입력하도록 설정
         $('.add-recomments').click(function(){
             var add_recomments = $(this).attr('data-recomments');
@@ -69,7 +71,32 @@ crossorigin="anonymous">
             $(this).prev().removeClass("done");
         });
     });
-    
+ 	// Kakao 공유 동작 function
+    function shareKakao() {
+        Kakao.init('e743b6daa20e101e0afb710dae9965b3');        
+
+        // Kakao 버튼 생성
+        Kakao.Link.createDefaultButton({
+        	
+            container : '#btnKakao',            // kakao button
+            objectType : 'feed',
+            content : {
+                title : "${postDetail[1].postTitle}",        
+                description : "COB 게시글 공유하기!",
+                imageUrl : "https://img.icons8.com/wired/64/000000/kakaotalk.png",
+                link : {
+                    mobileWebUrl : "포스트 링크 (모바일)",
+                    webUrl : "http://localhost:8080/cobsp/post/postDetail?postIdx=${postDetail[1].postIdx}"
+                }
+            },
+            social : {
+            	likeCount : ${postDetail[1].postLike},
+            	viewCount : ${postDetail[1].views},
+            	commentCount : ${countComment}
+            }
+        });
+    }
+     
  	// 댓글 갯수 구하기
 	function commentCount(){
 		$.ajax({
@@ -149,7 +176,7 @@ crossorigin="anonymous">
 </script>
 <body>
 	<%@ include file="/WEB-INF/views/frame/header.jsp" %>
-	
+	<a id="btnKakao" class="btn px-1"><img src="https://img.icons8.com/wired/64/000000/kakaotalk.png"></a>
 	<div class="Wrapper">
         <div class="WritingWrap">
             <div class="contents">
@@ -184,7 +211,7 @@ crossorigin="anonymous">
                             <div class="contents-header-info">
                                 <span class="commentsCnt">조회수 : ${postDetail[1].views}</span>
                                 <span>좋아요 : ${postDetail[1].postLike}</span>
-                                <span id="commCnt">댓글 : </span>	<!-- 댓글 숫자 가져와야함 -->
+                                <span id="commCnt"></span>	<!-- 댓글 숫자 가져와야함 -->
                             </div>
                         </div>
                     </div>
@@ -246,9 +273,6 @@ crossorigin="anonymous">
                     <a href="#">6</a>
                     <a href="#">7</a>					
                     <a href="#"><span>끝 페이지</span></a>
-                    <c:forEach items="${commList}" var="post">
-									${post.commIdx}
-					</c:forEach>
                 </div>
             </div>
         </div>

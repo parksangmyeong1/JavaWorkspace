@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
 </head>
-<style>
-    .ck.ck-editor {
-        max-width: 700px;
-    }
-    .ck-editor__editable {
-        min-height: 300px;
-    }
-     
-    </style>
+<script src="https://code.jquery.com/jquery-1.12.4.js" 
+integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" 
+crossorigin="anonymous">
+</script>    
 <body>
-    <!-- 2. TEXT 편집 툴을 사용할 textarea -->
-    <textarea name="content" id="editor" placeholder="내용을 입력해주세요."></textarea>
     <script>
-    // 3. CKEditor5를 생성할 textarea 지정
-    ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-        
+        function shareKakao() {
+ 
+ // 사용할 앱의 JavaScript 키 설정
+ Kakao.init('e743b6daa20e101e0afb710dae9965b3');
+
+ // 카카오링크 버튼 생성
+ Kakao.Link.createDefaultButton({
+   container: '#btnKakao', // 카카오공유버튼ID
+   objectType: 'feed',
+   content: {
+     title: "개발새발", // 보여질 제목
+     description: "개발새발 블로그입니다", // 보여질 설명
+     imageUrl: "devpad.tistory.com/", // 콘텐츠 URL
+     link: {
+        mobileWebUrl: "devpad.tistory.com/",
+        webUrl: "devpad.tistory.com/"
+     }
+   }
+ });
+}
     </script>
 </body>
 </html>
