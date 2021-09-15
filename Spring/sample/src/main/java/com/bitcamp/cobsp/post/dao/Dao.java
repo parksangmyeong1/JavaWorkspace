@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.common.utils.PagingVO;
+import com.bitcamp.cobsp.post.domain.CheckRequest;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.SearchType;
 import com.bitcamp.cobsp.recomment.domain.Recomment;
@@ -81,6 +82,11 @@ public interface Dao {
 	int addRecommDislike(int recommIdx);
 	// 대댓글 신고
 	int addRecommRep(int recommIdx);
+	
+	// check용 등록
+	int insertCheck(CheckRequest checkRequest);
+	// 좋아요 했는지 찾기
+	int selectLikeCheck(CheckRequest checkRequest);
 	
 		
 }

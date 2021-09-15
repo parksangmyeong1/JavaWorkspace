@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.cobsp.common.utils.PagingVO;
+import com.bitcamp.cobsp.post.domain.CheckRequest;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
 import com.bitcamp.cobsp.post.domain.SearchType;
@@ -26,6 +27,7 @@ import com.bitcamp.cobsp.post.service.PostDetailService;
 import com.bitcamp.cobsp.post.service.PostEditService;
 import com.bitcamp.cobsp.post.service.PostListService;
 import com.bitcamp.cobsp.post.service.PostRegService;
+import com.bitcamp.cobsp.post.service.SelectService;
 
 @Controller
 public class PostController {
@@ -50,6 +52,9 @@ public class PostController {
 	
 	@Autowired
 	private CountService countService;
+	
+	@Autowired
+	private SelectService selectService;
 	
 	// 게시글 등록
 	@RequestMapping(value = "/post/write", method = RequestMethod.GET)
@@ -148,18 +153,29 @@ public class PostController {
 
 		return "post/postDetail";
 	}
-		
-	// 게시글 좋아요 증가
-	@RequestMapping(value = "/post/addLike", method = RequestMethod.POST)
+	
+	// 좋아요 증가
+	@RequestMapping(value = "/check/addLike", method = RequestMethod.POST)
 	@ResponseBody
 	public int addLike(
-			@RequestParam("postIdx") int postIdx) {
-
-		int resultCnt = 0;
-
-		resultCnt = addLikeService.addLike(postIdx);
+		@ModelAttribute("regRequest") CheckRequest checkRequest, 
+		HttpServletRequest request,
+		Model model) {
 		
-		return resultCnt;
+		int selectResult = 0;
+		selectResult = selectService.selectLikeCheck(checkRequest);
+		
+		if(selectResult==1) {
+			return 1;
+		}else {
+			int insertResult = 0;
+			insertResult = regService.regCheck(checkRequest, request);
+			
+			int resultCnt=0;
+			resultCnt = addLikeService.addLike(checkRequest.getIdx());
+			
+			return 0;
+		}
 	}
 	
 	// 게시글 싫어요 증가

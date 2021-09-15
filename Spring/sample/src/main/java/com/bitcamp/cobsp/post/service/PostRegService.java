@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.cobsp.post.dao.Dao;
+import com.bitcamp.cobsp.post.domain.CheckRequest;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
 
@@ -30,6 +31,16 @@ public class PostRegService {
 		dao = template.getMapper(Dao.class);
 		resultCnt = dao.insertPost(post);
 
+		return resultCnt;
+	}
+
+	public int regCheck(CheckRequest checkRequest, 
+			HttpServletRequest request) {
+		
+		int resultCnt = 0;
+		dao = template.getMapper(Dao.class);
+		resultCnt = dao.insertCheck(checkRequest);
+		
 		return resultCnt;
 	}
 }

@@ -289,4 +289,15 @@
 	<update id="addRecommRep">
 		update recomment set recommRep = recommRep + 1  where recommIdx = #{recommIdx}; 
 	</update>
+	
+	<insert id="insertCheck">
+		insert into checklike (type, tableType, idx, memIdx)
+		values (#{type}, #{tableType}, #{idx}, #{memIdx})
+	</insert>
+	
+	<select id="selectLikeCheck"
+		resultType="int">
+		select count(*) from checklike 
+		where type=#{type} and tableType=#{tableType} and idx=#{idx} and memIdx=#{memIdx}
+	</select>
 </mapper>

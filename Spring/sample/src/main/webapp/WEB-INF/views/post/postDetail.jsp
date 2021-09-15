@@ -5,7 +5,7 @@
 <%
 	// 세션 저장
 	session.setAttribute("nickName", "닉네임");
-	session.setAttribute("Id", "현재 아이디");
+	session.setAttribute("memIdx", 1);
  %>
 <!DOCTYPE html>
 <html>
@@ -78,7 +78,7 @@ crossorigin="anonymous">
         // Kakao 버튼 생성
         Kakao.Link.createDefaultButton({
         	
-            container : '#btnKakao',            // kakao button
+            container : '#btnKakao',	// kakao button
             objectType : 'feed',
             content : {
                 title : "${postDetail[1].postTitle}",        
@@ -113,16 +113,28 @@ crossorigin="anonymous">
 		});
 	}
  	
- 	function btn_Like(){
- 		var alreadylike = false;
- 		if(!alreadylike){
+ 	function btn_Like(type,tableType,idx){
+ 		
+ 		if(${postDetail[1].memIdx} == ${sessionScope.memIdx}){
+ 			alert('작성자는 좋아요를 누를 수 없습니다!');
+ 		}else{
  			$.ajax({
- 	 			url : '<c:url value="/post/addLike"/>',    			
+ 	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { postIdx : ${ postDetail[1].postIdx} },
+ 				data : { type : type,
+ 					tableType : tableType,
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
  				async : false,
- 				success : function(){
+ 				success : function(msg){
  					$('#upresult').html(${postDetail[1].postLike});
+ 					if(msg == 1){
+ 						alert('이미 좋아요를 눌렀습니다.');
+ 					}else{
+ 						alert('좋아요 성공!')
+ 					}
+ 						
  				},
  				complete : function(){
  					alreadylike = true;
@@ -131,9 +143,8 @@ crossorigin="anonymous">
  					alert("좋아요 누르는 중에 오류 발생");
  				} 
  	 		});
- 		}else{
- 			alert("좋아요를 이미 하셨습니다!!");
  		}
+ 			
  	}
  	
  	function btn_Dislike(){
@@ -180,16 +191,29 @@ crossorigin="anonymous">
         var sendUrl = "https://devpad.tistory.com/53"; // 전달할 URL
         window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
     }
+    function shareNaver() {
+        var url = encodeURI(encodeURIComponent(myform.url.value));
+        var title = encodeURI(myform.title.value);
+        var shareURL = "https://share.naver.com/web/shareView.nhn?url=" + url + "&title=" + title;
+        document.location = shareURL;
+      }
 </script>
 <body>
 	<%@ include file="/WEB-INF/views/frame/header.jsp" %>
-	
-	<!-- 카카오 공유 -->
-	<a id="btnKakao" class="btn px-1"><img src="https://img.icons8.com/wired/64/000000/kakaotalk.png"></a>
-	<!-- facebook 공유 -->
-	<a onclick="shareFacebook()">페이스북 공유하기</a>
-	<!-- 트위터 공유 -->
-	<a onclick="shareTwitter()">트위터 공유하기</a>
+	<div id="shareSNS">
+		<!-- 카카오 공유 -->
+		<a id="btnKakao" class="btn px-1"><img src="/cobsp/images/kakao_logo.png" alt="카카오톡 공유"></a>
+		<!-- facebook 공유 -->
+		<a id="shareFacebook" onclick="shareFacebook()"><img src="/cobsp/images/facebook_logo.png" alt="페이스북 공유"></a>
+		<!-- 트위터 공유 -->
+		<a id="shareTwitter" onclick="shareTwitter()"><img src="/cobsp/images/twitter_logo.png" alt="트위터 공유"></a>
+		<!-- 네이버 공유 -->
+		<a id="shareNaver" onclick="shareNaver()"><img src="/cobsp/images/naverblog_logo.png" alt="네이버 공유하기"></a>
+		<form id="myform" style="display:none">
+			<input type="hidden" id="url" value="https://marsland.tistory.com/471"><br/>
+		    <input type="hidden" id="title" value="${ postDetail[1].postTitle }"><br/>
+		</form>
+	</div>
 	
 	<div class="Wrapper">
         <div class="WritingWrap">
@@ -234,7 +258,7 @@ crossorigin="anonymous">
                     </div>
                     <div class="contents-etc">
                         <div class="updown">
-                            <div class="up" onclick='btn_Like()'>
+                            <div class="up" onclick='btn_Like("like","post",${postDetail[1].postIdx})'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png"/></a>
                                 <strong id="upresult" >${postDetail[1].postLike}</strong>
                             </div>
