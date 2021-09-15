@@ -5,7 +5,7 @@
 <%
 	// 세션 저장
 	session.setAttribute("nickName", "닉네임");
-	session.setAttribute("memIdx", 1);
+	session.setAttribute("memIdx", 2);
  %>
 <!DOCTYPE html>
 <html>
@@ -116,7 +116,7 @@ crossorigin="anonymous">
  	function btn_Like(type,tableType,idx){
  		
  		if(${postDetail[1].memIdx} == ${sessionScope.memIdx}){
- 			alert('작성자는 좋아요를 누를 수 없습니다!');
+ 			alert('작성자는 누를 수 없습니다!');
  		}else{
  			$.ajax({
  	 			url : '<c:url value="/check/addLike"/>',
@@ -136,8 +136,33 @@ crossorigin="anonymous">
  					}
  						
  				},
- 				complete : function(){
- 					alreadylike = true;
+ 				error : function(){
+ 					alert("좋아요 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}
+ 	}
+	function btn_Like2(idx, memIdx){
+ 		alert(idx , memIdx);
+ 		if( memIdx == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
+ 		}else{
+ 			$.ajax({
+ 	 			url : '<c:url value="/check/addLike"/>',
+ 				type : "post",
+ 				data : { type : "like",
+ 					tableType : "comment",
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
+ 				async : false,
+ 				success : function(msg){
+ 					$('#upresult').html(${postDetail[1].postLike});
+ 					if(msg == 1){
+ 						alert('이미 좋아요를 눌렀습니다.');
+ 					}else{
+ 						alert('좋아요 성공!')
+ 					}
  				},
  				error : function(){
  					alert("좋아요 누르는 중에 오류 발생");
@@ -277,8 +302,10 @@ crossorigin="anonymous">
             </div>
             <div class="contents-crud">
                 <a href="<c:url value='/post/write'/>" class="contents-c">글쓰기</a>
-                <a href="<c:url value='/post/postEdit?postIdx=${postDetail[1].postIdx}'/>" class="contents-u" >수정</a>
-                <a href="<c:url value='/post/postDelete?postIdx=${postDetail[1].postIdx}'/>" class="contents-d" onclick="return confirm('해당게시글을 삭제하시겠습니까?');">삭제</a>
+	            <c:if test="${ sessionScope.memIdx == postDetail[1].memIdx}">
+	            	<a href="<c:url value='/post/postEdit?postIdx=${postDetail[1].postIdx}'/>" class="contents-u" >수정</a>
+	                <a href="<c:url value='/post/postDelete?postIdx=${postDetail[1].postIdx}'/>" class="contents-d" onclick="return confirm('해당게시글을 삭제하시겠습니까?');">삭제</a>
+	            </c:if>
                 <a href="<c:url value='/post/postList'/>" class="contents-r">목록</a>
             </div>
             <!-- 댓글 영역 -->
@@ -296,7 +323,7 @@ crossorigin="anonymous">
                     	<form id="commForm">
 	                    	<textarea id="commText" class="write-comments" name="commContent" cols="100" rows="4" style="resize: none;" placeholder="댓글을 입력해주세요."></textarea>
 	                        <input id="postIdx" type="hidden" name="postIdx" value="${postDetail[1].postIdx}">
-	                        <input id="commWriter" type="hidden" name="commWriter" value="<c:out value="${sessionScope.nickName}"/>">
+	                        <input id="memIdx" type="hidden" name="memIdx" value="<c:out value="${sessionScope.memIdx}"/>">
 	                        <input id="insert_comment" type="button" form="commForm" value="등록">
                     	</form>
                     </div>
@@ -382,7 +409,7 @@ crossorigin="anonymous">
 					        htmls += '<a href="javascript:void(0)" onClick="fn_deleteComment(' + list[i].commIdx + ')"> 삭제<a>'
 					        htmls += '<a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
 					        htmls += '<button onclick="btn_commDislike(' + list[i].commIdx + ')" class="btn-dislike">비추천 : ' + list[i].commDislike +'</span></button>';
-					        htmls += '<button onclick="btn_commLike(' + list[i].commIdx + ')" class="btn-like">추천 : ' + list[i].commLike +'</span></button>';
+					        htmls += '<button onclick="btn_Like2('+ list[i].commIdx +',' + list[i].memIdx + ')" class="btn-like comm'+list[i].commIdx+'">추천 : ' + list[i].commLike +'</span></button>';
 					        htmls += '<div class="comments-text">' + list[i].commContent.replaceAll("\r\n", "<br>") + '<div class="recommentdiv"></div></div></div></div></li></ul>';
 						}
 					}
@@ -540,8 +567,8 @@ crossorigin="anonymous">
 				type : "post",
 				data : { postIdx : ${postDetail[1].postIdx},
 					commIdx : commIdx,
-					recommContent : $('#recomments'+commIdx).val(),
-					recommWriter : '${sessionScope.nickName}'
+					memIdx : ${sessionScope.memIdx},
+					recommContent : $('#recomments'+commIdx).val()
 				},
 				async: false,
 				success : function(){

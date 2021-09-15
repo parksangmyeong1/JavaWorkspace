@@ -6,6 +6,7 @@ import java.util.Date;
 public class Comment {
 
 	private int commIdx;
+	private int memIdx;
 	private int postIdx;
 	private String commWriter;
 	private String commContent;
@@ -16,9 +17,10 @@ public class Comment {
 	
 	public Comment() {}
 
-	public Comment(int commIdx, int postIdx, String commWriter, String commContent, Timestamp commRegDate, int commLike, int commDislike,
+	public Comment(int commIdx, int memIdx, int postIdx, String commWriter, String commContent, Timestamp commRegDate, int commLike, int commDislike,
 			int commRep) {
 		this.commIdx = commIdx;
+		this.memIdx = memIdx;
 		this.postIdx = postIdx;
 		this.commWriter = commWriter;
 		this.commContent = commContent;
@@ -36,6 +38,14 @@ public class Comment {
 		this.commIdx = commIdx;
 	}
 
+	public int getMemIdx() {
+		return memIdx;
+	}
+
+	public void setMemIdx(int memIdx) {
+		this.memIdx = memIdx;
+	}
+
 	public int getPostIdx() {
 		return postIdx;
 	}
@@ -44,18 +54,18 @@ public class Comment {
 		this.postIdx = postIdx;
 	}
 
-	public String getCommContent() {
-		return commContent;
-	}
-	
-	public void setCommWriter(String commWriter) {
-		this.commWriter = commWriter;
-	}
-
 	public String getCommWriter() {
 		return commWriter;
 	}
 
+	public void setCommWriter(String commWriter) {
+		this.commWriter = commWriter;
+	}
+
+	public String getCommContent() {
+		return commContent;
+	}
+	
 	public void setCommContent(String commContent) {
 		this.commContent = commContent;
 	}
@@ -99,7 +109,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [commIdx=" + commIdx + ", postIdx=" + postIdx + ", commWriter=" + commWriter + ", commContent=" + commContent
+		return "Comment [commIdx=" + commIdx + ", postIdx=" + postIdx + ", commContent=" + commContent
 				+ ", commRegDate=" + commRegDate + ", commLike=" + commLike + ", commDislike=" + commDislike
 				+ ", commRep=" + commRep + "]";
 	}

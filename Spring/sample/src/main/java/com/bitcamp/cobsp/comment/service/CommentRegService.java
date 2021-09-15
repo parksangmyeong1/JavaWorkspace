@@ -24,7 +24,7 @@ public class CommentRegService {
 		int resultCnt = 0;
 		
 		Comment comment = regRequest.toComment();
-		System.out.println(comment);
+		System.out.println("서비스 : "+comment);
 		
 		dao = template.getMapper(Dao.class);
 		resultCnt = dao.insertComment(comment);

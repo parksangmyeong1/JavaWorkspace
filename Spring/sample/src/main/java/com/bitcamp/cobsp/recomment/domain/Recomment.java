@@ -8,6 +8,7 @@ public class Recomment {
 	private int recommIdx;
 	private int postIdx;
 	private int commIdx;
+	private int memIdx;
 	private String recommWriter;
 	private String recommContent;
 	private Timestamp recommRegDate;
@@ -18,11 +19,12 @@ public class Recomment {
 	public Recomment() {}
 	
 	
-	public Recomment(int recommIdx, int postIdx, int commIdx, String recommWriter, String recommContent, Timestamp recommRegDate,
+	public Recomment(int recommIdx, int postIdx, int commIdx, int memIdx, String recommWriter, String recommContent, Timestamp recommRegDate,
 			int recommLike, int recommDislike, int recommRep) {
 		this.recommIdx = recommIdx;
 		this.postIdx = postIdx;
 		this.commIdx = commIdx;
+		this.memIdx = memIdx;
 		this.recommWriter = recommWriter;
 		this.recommContent = recommContent;
 		this.recommRegDate = recommRegDate;
@@ -62,61 +64,58 @@ public class Recomment {
 	}
 
 
+	public int getMemIdx() {
+		return memIdx;
+	}
+
+	public void setMemIdx(int memIdx) {
+		this.memIdx = memIdx;
+	}
+
 	public String getRecommWriter() {
 		return recommWriter;
 	}
-
 
 	public void setRecommWriter(String recommWriter) {
 		this.recommWriter = recommWriter;
 	}
 
-
 	public String getRecommContent() {
 		return recommContent;
 	}
 
-
 	public void setRecommContent(String recommContent) {
 		this.recommContent = recommContent;
 	}
-
 
 	public Timestamp getRecommRegDate() {
 		return new Timestamp(recommRegDate.getTime()-(1000*60*60*9));
 		//return postRegDate;
 	}
 
-
 	public void setRecommRegDate(Timestamp recommRegDate) {
 		this.recommRegDate = recommRegDate;
 	}
-
 
 	public int getRecommLike() {
 		return recommLike;
 	}
 
-
 	public void setRecommLike(int recommLike) {
 		this.recommLike = recommLike;
 	}
-
 
 	public int getRecommDislike() {
 		return recommDislike;
 	}
 
-
 	public void setRecommDislike(int recommDislike) {
 		this.recommDislike = recommDislike;
 	}
 
-
 	public int getRecommRep() {
 		return recommRep;
 	}
-
 
 	public void setRecommRep(int recommRep) {
 		this.recommRep = recommRep;
@@ -125,7 +124,6 @@ public class Recomment {
 	public Date getDate() {
 		return new Date(getRecommRegDate().getTime());
 	}
-
 
 	@Override
 	public String toString() {

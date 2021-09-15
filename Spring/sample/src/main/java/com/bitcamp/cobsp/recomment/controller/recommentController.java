@@ -47,14 +47,14 @@ public class recommentController {
 	@RequestMapping(value = "/recomment/regComment", method = RequestMethod.POST) 
 	@ResponseBody
 	public void insertRecomment(
-			@ModelAttribute("regRequest") RecommentRegRequest reommRegRequest, 
+			@ModelAttribute("regRequest") RecommentRegRequest recommRegRequest, 
 			HttpServletRequest request,
 			Model model) {
 
 		int resultCnt = 0;
 		
-		resultCnt = regService.regComment(reommRegRequest, request);
-
+		resultCnt = regService.regComment(recommRegRequest, request);
+		System.out.println(recommRegRequest);
 		model.addAttribute("resultCommReg", resultCnt);
 	}
 	

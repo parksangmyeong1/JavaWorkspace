@@ -87,6 +87,8 @@ public interface Dao {
 	int insertCheck(CheckRequest checkRequest);
 	// 좋아요 했는지 찾기
 	int selectLikeCheck(CheckRequest checkRequest);
+	// 댓글 좋아요
+	int addCommLike(int idx);
 	
 		
 }

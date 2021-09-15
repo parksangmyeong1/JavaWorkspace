@@ -65,14 +65,14 @@ public class CommentController {
 			HttpServletRequest request,
 			Model model) {
 		int resultCnt = 0;
-				
+		System.out.println("컨트롤 : " + commRegRequest);
 		resultCnt = regService.regComment(commRegRequest, request);
 	}
 	
 	// 댓글 조회
 	@RequestMapping(value = "/comment/commentList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Comment> regCommView( 
+	public List<Comment> selectCommList( 
 			@ModelAttribute("postIdx") int postIdx, 
 			Model model) {
 

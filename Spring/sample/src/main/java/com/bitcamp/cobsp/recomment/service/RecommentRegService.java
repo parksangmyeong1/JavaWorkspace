@@ -19,12 +19,12 @@ public class RecommentRegService {
 	@Autowired
 	SqlSessionTemplate template;
 
-	public int regComment(RecommentRegRequest reommRegRequest, 
+	public int regComment(RecommentRegRequest recommRegRequest, 
 			HttpServletRequest request) {
 		
 		int resultCnt = 0;
 		
-		Recomment recomment = reommRegRequest.toRecomment();
+		Recomment recomment = recommRegRequest.toRecomment();
 		System.out.println(recomment);
 		
 		dao = template.getMapper(Dao.class);

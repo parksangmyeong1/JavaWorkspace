@@ -154,26 +154,28 @@ public class PostController {
 		return "post/postDetail";
 	}
 	
-	// 좋아요 증가
+	// 좋아요 체크 + 증가
 	@RequestMapping(value = "/check/addLike", method = RequestMethod.POST)
 	@ResponseBody
 	public int addLike(
 		@ModelAttribute("regRequest") CheckRequest checkRequest, 
-		HttpServletRequest request,
-		Model model) {
+		HttpServletRequest request) {
 		
 		int selectResult = 0;
 		selectResult = selectService.selectLikeCheck(checkRequest);
 		
+		// 이미 좋아요를 누른 상태
 		if(selectResult==1) {
 			return 1;
-		}else {
+		}else {		// 좋아요를 누르지 않은 상태
 			int insertResult = 0;
 			insertResult = regService.regCheck(checkRequest, request);
-			
 			int resultCnt=0;
-			resultCnt = addLikeService.addLike(checkRequest.getIdx());
-			
+			if(checkRequest.getTableType().equals("post")) {
+				resultCnt = addLikeService.addLike(checkRequest.getIdx());
+			}else if(checkRequest.getTableType().equals("comment")){
+				resultCnt = addLikeService.addCommLike(checkRequest.getIdx());
+			}
 			return 0;
 		}
 	}

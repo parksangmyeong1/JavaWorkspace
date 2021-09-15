@@ -7,15 +7,15 @@ public class RecommentRegRequest {
 	// 알아서 넣어주기 때문에 생성자 필요가 없다.
 	private int postIdx;
 	private int commIdx;
-	private String recommWriter;
+	private int memIdx;
 	private String recommContent;
 
 	public RecommentRegRequest() {}
 	
-	public RecommentRegRequest(int postIdx, int commIdx, String recommWriter, String recommContent) {
+	public RecommentRegRequest(int postIdx, int commIdx, int memIdx, String recommContent) {
 		this.postIdx = postIdx;
 		this.commIdx = commIdx;
-		this.recommWriter = recommWriter;
+		this.memIdx = memIdx;
 		this.recommContent = recommContent;
 	}
 
@@ -35,12 +35,12 @@ public class RecommentRegRequest {
 		this.commIdx = commIdx;
 	}
 
-	public String getRecommWriter() {
-		return recommWriter;
+	public int getMemIdx() {
+		return memIdx;
 	}
 
-	public void setRecommWriter(String recommWriter) {
-		this.recommWriter = recommWriter;
+	public void setMemIdx(int memIdx) {
+		this.memIdx = memIdx;
 	}
 
 	public String getRecommContent() {
@@ -54,7 +54,7 @@ public class RecommentRegRequest {
 	// MemberRegRequest -> Member 
 	// 사용자에게 받는 건 MemberRegRequest지만 DB저장은 Member라서 바꿔줘야한다.
 	public Recomment toRecomment() {
-		return new Recomment(0, postIdx, commIdx, recommWriter, recommContent, null, 0, 0, 0);
+		return new Recomment(0, postIdx, commIdx, memIdx, null, recommContent, null, 0, 0, 0);
 	}
 
 	
