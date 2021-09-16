@@ -154,12 +154,12 @@ public class PostController {
 		return "post/postDetail";
 	}
 	
-	// 좋아요 체크 + 증가
+	// 추천 비추천 신고하기 체크 + 증가
 	@RequestMapping(value = "/check/addLike", method = RequestMethod.POST)
 	@ResponseBody
 	public int addLike(
 		@ModelAttribute("regRequest") CheckRequest checkRequest, 
-		HttpServletRequest request) {
+		HttpServletRequest request, Model model) {
 		
 		int selectResult = 0;
 		selectResult = selectService.selectLikeCheck(checkRequest);
@@ -173,31 +173,8 @@ public class PostController {
 			insertResult = regService.regCheck(checkRequest, request);
 			
 			int resultCnt=0;
-			if(checkRequest.getTableType().equals("post")) {
-				if(checkRequest.getType().equals("like")) {
-					resultCnt = addService.addLike(checkRequest.getIdx());
-				}else if(checkRequest.getType().equals("dislike")) {
-					resultCnt = addService.addDislike(checkRequest.getIdx());
-				}else if(checkRequest.getType().equals("rep")) {
-					resultCnt = addService.addRep(checkRequest.getIdx());
-				}
-			}else if(checkRequest.getTableType().equals("comment")){
-				if(checkRequest.getType().equals("like")) {
-					resultCnt = addService.addCommLike(checkRequest.getIdx());
-				}else if(checkRequest.getType().equals("dislike")) {
-					resultCnt = addService.addCommDislike(checkRequest.getIdx());
-				}else if(checkRequest.getType().equals("rep")) {
-					resultCnt = addService.addCommRep(checkRequest.getIdx());
-				}
-			}else if(checkRequest.getTableType().equals("recomment")){
-				if(checkRequest.getType().equals("like")) {
-					resultCnt = addService.addRecommLike(checkRequest.getIdx());
-				}else if(checkRequest.getType().equals("dislike")){
-					resultCnt = addService.addRecommDislike(checkRequest.getIdx());
-				}else if(checkRequest.getType().equals("rep")) {
-					resultCnt = addService.addRecommRep(checkRequest.getIdx());
-				}
-			}
+			resultCnt = addService.addbutton(checkRequest);
+			model.addAttribute("check",checkRequest);
 			return 0;
 		}
 	}

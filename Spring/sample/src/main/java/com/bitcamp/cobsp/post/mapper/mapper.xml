@@ -71,7 +71,7 @@
 		delete from post where postIdx = #{postIdx}
 	</delete>
 	
-	<!-- 해당 게시글 출력 -->
+	<!-- 이전 다음 현재글 출력 -->
 	<select id="selectPostDetail" resultMap="postListResult">
 	<![CDATA[
 		select * from post where postIdx IN (
@@ -87,57 +87,6 @@
 		select * from post where postIdx = #{postIdx}
 	</select>
 	
-	<!-- 댓글 등록 -->
-	<insert id="insertComment"
-		parameterType="com.bitcamp.cobsp.comment.domain.Comment"
-		useGeneratedKeys="true"
-		keyProperty="commIdx">
-		insert into comment (postIdx, memIdx, commContent)
-		value (#{postIdx}, #{memIdx}, #{commContent})
-	</insert>	
-	
-	<!-- 댓글 조회 -->
-	<select id="selectCommList"
-		resultMap="commListResult">
-		select c.*, m.nickName as commWriter from comment c, member1 m 
-		where postIdx=#{postIdx} and m.memIdx = c.memIdx order by commIdx;
-	</select>
-	
-	<delete id="deleteComment">
-		delete from comment where commIdx = #{commIdx}
-	</delete>
-	
-	<!-- 댓글 수정 -->
-	<update id="editComment">
-		update comment set commContent = #{param2} where commIdx = #{param1}
-	</update>
-	
-	<!-- 조회수 증가 -->
-	<update id="addViews">
-		update post set views = views + 1 where postIdx = #{postIdx};
-	</update>
-	
-	<!-- 댓글 수 조회 -->
-	<select id="countComment"
-		resultType="int">
-		select count(*) from comment where postIdx = #{postIdx};
-	</select>
-	
-	<!-- 게시글 좋아요 증가 -->
-	<update id="addLike">
-		update post set postLike = postLike + 1  where postIdx = #{postIdx}; 
-	</update>
-	
-	<!-- 게시글 좋아요 증가 -->
-	<update id="addDislike">
-		update post set postDislike = postDislike + 1  where postIdx = #{postIdx}; 
-	</update>
-	
-	<!-- 게시글  신고하기 -->
-	<update id="addRep">
-		update post set postRep = postRep + 1  where postIdx = #{postIdx}; 
-	</update>
-	
 	<!-- 게시글의 총 갯수 -->
 	<select id="countPost" resultType="int">
 		<if test="!(postSort!=null and postSort!='')">
@@ -147,6 +96,11 @@
 			select count(*) from post where postSort = #{postSort};
 		</if>
 	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="addViews">
+		update post set views = views + 1 where postIdx = #{postIdx};
+	</update>
 	
 	<!-- 게시글 페이징 -->
 	<select id="pagingPost"
@@ -231,29 +185,49 @@
 		</where>
 	</select>
 	
-	<!-- 댓글 추천 -->
-	<update id="addCommLike"
-		parameterType="int">
-		update comment set commLike = commLike + 1 where commIdx = #{commIdx}
+	<!-- 댓글 등록 -->
+	<insert id="insertComment"
+		parameterType="com.bitcamp.cobsp.comment.domain.Comment"
+		useGeneratedKeys="true"
+		keyProperty="commIdx">
+		insert into comment (postIdx, memIdx, commContent)
+		value (#{postIdx}, #{memIdx}, #{commContent})
+	</insert>	
+	
+	<!-- 댓글 조회 -->
+	<select id="selectCommList"
+		resultMap="commListResult">
+		select c.*, m.nickName as commWriter from comment c, member1 m 
+		where postIdx=#{postIdx} and m.memIdx = c.memIdx order by commIdx;
+	</select>
+	
+	<delete id="deleteComment">
+		delete from comment where commIdx = #{commIdx}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="editComment">
+		update comment set commContent = #{param2} where commIdx = #{param1}
 	</update>
 	
-	<!-- 댓글 비추천 -->
-	<update id="addCommDislike"
-		parameterType="int">
-		update comment set commDislike = commDislike + 1 where commIdx = #{commIdx}
-	</update>
+	<!-- 댓글 수 조회 -->
+	<select id="countComment"
+		resultType="int">
+		select count(*) from comment where postIdx = #{postIdx};
+	</select>
 	
-	<!-- 댓글  신고하기 -->
-	<update id="addCommRep">
-		update comment set commRep = commRep + 1  where commIdx = #{commIdx}; 
-	</update>
+	<select id="selectBestComment"
+		resultMap="commListResult">
+		select c.*,m.nickName as commWriter 
+		from comment c, member1 m where postIdx = #{postIdx} and m.memIdx=c.memIdx 
+		order by commLike desc limit 1
+	</select>
 	
 	<select id="selectDislike"
 		parameterType="int"
 		resultType="int">
 		select commDislike from comment where commIdx = #{commIdx}
 	</select>
-	
 	
 	<insert id="insertRecomment"
 		parameterType="com.bitcamp.cobsp.recomment.domain.Recomment"
@@ -269,35 +243,12 @@
 		where postIdx = #{postIdx} and m.memIdx = r.memIdx;
 	</select>
 	
-	<select id="selectBestComment"
-		resultMap="commListResult">
-		select c.*,m.nickName as commWriter 
-		from comment c, member1 m where postIdx = #{postIdx} and m.memIdx=c.memIdx 
-		order by commLike desc limit 1
-	</select>
-	
 	<delete id="deleteRecomment">
 		delete from recomment where recommIdx = #{recommIdx}
 	</delete>
 	
-	<!-- 댓글 수정 -->
 	<update id="editRecomment">
 		update recomment set recommContent = #{param2} where recommIdx = #{param1}
-	</update>
-	
-	<!-- 대댓글 좋아요 증가 -->
-	<update id="addRecommLike">
-		update recomment set recommLike = recommLike + 1  where recommIdx = #{recommIdx}; 
-	</update>
-	
-	<!-- 대댓글 싫어요 증가 -->
-	<update id="addRecommDislike">
-		update recomment set recommDislike = recommDislike + 1  where recommIdx = #{recommIdx}; 
-	</update>
-	
-	<!-- 대댓글  신고 증가 -->
-	<update id="addRecommRep">
-		update recomment set recommRep = recommRep + 1  where recommIdx = #{recommIdx}; 
 	</update>
 	
 	<insert id="insertCheck">
@@ -310,4 +261,54 @@
 		select count(*) from checklike 
 		where type=#{type} and tableType=#{tableType} and idx=#{idx} and memIdx=#{memIdx}
 	</select>
+	
+	<update id="addbutton"
+		parameterType="com.bitcamp.cobsp.post.domain.CheckRequest">
+		update 
+		<if test="tableType=='post'">
+			post
+				<set>
+					<if test="type=='like'">
+						postLike = postLike + 1  
+					</if>
+					<if test="type=='dislike'">
+						postDislike = postDislike + 1
+					</if>
+					<if test="type=='rep'">
+						postRep = postRep + 1  
+					</if>
+				</set>
+				where postIdx = #{idx};
+		</if>
+		<if test="tableType=='comment'">
+			comment
+				<set>
+					<if test="type=='like'">
+						commLike = commLike + 1 
+					</if>
+					<if test="type=='dislike'">
+						commDislike = commDislike + 1 
+					</if>
+					<if test="type=='rep'">
+						commRep = commRep + 1  
+					</if>
+				</set>
+				where commIdx = #{idx};
+		</if>
+		<if test="tableType=='recomment'">
+			recomment 
+				<set>
+					<if test="type=='like'">
+						recommLike = recommLike + 1  
+					</if>
+					<if test="type=='dislike'">
+						recommDislike = recommDislike + 1
+					</if>
+					<if test="type=='rep'">
+						recommRep = recommRep + 1  
+					</if>
+				</set>
+				where recommIdx = #{idx};
+		</if>
+	</update>
 </mapper>

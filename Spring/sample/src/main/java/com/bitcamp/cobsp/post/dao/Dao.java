@@ -71,22 +71,6 @@ public interface Dao {
 	int insertCheck(CheckRequest checkRequest);
 	// 좋아요 했는지 찾기
 	int selectLikeCheck(CheckRequest checkRequest);
-	// 게시글 좋아요 증가
-	int addLike(int postIdx);
-	// 게시글 싫어요 증가
-	int addDislike(int postIdx);
-	// 게시글 신고하기
-	int addRep(int postIdx);
-	// 댓글 좋아요
-	int addCommLike(int commIdx);
-	// 댓글 비추천
-	int addCommDislike(int commIdx);
-	// 댓글 신고하기
-	int addCommRep(int postIdx);
-	// 대댓글 추천
-	int addRecommLike(int recommIdx);
-	// 대댓글 비추천
-	int addRecommDislike(int recommIdx);
-	// 게시글 신고하기
-	int addRecommRep(int postIdx);
+	// 증가 버튼
+	int addbutton(CheckRequest checkRequest);
 }
