@@ -143,15 +143,16 @@ crossorigin="anonymous">
  		}
  	}
  	// 댓글 추천
-	function btn_Like2(idx, memIdx){
+	function btn_Like2(type, tableType, idx, memIdx){
+ 		alert(tableType);
  		if( memIdx == ${sessionScope.memIdx}){
  			alert('작성자는 누를 수 없습니다!');
  		}else{
  			$.ajax({
  	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { type : "like",
- 					tableType : "comment",
+ 				data : { type : type,
+ 					tableType : tableType,
  					idx : idx,
  					memIdx : ${sessionScope.memIdx}
  	 			},
@@ -170,15 +171,15 @@ crossorigin="anonymous">
  		}
  	}
  	// 대댓글 좋아요
-	function btn_Like3(idx, memIdx){
+	function btn_Like3(type, tableType, idx, memIdx){
  		if( memIdx == ${sessionScope.memIdx}){
  			alert('작성자는 누를 수 없습니다!');
  		}else{
  			$.ajax({
  	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { type : "like",
- 					tableType : "recomment",
+ 				data : { type : type,
+ 					tableType : tableType,
  					idx : idx,
  					memIdx : ${sessionScope.memIdx}
  	 			},
@@ -227,15 +228,15 @@ crossorigin="anonymous">
  		}
  	}
  	// 댓글 비추천
-	function btn_Dislike2(idx, memIdx){
+	function btn_Dislike2(type,tableType,idx,memIdx){
  		if( memIdx == ${sessionScope.memIdx}){
  			alert('작성자는 누를 수 없습니다!');
  		}else{
  			$.ajax({
  	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { type : "dislike",
- 					tableType : "comment",
+ 				data : { type : type,
+ 					tableType : tableType,
  					idx : idx,
  					memIdx : ${sessionScope.memIdx}
  	 			},
@@ -254,15 +255,15 @@ crossorigin="anonymous">
  		}
  	}
  	// 대댓글 비추천
-	function btn_Dislike3(idx, memIdx){
+	function btn_Dislike3(type,tableType,idx,memIdx){
  		if( memIdx == ${sessionScope.memIdx}){
  			alert('작성자는 누를 수 없습니다!');
  		}else{
  			$.ajax({
  	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { type : "dislike",
- 					tableType : "recomment",
+ 				data : { type : type,
+ 					tableType : tableType,
  					idx : idx,
  					memIdx : ${sessionScope.memIdx}
  	 			},
@@ -310,15 +311,15 @@ crossorigin="anonymous">
  		}
  	}
  	// 댓글 신고
-	function btn_Rep2(idx, memIdx){
+	function btn_Rep2(type,tableType,idx,memIdx){
  		if( memIdx == ${sessionScope.memIdx}){
  			alert('작성자는 누를 수 없습니다!');
  		}else{
  			$.ajax({
  	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { type : "rep",
- 					tableType : "comment",
+ 				data : { type : type,
+ 					tableType : tableType,
  					idx : idx,
  					memIdx : ${sessionScope.memIdx}
  	 			},
@@ -337,15 +338,15 @@ crossorigin="anonymous">
  		}
  	}
  	// 대댓글 신고
-	function btn_Rep3(idx, memIdx){
+	function btn_Rep3(type,tableType,idx,memIdx){
  		if( memIdx == ${sessionScope.memIdx}){
  			alert('작성자는 누를 수 없습니다!');
  		}else{
  			$.ajax({
  	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { type : "rep",
- 					tableType : "recomment",
+ 				data : { type : type,
+ 					tableType : tableType,
  					idx : idx,
  					memIdx : ${sessionScope.memIdx}
  	 			},
@@ -576,9 +577,9 @@ crossorigin="anonymous">
 					        htmls += '<a class="add-recomments" data-recomments="comments2" onclick="btn_Recomment('+list[i].commIdx+')">답글쓰기</a>';
 					        htmls += '<a href="javascript:void(0)" onclick="fn_editComment(' + list[i].commIdx + ', \'' + list[i].commWriter + '\', \'' + list[i].commContent + '\')"> 수정</a>';
 					        htmls += '<a href="javascript:void(0)" onClick="fn_deleteComment(' + list[i].commIdx + ')"> 삭제<a>'
-					        htmls += '<a><img onclick="btn_Rep2(' + list[i].commIdx + ', '+ list[i].memIdx +')" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
-					        htmls += '<button onclick="btn_Dislike2(' + list[i].commIdx + ',' + list[i].memIdx + ')" class="btn-dislike">비추천 : ' + list[i].commDislike +'</span></button>';
-					        htmls += '<button onclick="btn_Like2('+ list[i].commIdx +',' + list[i].memIdx + ')" class="btn-like comm'+list[i].commIdx+'">추천 : ' + list[i].commLike +'</span></button>';
+					        htmls += '<a><img onclick="btn_Rep2(\'rep\', \'comment\', ' + list[i].commIdx + ', '+ list[i].memIdx +')" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
+					        htmls += '<button onclick="btn_Dislike2(\'dislike\', \'comment\', ' + list[i].commIdx + ',' + list[i].memIdx + ')" class="btn-dislike">비추천 : ' + list[i].commDislike +'</span></button>';
+					        htmls += '<button onclick="btn_Like2(\'like\', \'comment\', '+ list[i].commIdx +',' + list[i].memIdx + ')" class="btn-like comm'+list[i].commIdx+'">추천 : ' + list[i].commLike +'</span></button>';
 					        htmls += '<div class="comments-text">' + list[i].commContent.replaceAll("\r\n", "<br>") + '<div class="recommentdiv"></div></div></div></div></li></ul>';
 						}
 					}
@@ -740,9 +741,9 @@ crossorigin="anonymous">
 				        htmls += '<span class="date"> ' + recommRegDate + '</span>';
 				        htmls += '<a href="javascript:void(0)" onclick="fn_editRecomment(' + list[i].recommIdx + ', \'' + list[i].recommWriter + '\', \'' + list[i].recommContent + '\')"> 수정</a>';
 				        htmls += '<a href="javascript:void(0)" onClick="fn_deleteRecomment(' + list[i].recommIdx + ')"> 삭제<a>'
-				        htmls += '<a onclick="btn_Rep3(' + list[i].recommIdx + ', '+ list[i].memIdx +')"><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
-				        htmls += '<button onclick="btn_Dislike3(' + list[i].recommIdx + ', ' + list[i].memIdx + ')" class="btn-dislike">비추천 : ' + list[i].recommDislike +'</span></button>';
-				        htmls += '<button onclick="btn_Like3(' + list[i].recommIdx + ', '+ list[i].memIdx +')" class="btn-like">추천 : ' + list[i].recommLike +'</span></button>';
+				        htmls += '<a onclick="btn_Rep3(\'rep\', \'recomment\', ' + list[i].recommIdx + ', '+ list[i].memIdx +')"><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
+				        htmls += '<button onclick="btn_Dislike3(\'dislike\', \'recomment\', ' + list[i].recommIdx + ', ' + list[i].memIdx + ')" class="btn-dislike">비추천 : ' + list[i].recommDislike +'</span></button>';
+				        htmls += '<button onclick="btn_Like3(\'like\', \'recomment\', ' + list[i].recommIdx + ', '+ list[i].memIdx +')" class="btn-like">추천 : ' + list[i].recommLike +'</span></button>';
 				        htmls += '<div class="comments-text">' + list[i].recommContent.replaceAll("\r\n", "<br>") + '</div></div></div>';
 						$('#id' + list[i].commIdx + ' .recommentdiv').append(htmls);
 					}
