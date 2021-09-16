@@ -20,7 +20,7 @@ import com.bitcamp.cobsp.post.domain.CheckRequest;
 import com.bitcamp.cobsp.post.domain.Post;
 import com.bitcamp.cobsp.post.domain.PostRegRequest;
 import com.bitcamp.cobsp.post.domain.SearchType;
-import com.bitcamp.cobsp.post.service.AddLikeService;
+import com.bitcamp.cobsp.post.service.AddService;
 import com.bitcamp.cobsp.post.service.CountService;
 import com.bitcamp.cobsp.post.service.PostDeleteService;
 import com.bitcamp.cobsp.post.service.PostDetailService;
@@ -48,7 +48,7 @@ public class PostController {
 	private PostEditService editService;
 	
 	@Autowired
-	private AddLikeService addLikeService;
+	private AddService addService;
 	
 	@Autowired
 	private CountService countService;
@@ -164,33 +164,49 @@ public class PostController {
 		int selectResult = 0;
 		selectResult = selectService.selectLikeCheck(checkRequest);
 		
-		// 이미 좋아요를 누른 상태
+		// 이미 버튼을 누른 상태
 		if(selectResult==1) {
 			return 1;
-		}else {		// 좋아요를 누르지 않은 상태
+		}else {		// 버튼을 누르지 않은 상태
+			// 누른 버튼 등록
 			int insertResult = 0;
 			insertResult = regService.regCheck(checkRequest, request);
+			
 			int resultCnt=0;
 			if(checkRequest.getTableType().equals("post")) {
-				resultCnt = addLikeService.addLike(checkRequest.getIdx());
+				if(checkRequest.getType().equals("like")) {
+					resultCnt = addService.addLike(checkRequest.getIdx());
+				}else if(checkRequest.getType().equals("dislike")) {
+					resultCnt = addService.addDislike(checkRequest.getIdx());
+				}else if(checkRequest.getType().equals("rep")) {
+					resultCnt = addService.addRep(checkRequest.getIdx());
+				}
 			}else if(checkRequest.getTableType().equals("comment")){
-				resultCnt = addLikeService.addCommLike(checkRequest.getIdx());
+				if(checkRequest.getType().equals("like")) {
+					resultCnt = addService.addCommLike(checkRequest.getIdx());
+				}else if(checkRequest.getType().equals("dislike")) {
+					resultCnt = addService.addCommDislike(checkRequest.getIdx());
+				}else if(checkRequest.getType().equals("rep")) {
+					resultCnt = addService.addCommRep(checkRequest.getIdx());
+				}
+			}else if(checkRequest.getTableType().equals("recomment")){
+				if(checkRequest.getType().equals("like")) {
+					resultCnt = addService.addRecommLike(checkRequest.getIdx());
+				}else if(checkRequest.getType().equals("dislike")){
+					resultCnt = addService.addRecommDislike(checkRequest.getIdx());
+				}else if(checkRequest.getType().equals("rep")) {
+					resultCnt = addService.addRecommRep(checkRequest.getIdx());
+				}
 			}
 			return 0;
 		}
 	}
 	
-	// 게시글 싫어요 증가
-	@RequestMapping(value = "/post/addDislike", method = RequestMethod.POST)
+	// 조회수 증가
+	@RequestMapping(value = "/views/addViews", method = RequestMethod.GET) 
 	@ResponseBody
-	public int addDislike(
-			@RequestParam("postIdx") int postIdx) {
-
-		int resultCnt = 0;
-
-		resultCnt = addLikeService.addDislike(postIdx);
-
-		return resultCnt;
+	public void addViews(@ModelAttribute("postIdx") int postIdx) {
+		addService.addViews(postIdx);
 	}
 	
 	// 게시글 리스트 출력
@@ -240,67 +256,68 @@ public class PostController {
 	}
 	
 	// 게시글 리스트 출력
-		@RequestMapping(value = "/post/searchList", method = RequestMethod.GET)
-		public String postList1(PagingVO vo, Model model,
-				@RequestParam(value="postSort", required = false)String postSort,
-				@RequestParam(value="nowPage", required = false)String nowPage,
-				@RequestParam(value="cntPerPage", required = false)String cntPerPage,
-				SearchType searchType) {
-			
-			System.out.println("postSort : " + postSort + " nowPage : " + nowPage + " cntPerPage : " + cntPerPage);
-			
-			// 전체 리스트 출력
-			List<Post> list = null;
-			list = listService.getPostList();
-			
-			// 게시글 페이징하고 리스트 출력
-			int total = countService.countPost(postSort);
-			System.out.println(total);
+	@RequestMapping(value = "/post/searchList", method = RequestMethod.GET)
+	public String postList1(PagingVO vo, Model model,
+			@RequestParam(value="postSort", required = false)String postSort,
+			@RequestParam(value="nowPage", required = false)String nowPage,
+			@RequestParam(value="cntPerPage", required = false)String cntPerPage,
+			SearchType searchType) {
 
-			if (nowPage == null && cntPerPage == null) {
-				nowPage = "1";
-				cntPerPage = "10";
-			} else if (nowPage == null) {
-				nowPage = "1";
-			} else if (cntPerPage == null) {
-				cntPerPage = "10";
-			}
-			
-			vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-			model.addAttribute("paging", vo);
-			
-			// 카테고리별로 리스트 출력
-			if(postSort != null && !postSort.equals("")) {
-				System.out.println("카테고리 있을 경우");
-				list = listService.getPostList(postSort, vo);
-				if(searchType != null) {
-					System.out.println("카테고리 있고 검색");
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("item1", searchType);
-					map.put("item2", vo);
-					map.put("postSort", postSort);
-					
-					list = listService.getPostList(map);
-				}
-			}else if(postSort == null || postSort.equals("")) {
-				System.out.println("카테고리 없을 경우");
-				list = listService.getPostList(vo);
-				if(searchType != null) {
-					System.out.println("카테고리 없고 검색");
-					System.out.println(searchType.getKeyword());
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("item1", searchType);
-					map.put("item2", vo);
-					list = listService.getPostListSearchType(map);
-				}
-			}
+		System.out.println("postSort : " + postSort + " nowPage : " + nowPage + " cntPerPage : " + cntPerPage);
 
-			model.addAttribute("postList", list);
-			model.addAttribute("postSort", postSort);
-			
-			System.out.println("vo : " + vo);
-			//System.out.println(listService.getPostList(vo));
-			
-			return "post/postList";
+		// 전체 리스트 출력
+		List<Post> list = null;
+		list = listService.getPostList();
+
+		// 게시글 페이징하고 리스트 출력
+		int total = countService.countPost(postSort);
+		System.out.println(total);
+
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "10";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "10";
 		}
+
+		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", vo);
+
+		// 카테고리별로 리스트 출력
+		if(postSort != null && !postSort.equals("")) {
+			System.out.println("카테고리 있을 경우");
+			list = listService.getPostList(postSort, vo);
+			if(searchType != null) {
+				System.out.println("카테고리 있고 검색");
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("item1", searchType);
+				map.put("item2", vo);
+				map.put("postSort", postSort);
+
+				list = listService.getPostList(map);
+			}
+		}else if(postSort == null || postSort.equals("")) {
+			System.out.println("카테고리 없을 경우");
+			list = listService.getPostList(vo);
+			if(searchType != null) {
+				System.out.println("카테고리 없고 검색");
+				System.out.println(searchType.getKeyword());
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("item1", searchType);
+				map.put("item2", vo);
+				list = listService.getPostListSearchType(map);
+			}
+		}
+
+		model.addAttribute("postList", list);
+		model.addAttribute("postSort", postSort);
+
+		System.out.println("vo : " + vo);
+		//System.out.println(listService.getPostList(vo));
+
+		return "post/postList";
+	}
+
 }

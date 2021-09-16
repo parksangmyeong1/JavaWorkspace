@@ -5,7 +5,7 @@
 <%
 	// 세션 저장
 	session.setAttribute("nickName", "닉네임");
-	session.setAttribute("memIdx", 2);
+	session.setAttribute("memIdx", 1);
  %>
 <!DOCTYPE html>
 <html>
@@ -112,7 +112,7 @@ crossorigin="anonymous">
 			}
 		});
 	}
- 	
+ 	// 게시글 좋아요
  	function btn_Like(type,tableType,idx){
  		
  		if(${postDetail[1].memIdx} == ${sessionScope.memIdx}){
@@ -142,8 +142,8 @@ crossorigin="anonymous">
  	 		});
  		}
  	}
+ 	// 댓글 추천
 	function btn_Like2(idx, memIdx){
- 		alert(idx , memIdx);
  		if( memIdx == ${sessionScope.memIdx}){
  			alert('작성자는 누를 수 없습니다!');
  		}else{
@@ -157,11 +157,37 @@ crossorigin="anonymous">
  	 			},
  				async : false,
  				success : function(msg){
- 					$('#upresult').html(${postDetail[1].postLike});
  					if(msg == 1){
  						alert('이미 좋아요를 눌렀습니다.');
  					}else{
- 						alert('좋아요 성공!')
+ 						alert('댓글 좋아요 성공!')
+ 					}
+ 				},
+ 				error : function(){
+ 					alert("좋아요 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}
+ 	}
+ 	// 대댓글 좋아요
+	function btn_Like3(idx, memIdx){
+ 		if( memIdx == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
+ 		}else{
+ 			$.ajax({
+ 	 			url : '<c:url value="/check/addLike"/>',
+ 				type : "post",
+ 				data : { type : "like",
+ 					tableType : "recomment",
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
+ 				async : false,
+ 				success : function(msg){
+ 					if(msg == 1){
+ 						alert('이미 좋아요를 눌렀습니다.');
+ 					}else{
+ 						alert('대댓글 좋아요 성공!')
  					}
  				},
  				error : function(){
@@ -171,27 +197,170 @@ crossorigin="anonymous">
  		}
  			
  	}
- 	
- 	function btn_Dislike(){
- 		var alreadylike = false;
- 		if(!alreadylike){
+ 	// 게시글 싫어요
+	function btn_Dislike(type,tableType,idx){
+ 		if(${postDetail[1].memIdx} == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
+ 		}else{
  			$.ajax({
- 	 			url : '<c:url value="/post/addDislike"/>',
+ 	 			url : '<c:url value="/check/addLike"/>',
  				type : "post",
- 				data : { postIdx : ${ postDetail[1].postIdx} },
+ 				data : { type : type,
+ 					tableType : tableType,
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
  				async : false,
- 				success : function(){
+ 				success : function(msg){
  					$('#downresult').html(${postDetail[1].postDislike});
- 				},
- 				complete : function(){
- 					alreadylike = true;
+ 					if(msg == 1){
+ 						alert('이미 비추천을 눌렀습니다.');
+ 					}else{
+ 						alert('게시글 비추천 성공!')
+ 					}
+ 						
  				},
  				error : function(){
  					alert("싫어요 누르는 중에 오류 발생");
  				} 
  	 		});
+ 		}
+ 	}
+ 	// 댓글 비추천
+	function btn_Dislike2(idx, memIdx){
+ 		if( memIdx == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
  		}else{
- 			alert("싫어요를 이미 하셨습니다!!");
+ 			$.ajax({
+ 	 			url : '<c:url value="/check/addLike"/>',
+ 				type : "post",
+ 				data : { type : "dislike",
+ 					tableType : "comment",
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
+ 				async : false,
+ 				success : function(msg){
+ 					if(msg == 1){
+ 						alert('이미 비추천을 눌렀습니다.');
+ 					}else{
+ 						alert('댓글 비추천 성공!')
+ 					}
+ 				},
+ 				error : function(){
+ 					alert("비추천 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}
+ 	}
+ 	// 대댓글 비추천
+	function btn_Dislike3(idx, memIdx){
+ 		if( memIdx == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
+ 		}else{
+ 			$.ajax({
+ 	 			url : '<c:url value="/check/addLike"/>',
+ 				type : "post",
+ 				data : { type : "dislike",
+ 					tableType : "recomment",
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
+ 				async : false,
+ 				success : function(msg){
+ 					if(msg == 1){
+ 						alert('이미 비추천을 눌렀습니다.');
+ 					}else{
+ 						alert('대댓글 비추천 성공!')
+ 					}
+ 				},
+ 				error : function(){
+ 					alert("비추천 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}
+ 			
+ 	}
+	// 게시글 신고
+	function btn_Rep(type,tableType,idx){
+ 		if(${postDetail[1].memIdx} == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
+ 		}else{
+ 			$.ajax({
+ 	 			url : '<c:url value="/check/addLike"/>',
+ 				type : "post",
+ 				data : { type : type,
+ 					tableType : tableType,
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
+ 				async : false,
+ 				success : function(msg){
+ 					if(msg == 1){
+ 						alert('이미 신고 버튼을 눌렀습니다.');
+ 					}else{
+ 						alert('게시글 신고 완료!')
+ 					}
+ 						
+ 				},
+ 				error : function(){
+ 					alert("신고 버튼 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}
+ 	}
+ 	// 댓글 신고
+	function btn_Rep2(idx, memIdx){
+ 		if( memIdx == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
+ 		}else{
+ 			$.ajax({
+ 	 			url : '<c:url value="/check/addLike"/>',
+ 				type : "post",
+ 				data : { type : "rep",
+ 					tableType : "comment",
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
+ 				async : false,
+ 				success : function(msg){
+ 					if(msg == 1){
+ 						alert('이미 신고하기를 눌렀습니다.');
+ 					}else{
+ 						alert('댓글 신고하기 성공!')
+ 					}
+ 				},
+ 				error : function(){
+ 					alert("신고하기 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
+ 		}
+ 	}
+ 	// 대댓글 신고
+	function btn_Rep3(idx, memIdx){
+ 		if( memIdx == ${sessionScope.memIdx}){
+ 			alert('작성자는 누를 수 없습니다!');
+ 		}else{
+ 			$.ajax({
+ 	 			url : '<c:url value="/check/addLike"/>',
+ 				type : "post",
+ 				data : { type : "rep",
+ 					tableType : "recomment",
+ 					idx : idx,
+ 					memIdx : ${sessionScope.memIdx}
+ 	 			},
+ 				async : false,
+ 				success : function(msg){
+ 					if(msg == 1){
+ 						alert('이미 신고하기를 눌렀습니다.');
+ 					}else{
+ 						alert('대댓글 신고하기 성공!')
+ 					}
+ 				},
+ 				error : function(){
+ 					alert("신고하기 누르는 중에 오류 발생");
+ 				} 
+ 	 		});
  		}
  	}
     //  url 복사 기능
@@ -287,13 +456,13 @@ crossorigin="anonymous">
                                 <a><img src="https://img.icons8.com/material-rounded/24/4a90e2/facebook-like--v1.png"/></a>
                                 <strong id="upresult" >${postDetail[1].postLike}</strong>
                             </div>
-                            <div class="down" onclick='btn_Dislike()'>
+                            <div class="down" onclick='btn_Dislike("dislike","post",${postDetail[1].postIdx})'>
                                 <a><img src="https://img.icons8.com/material-rounded/24/fa314a/thumbs-down.png"/></a>
                                 <strong id="downresult">${postDetail[1].postDislike}</strong>
                             </div>
                         </div>
                         <div class="icons-wrap">
-                            <a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
+                            <a><img onclick="btn_Rep('rep', 'post', ${ postDetail[1].postIdx })" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>
                             <a><img src="https://img.icons8.com/wired/64/000000/paste.png"/></a>
                             <a><img src="https://img.icons8.com/material-outlined/24/000000/share.png"/></a>
                         </div>
@@ -407,8 +576,8 @@ crossorigin="anonymous">
 					        htmls += '<a class="add-recomments" data-recomments="comments2" onclick="btn_Recomment('+list[i].commIdx+')">답글쓰기</a>';
 					        htmls += '<a href="javascript:void(0)" onclick="fn_editComment(' + list[i].commIdx + ', \'' + list[i].commWriter + '\', \'' + list[i].commContent + '\')"> 수정</a>';
 					        htmls += '<a href="javascript:void(0)" onClick="fn_deleteComment(' + list[i].commIdx + ')"> 삭제<a>'
-					        htmls += '<a><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
-					        htmls += '<button onclick="btn_commDislike(' + list[i].commIdx + ')" class="btn-dislike">비추천 : ' + list[i].commDislike +'</span></button>';
+					        htmls += '<a><img onclick="btn_Rep2(' + list[i].commIdx + ', '+ list[i].memIdx +')" src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
+					        htmls += '<button onclick="btn_Dislike2(' + list[i].commIdx + ',' + list[i].memIdx + ')" class="btn-dislike">비추천 : ' + list[i].commDislike +'</span></button>';
 					        htmls += '<button onclick="btn_Like2('+ list[i].commIdx +',' + list[i].memIdx + ')" class="btn-like comm'+list[i].commIdx+'">추천 : ' + list[i].commLike +'</span></button>';
 					        htmls += '<div class="comments-text">' + list[i].commContent.replaceAll("\r\n", "<br>") + '<div class="recommentdiv"></div></div></div></div></li></ul>';
 						}
@@ -521,36 +690,6 @@ crossorigin="anonymous">
 				}
 			});
 		}
-		// 댓글 좋아요 버튼
-		function btn_commLike(commIdx){
-	 		$.ajax({
-	 			url : '<c:url value="/comment/addCommLike"/>',    			
-				type : "post",
-				data : {"commIdx" : commIdx },
-				async : false,
-				success : function(data){
-					$('.btn-like').html("추천 : " + data);
-				},
-				error : function(){
-					alert("추천 버튼 오류발생");
-				} 
-	 		});
-	 	}
-		// 댓글 싫어요 버튼
-		function btn_commDislike(commIdx){
-	 		$.ajax({
-	 			url : '<c:url value="/comment/addCommDislike"/>',    			
-				type : "post",
-				data : {"commIdx" : commIdx },
-				async : false,
-				success : function(data){
-					$('.btn-dislike').html("비추천 : " + data);
-				},
-				error : function(){
-					alert("비추천 버튼 오류발생");
-				} 
-	 		});
-	 	}
 		// 대댓글 등록 폼
 		function btn_Recomment(commIdx){
 			htmls = '';
@@ -601,9 +740,9 @@ crossorigin="anonymous">
 				        htmls += '<span class="date"> ' + recommRegDate + '</span>';
 				        htmls += '<a href="javascript:void(0)" onclick="fn_editRecomment(' + list[i].recommIdx + ', \'' + list[i].recommWriter + '\', \'' + list[i].recommContent + '\')"> 수정</a>';
 				        htmls += '<a href="javascript:void(0)" onClick="fn_deleteRecomment(' + list[i].recommIdx + ')"> 삭제<a>'
-				        htmls += '<a onclick="btn_recommRep(' + list[i].recommIdx + ')"><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
-				        htmls += '<button onclick="btn_recommDislike(' + list[i].recommIdx + ')" class="btn-dislike">비추천 : ' + list[i].recommDislike +'</span></button>';
-				        htmls += '<button onclick="btn_recommLike(' + list[i].recommIdx + ')" class="btn-like">추천 : ' + list[i].recommLike +'</span></button>';
+				        htmls += '<a onclick="btn_Rep3(' + list[i].recommIdx + ', '+ list[i].memIdx +')"><img src="https://img.icons8.com/ios/50/000000/siren.png"/></a>';
+				        htmls += '<button onclick="btn_Dislike3(' + list[i].recommIdx + ', ' + list[i].memIdx + ')" class="btn-dislike">비추천 : ' + list[i].recommDislike +'</span></button>';
+				        htmls += '<button onclick="btn_Like3(' + list[i].recommIdx + ', '+ list[i].memIdx +')" class="btn-like">추천 : ' + list[i].recommLike +'</span></button>';
 				        htmls += '<div class="comments-text">' + list[i].recommContent.replaceAll("\r\n", "<br>") + '</div></div></div>';
 						$('#id' + list[i].commIdx + ' .recommentdiv').append(htmls);
 					}
@@ -675,51 +814,6 @@ crossorigin="anonymous">
 				}
 			});
 		}
-		// 대댓글 좋아요 버튼
-		function btn_recommLike(recommIdx){
-	 		$.ajax({
-	 			url : '<c:url value="/recomment/addLike"/>',    			
-				type : "post",
-				data : {recommIdx : recommIdx },
-				async : false,
-				success : function(data){
-					$('.btn-like').html("추천 : " + data);
-				},
-				error : function(){
-					alert("추천 버튼 오류발생");
-				} 
-	 		});
-	 	}
-		// 대댓글 싫어요 버튼
-		function btn_recommDislike(recommIdx){
-	 		$.ajax({
-	 			url : '<c:url value="/recomment/addDislike"/>',    			
-				type : "post",
-				data : { recommIdx : recommIdx },
-				async : false,
-				success : function(data){
-					$('.btn-dislike').html("비추천 : " + data);
-				},
-				error : function(){
-					alert("대댓글 비추천 버튼 오류발생");
-				} 
-	 		});
-	 	}
-		// 대댓글 신고 버튼
-		function btn_recommRep(recommIdx){
-	 		$.ajax({
-	 			url : '<c:url value="/recomment/addRep"/>',    			
-				type : "post",
-				data : { recommIdx : recommIdx },
-				async : false,
-				success : function(data){
-					alert("해당 댓글을 신고하였습니다.");
-				},
-				error : function(){
-					alert("대댓글 신고 버튼 오류발생");
-				} 
-	 		});
-	 	}
     </script>
 </body>
 </html> 

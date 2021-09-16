@@ -17,15 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.comment.domain.CommentRegRequest;
-import com.bitcamp.cobsp.comment.service.CommentAddDislikeService;
-import com.bitcamp.cobsp.comment.service.CommentAddLikeService;
 import com.bitcamp.cobsp.comment.service.CommentCountService;
 import com.bitcamp.cobsp.comment.service.CommentDeleteService;
 import com.bitcamp.cobsp.comment.service.CommentEditService;
 import com.bitcamp.cobsp.comment.service.CommentListService;
 import com.bitcamp.cobsp.comment.service.CommentRegService;
-import com.bitcamp.cobsp.comment.service.SelectDislikeService;
-import com.bitcamp.cobsp.comment.service.SelectLikeService;
 
 @Controller
 public class CommentController {
@@ -44,18 +40,6 @@ public class CommentController {
 	
 	@Autowired
 	private CommentCountService countService;
-	
-	@Autowired
-	private CommentAddLikeService addlikeService;
-	
-	@Autowired
-	private SelectLikeService selectLikeService;
-	
-	@Autowired
-	private CommentAddDislikeService addDislikeService;
-	
-	@Autowired
-	private SelectDislikeService selectDislikeService;
 	
 	// 댓글 작성
 	@RequestMapping(value = "/comment/regComment", method = RequestMethod.POST)
@@ -139,34 +123,6 @@ public class CommentController {
 		return result;
 	}
 
-	// 댓글 추천 증가
-	@RequestMapping(value = "/comment/addCommLike", method = RequestMethod.POST)
-	@ResponseBody
-	public int addLike(
-			@RequestParam("commIdx") int commIdx) {
-
-		int resultCnt = 0;
-
-		resultCnt = addlikeService.addLike(commIdx);
-		int like = selectLikeService.selectCommLike(commIdx);
-
-		return like;
-	}
-	
-	// 댓글 비추천 증가
-	@RequestMapping(value = "/comment/addCommDislike", method = RequestMethod.POST)
-	@ResponseBody
-	public int addDislike(
-			@RequestParam("commIdx") int commIdx) {
-
-		int resultCnt = 0;
-
-		resultCnt = addDislikeService.addDislike(commIdx);
-		int dislike = selectDislikeService.selectCommDislike(commIdx);
-
-		return dislike;
-	}
-	
 	// 베스트 댓글 리스트 가져오기
 	@RequestMapping(value = "/comment/bestComment", method = RequestMethod.POST)
 	@ResponseBody

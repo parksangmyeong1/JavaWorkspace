@@ -19,7 +19,6 @@ import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.comment.service.CommentListService;
 import com.bitcamp.cobsp.recomment.domain.Recomment;
 import com.bitcamp.cobsp.recomment.domain.RecommentRegRequest;
-import com.bitcamp.cobsp.recomment.service.AddService;
 import com.bitcamp.cobsp.recomment.service.RecommentDeleteService;
 import com.bitcamp.cobsp.recomment.service.RecommentEditService;
 import com.bitcamp.cobsp.recomment.service.RecommentListService;
@@ -39,9 +38,6 @@ public class recommentController {
 	
 	@Autowired
 	private RecommentEditService editService;
-	
-	@Autowired
-	private AddService addService;
 	
 	// 대댓글 등록
 	@RequestMapping(value = "/recomment/regComment", method = RequestMethod.POST) 
@@ -114,40 +110,4 @@ public class recommentController {
 		return result;
 	}
 
-	// 대댓글 좋아요 증가
-	@RequestMapping(value = "/recomment/addLike", method = RequestMethod.POST)
-	@ResponseBody
-	public int addLike(
-			@RequestParam("recommIdx") int recommIdx) {
-
-		int resultCnt = 0;
-
-		resultCnt = addService.addRecommLike(recommIdx);
-
-		return resultCnt;
-	}
-	// 대댓글 싫어요 증가
-	@RequestMapping(value = "/recomment/addDislike", method = RequestMethod.POST)
-	@ResponseBody
-	public int addDislike(
-			@RequestParam("recommIdx") int recommIdx) {
-
-		int resultCnt = 0;
-
-		resultCnt = addService.addRecommDislike(recommIdx);
-
-		return resultCnt;
-	}
-	// 신고 증가
-	@RequestMapping(value = "/recomment/addRep", method = RequestMethod.POST)
-	@ResponseBody
-	public int addRep(
-			@RequestParam("recommIdx") int recommIdx) {
-
-		int resultCnt = 0;
-
-		resultCnt = addService.addRecommRep(recommIdx);
-
-		return resultCnt;
-	}
 }

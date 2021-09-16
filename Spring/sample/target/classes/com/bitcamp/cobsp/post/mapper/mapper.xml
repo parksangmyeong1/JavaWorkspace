@@ -133,6 +133,11 @@
 		update post set postDislike = postDislike + 1  where postIdx = #{postIdx}; 
 	</update>
 	
+	<!-- 게시글  신고하기 -->
+	<update id="addRep">
+		update post set postRep = postRep + 1  where postIdx = #{postIdx}; 
+	</update>
+	
 	<!-- 게시글의 총 갯수 -->
 	<select id="countPost" resultType="int">
 		<if test="!(postSort!=null and postSort!='')">
@@ -226,20 +231,21 @@
 		</where>
 	</select>
 	
-	<update id="addcommLike"
+	<!-- 댓글 추천 -->
+	<update id="addCommLike"
 		parameterType="int">
 		update comment set commLike = commLike + 1 where commIdx = #{commIdx}
 	</update>
 	
-	<select id="selectLike"
-		parameterType="int"
-		resultType="int">
-		select commLike from comment where commIdx = #{commIdx}
-	</select>
-	
-	<update id="addcommDislike"
+	<!-- 댓글 비추천 -->
+	<update id="addCommDislike"
 		parameterType="int">
 		update comment set commDislike = commDislike + 1 where commIdx = #{commIdx}
+	</update>
+	
+	<!-- 댓글  신고하기 -->
+	<update id="addCommRep">
+		update comment set commRep = commRep + 1  where commIdx = #{commIdx}; 
 	</update>
 	
 	<select id="selectDislike"

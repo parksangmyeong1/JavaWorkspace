@@ -7,7 +7,6 @@ import com.bitcamp.cobsp.comment.domain.Comment;
 import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.domain.CheckRequest;
 import com.bitcamp.cobsp.post.domain.Post;
-import com.bitcamp.cobsp.post.domain.SearchType;
 import com.bitcamp.cobsp.recomment.domain.Recomment;
 
 public interface Dao {
@@ -27,14 +26,12 @@ public interface Dao {
 	// 게시글 카테고리로 조회
 	List<Post> selectBySort(String postSort);
 	
-	// 게시글 좋아요 증가
-	int addLike(int postIdx);
-	// 게시글 좋아요 증가
-	int addDislike(int postIdx);
+	
 	// 게시글 조회수 증가
 	void addViews(int postIdx);
 	// 게시글 댓글 수 조회
 	int countComment(int postIdx);
+	
 	
 	// 댓글 등록
 	int insertComment(Comment comment);
@@ -44,14 +41,9 @@ public interface Dao {
 	int deleteComment(int commIdx);
 	// 댓글 수정
 	int editComment(int commIdx, String commContent);
-	// 댓글 좋아요 1 증가
-	int addcommLike(int commIdx);
-	// 댓글 좋아요 조회
-	int selectLike(int commIdx);
-	// 댓글 좋아요 1 증가
-	int addcommDislike(int commIdx);
-	// 댓글 좋아요 조회
+	// 댓글 싫어요 조회
 	int selectDislike(int commIdx);
+	
 	
 	// 게시글 총 갯수
 	int countPost(String postSort);
@@ -65,7 +57,6 @@ public interface Dao {
 	List<Post> selectBySearchAndPaging(Map<String, Object> map);
 	
 	
-	
 	// 대댓글 등록
 	int insertRecomment(Recomment recomment);
 	// 대댓글 리스트 출력
@@ -76,19 +67,32 @@ public interface Dao {
 	int deleteRecomment(int recommIdx);
 	// 대댓글 수정
 	int editRecomment(int recommIdx, String recommContent);
-	// 대댓글 좋아요
-	int addRecommLike(int recommIdx);
-	// 대댓글 싫어요
-	int addRecommDislike(int recommIdx);
-	// 대댓글 신고
-	int addRecommRep(int recommIdx);
 	
+
 	// check용 등록
 	int insertCheck(CheckRequest checkRequest);
 	// 좋아요 했는지 찾기
 	int selectLikeCheck(CheckRequest checkRequest);
-	// 댓글 좋아요
-	int addCommLike(int idx);
-	
+	// 게시글 좋아요 증가
+	int addLike(int postIdx);
+	// 게시글 싫어요 증가
+	int addDislike(int postIdx);
+	// 게시글 신고하기
+	int addRep(int postIdx);
 		
+	
+	// 댓글 좋아요
+	int addCommLike(int commIdx);
+	// 댓글 비추천
+	int addCommDislike(int commIdx);
+	// 댓글 신고하기
+	int addCommRep(int postIdx);
+		
+	
+	// 대댓글 추천
+	int addRecommLike(int recommIdx);
+	// 대댓글 비추천
+	int addRecommDislike(int recommIdx);
+	// 게시글 신고하기
+	int addRecommRep(int postIdx);
 }

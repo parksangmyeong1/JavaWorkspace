@@ -16,7 +16,4 @@ public class SelectService {
 	public int selectLikeCheck(CheckRequest checkRequest) {
 		return template.getMapper(Dao.class).selectLikeCheck(checkRequest);
 	}
-	
-	
-	
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.bitcamp.cobsp.common.utils.PagingVO;
 import com.bitcamp.cobsp.post.dao.Dao;
 import com.bitcamp.cobsp.post.domain.Post;
-import com.bitcamp.cobsp.post.domain.SearchType;
 
 @Service
 public class PostListService {

@@ -13,8 +13,6 @@ public class PostEditService {
 	@Autowired
 	private SqlSessionTemplate template;
 
-	private Dao dao;
-	
 	public Post selectByIdx(int postIdx) {
 		return template.getMapper(Dao.class).selectByIdx(postIdx);
 	}
