@@ -15,5 +15,4 @@ public class RecommentDeleteService {
 	public int deleteRecomment(int recommIdx) {
 		return template.getMapper(Dao.class).deleteRecomment(recommIdx);
 	}
-	
 }

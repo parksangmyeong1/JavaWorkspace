@@ -315,7 +315,6 @@ public class PostController {
 		model.addAttribute("postSort", postSort);
 
 		System.out.println("vo : " + vo);
-		//System.out.println(listService.getPostList(vo));
 
 		return "post/postList";
 	}

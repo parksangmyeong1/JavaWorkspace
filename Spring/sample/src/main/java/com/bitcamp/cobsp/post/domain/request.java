@@ -7,7 +7,6 @@ public class request {
 	private String nowPage;
 	private String cntPerPage;
 	
-	
 	public request() {}
 	
 	public request(String searchType, String keyword, String nowPage, String cntPerPage) {
@@ -16,6 +15,7 @@ public class request {
 		this.nowPage = nowPage;
 		this.cntPerPage = cntPerPage;
 	}
+	
 	public String getSearchType() {
 		return searchType;
 	}

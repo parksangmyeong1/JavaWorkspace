@@ -9,14 +9,10 @@ import com.bitcamp.cobsp.post.dao.Dao;
 @Service
 public class CommentEditService {
 	
-	private Dao dao;
-
 	@Autowired
 	private SqlSessionTemplate template;
 	
 	public int editComment(int commIdx, String commContent) {
 		return template.getMapper(Dao.class).editComment(commIdx, commContent);
 	}
-
-	
 }

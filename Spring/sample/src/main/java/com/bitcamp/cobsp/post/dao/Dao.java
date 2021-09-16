@@ -41,8 +41,6 @@ public interface Dao {
 	int deleteComment(int commIdx);
 	// 댓글 수정
 	int editComment(int commIdx, String commContent);
-	// 댓글 싫어요 조회
-	int selectDislike(int commIdx);
 	
 	
 	// 게시글 총 갯수
@@ -79,16 +77,12 @@ public interface Dao {
 	int addDislike(int postIdx);
 	// 게시글 신고하기
 	int addRep(int postIdx);
-		
-	
 	// 댓글 좋아요
 	int addCommLike(int commIdx);
 	// 댓글 비추천
 	int addCommDislike(int commIdx);
 	// 댓글 신고하기
 	int addCommRep(int postIdx);
-		
-	
 	// 대댓글 추천
 	int addRecommLike(int recommIdx);
 	// 대댓글 비추천

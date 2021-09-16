@@ -12,11 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bitcamp.cobsp.comment.domain.Comment;
-import com.bitcamp.cobsp.comment.service.CommentListService;
 import com.bitcamp.cobsp.recomment.domain.Recomment;
 import com.bitcamp.cobsp.recomment.domain.RecommentRegRequest;
 import com.bitcamp.cobsp.recomment.service.RecommentDeleteService;
@@ -99,10 +96,8 @@ public class recommentController {
 		Map<String, Object> result = new HashMap<>();
 
 		try {
-
 			resultCnt = editService.editRecomment(recommIdx, recommContent);
 			result.put("status", "OK");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("status", "False");

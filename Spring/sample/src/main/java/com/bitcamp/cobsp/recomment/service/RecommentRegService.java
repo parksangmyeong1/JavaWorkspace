@@ -14,8 +14,6 @@ import com.bitcamp.cobsp.recomment.domain.RecommentRegRequest;
 @Service
 public class RecommentRegService {
 
-	private Dao dao;
-	
 	@Autowired
 	SqlSessionTemplate template;
 
@@ -27,12 +25,7 @@ public class RecommentRegService {
 		Recomment recomment = recommRegRequest.toRecomment();
 		System.out.println(recomment);
 		
-		dao = template.getMapper(Dao.class);
-		resultCnt = dao.insertRecomment(recomment);
-		
+		resultCnt = template.getMapper(Dao.class).insertRecomment(recomment);
 		return resultCnt;
 	}
-	
-	
-	
 }

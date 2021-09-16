@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
-	// 세션 저장
+	// 테스트용 세션 저장
 	session.setAttribute("nickName", "닉네임");
 	session.setAttribute("memIdx", 1);
  %>

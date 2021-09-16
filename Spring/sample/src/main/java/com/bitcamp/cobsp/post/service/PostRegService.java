@@ -17,10 +17,7 @@ public class PostRegService {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	private Dao dao;
-	
-	public int regPost(
-			PostRegRequest regRequest,
+	public int regPost(PostRegRequest regRequest,
 			HttpServletRequest request) {
 		
 		int resultCnt = 0;
@@ -28,19 +25,15 @@ public class PostRegService {
 		Post post = regRequest.toPost();
 		System.out.println(post);
 		
-		dao = template.getMapper(Dao.class);
-		resultCnt = dao.insertPost(post);
-
+		resultCnt = template.getMapper(Dao.class).insertPost(post);
 		return resultCnt;
 	}
 
 	public int regCheck(CheckRequest checkRequest, 
 			HttpServletRequest request) {
-		
+
 		int resultCnt = 0;
-		dao = template.getMapper(Dao.class);
-		resultCnt = dao.insertCheck(checkRequest);
-		
+		resultCnt = template.getMapper(Dao.class).insertCheck(checkRequest);
 		return resultCnt;
 	}
 }

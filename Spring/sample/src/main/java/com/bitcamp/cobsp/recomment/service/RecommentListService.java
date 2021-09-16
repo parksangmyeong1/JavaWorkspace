@@ -18,5 +18,4 @@ public class RecommentListService {
 	public List<Recomment> getRecommentList(int postIdx) {
 		return template.getMapper(Dao.class).selectRecommList(postIdx);
 	}
-	
 }

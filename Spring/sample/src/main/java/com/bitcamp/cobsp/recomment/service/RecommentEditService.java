@@ -15,7 +15,4 @@ public class RecommentEditService {
 	public int editRecomment(int recommIdx, String recommContent) {
 		return template.getMapper(Dao.class).editRecomment(recommIdx, recommContent);
 	}
-	
-	
-		
 }

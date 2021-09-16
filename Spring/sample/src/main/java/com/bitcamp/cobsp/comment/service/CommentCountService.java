@@ -13,7 +13,6 @@ public class CommentCountService {
 	private SqlSessionTemplate template;
 	
 	public int countComment(int postIdx) {
-		
 		return template.getMapper(Dao.class).countComment(postIdx);
 	}
 

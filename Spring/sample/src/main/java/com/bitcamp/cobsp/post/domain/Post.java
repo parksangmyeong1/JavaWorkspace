@@ -33,6 +33,7 @@ public class Post {
 		this.postDislike = postDislike;
 		this.postRep = postRep;
 	}
+	
 	public int getPostIdx() {
 		return postIdx;
 	}
