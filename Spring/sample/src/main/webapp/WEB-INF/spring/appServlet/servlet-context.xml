@@ -28,10 +28,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="C:\Users\parks\OneDrive\문서\Git\JavaWorkspace\Spring\sample\src\main\webapp\resources"></beans:constructor-arg>
-	</beans:bean>
-	
 	<!-- multipartResolver -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 				p:defaultEncoding="utf-8"
