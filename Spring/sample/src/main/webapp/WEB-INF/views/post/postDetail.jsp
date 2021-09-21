@@ -2,10 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-	// 테스트용 세션 저장
-	session.setAttribute("nickName", "닉네임");
- %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -607,7 +603,6 @@ crossorigin="anonymous">
 				alert('댓글 내용을 입력해주세요');
 				return false;
 			}
-			
 			$.ajax({
 				url : '<c:url value="/recomment/editRecomment"/>',
 				type : "post",
