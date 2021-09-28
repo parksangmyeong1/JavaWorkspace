@@ -84,7 +84,6 @@ $(document).ready(function() {
 						</div>
 						<input type="text" name="postTitle" class="postTitle" placeholder="제목" /> <br>
 						<textarea id="summernote" name="postContent"></textarea>
-						<!-- <input id="subBtn" type="button" value="글 작성" style="float: right;" onclick="goWrite(this.form)"/> -->
 					</form>
 				</div>
 			</div>
